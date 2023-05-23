@@ -1,0 +1,339 @@
+webpackJsonpac__name_([6],{
+
+/***/ 1038:
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"auth-main\">\n  <div class=\"auth-block\">\n    <h1><b>BIT PURNA JUAL</b></h1>\n\n    <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit(form.value)\" class=\"form-horizontal\">\n      <div class=\"form-group row\" [ngClass]=\"{'has-error': (!kode_bass.valid && kode_bass.touched), 'has-success': (kode_bass.valid && kode_bass.touched)}\">\n        <label for=\"inputBass3\" class=\"col-sm-4 control-label\">Kode Bass / Cabang</label>\n\n        <div class=\"col-sm-8\">\n          <input [formControl]=\"kode_bass\" type=\"text\" class=\"form-control\" id=\"inputBass3\" placeholder=\"Kode Bass / Cabang\">\n        </div>\n      </div>\n      <div class=\"form-group row\" [ngClass]=\"{'has-error': (!username.valid && username.touched), 'has-success': (username.valid && username.touched)}\">\n        <label for=\"inputUsername3\" class=\"col-sm-4 control-label\">Username</label>\n\n        <div class=\"col-sm-8\">\n          <input [formControl]=\"username\" type=\"text\" class=\"form-control\" id=\"inputUsername3\" placeholder=\"Username\">\n        </div>\n      </div>\n      <div class=\"form-group row\" [ngClass]=\"{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}\">\n        <label for=\"inputPassword3\" class=\"col-sm-4 control-label\">Password</label>\n\n        <div class=\"col-sm-8\">\n          <input [formControl]=\"password\" type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"Password\">\n        </div>\n      </div>\n      <div class=\"form-group row\" style=\"text-align: center;\">\n        <button [disabled]=\"!form.valid\" type=\"submit\" class=\"btn btn-default btn-auth\">Login</button>\n      </div>\n    </form>\n\n    <hr style=\"background-color: white; height: 2px; border: 1;\">\n    <span *ngIf=\"errorMsg\" class=\"auth-link\">{{ errorMsg }}</span>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ 1095:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(973);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(11)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../node_modules/raw-loader/index.js!../../../../node_modules/sass-loader/index.js!./login.scss", function() {
+			var newContent = require("!!../../../../node_modules/raw-loader/index.js!../../../../node_modules/sass-loader/index.js!./login.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 541:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme_nga_module__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_component__ = __webpack_require__(784);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__login_routing__ = __webpack_require__(915);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__login_service__ = __webpack_require__(785);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginModule", function() { return LoginModule; });
+
+
+
+
+
+
+
+var LoginModule = (function () {
+    function LoginModule() {
+    }
+    LoginModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
+                __WEBPACK_IMPORTED_MODULE_2__angular_forms__["ReactiveFormsModule"],
+                __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormsModule"],
+                __WEBPACK_IMPORTED_MODULE_3__theme_nga_module__["a" /* NgaModule */],
+                __WEBPACK_IMPORTED_MODULE_5__login_routing__["a" /* routing */]
+            ],
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_4__login_component__["a" /* Login */]
+            ],
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_6__login_service__["a" /* LoginService */]
+            ]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], LoginModule);
+    return LoginModule;
+}());
+
+
+/***/ }),
+
+/***/ 784:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_service__ = __webpack_require__(785);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__global_state__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_style_loader_login_scss__ = __webpack_require__(1095);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_style_loader_login_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_style_loader_login_scss__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Login; });
+
+
+
+
+
+
+var Login = (function () {
+    function Login(_state, fb, loginService, router) {
+        this._state = _state;
+        this.loginService = loginService;
+        this.router = router;
+        this.submitted = false;
+        this.form = fb.group({
+            'kode_bass': ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].compose([__WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].minLength(4)])],
+            'username': ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].compose([__WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].minLength(4)])],
+            'password': ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].compose([__WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].minLength(4)])]
+        });
+        this.kode_bass = this.form.controls['kode_bass'];
+        this.username = this.form.controls['username'];
+        this.password = this.form.controls['password'];
+        sessionStorage.clear();
+    }
+    Login.prototype.onSubmit = function (values) {
+        var _this = this;
+        this.submitted = true;
+        if (this.form.valid) {
+            this.loginService.login(values)
+                .then(function (data) {
+                //ambil data bass
+                _this.loginService.getBassDetail(JSON.parse(sessionStorage.getItem('mAuth')).Kode_Bass)
+                    .then(function (data) {
+                    //ambil data role
+                    _this.loginService.getRoleDetail(JSON.parse(sessionStorage.getItem('mAuth')).Role)
+                        .then(function (data) {
+                        //ambil data parameter
+                        _this.loginService.getSystemParameter()
+                            .then(function (data) {
+                            _this._state.notifyDataChanged('user.isLoggedIn', true);
+                            _this.router.navigate(['pages/home']);
+                        }, function (error) {
+                            _this.errorMsg = JSON.parse(error._body).data;
+                        });
+                    }, function (error) {
+                        _this.errorMsg = JSON.parse(error._body).data;
+                    });
+                }, function (error) {
+                    _this.errorMsg = JSON.parse(error._body).data;
+                });
+            }, function (error) {
+                _this.errorMsg = JSON.parse(error._body).data;
+            });
+        }
+    };
+    Login = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'login',
+            template: __webpack_require__(1038),
+        }), 
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_4__global_state__["a" /* GlobalState */], __WEBPACK_IMPORTED_MODULE_1__angular_forms__["FormBuilder"], __WEBPACK_IMPORTED_MODULE_3__login_service__["a" /* LoginService */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["Router"]])
+    ], Login);
+    return Login;
+}());
+
+
+/***/ }),
+
+/***/ 785:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_state__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginService; });
+
+
+
+
+var LoginService = (function () {
+    // Resolve HTTP using the constructor
+    function LoginService(http, global) {
+        this.http = http;
+        this.global = global;
+    }
+    LoginService.prototype.login = function (body) {
+        var bodyString = JSON.stringify(body); // Stringify payload
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]({ 'Content-Type': 'application/json' });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["RequestOptions"]({ headers: headers });
+        return this.http.post(this.global.getGlobalUrl() + '/login', body, options) // ...using post request
+            .toPromise()
+            .then(this.setSessionUser)
+            .catch(this.handleError);
+    };
+    LoginService.prototype.getBassDetail = function (body) {
+        var bodyString = JSON.stringify({ kode_bass: body }); // Stringify payload
+        var token = JSON.parse(sessionStorage.getItem('mAuth')).Token;
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]({ 'Content-Type': 'application/json', 'x-access-token': token });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["RequestOptions"]({ headers: headers });
+        return this.http.post(this.global.getGlobalUrl() + '/get_bassdetail', bodyString, options) // ...using post request
+            .toPromise()
+            .then(this.setSessionBass)
+            .catch(this.handleError);
+    };
+    LoginService.prototype.getRoleDetail = function (body) {
+        var bodyString = JSON.stringify({ kode_role: body }); // Stringify payload
+        var token = JSON.parse(sessionStorage.getItem('mAuth')).Token;
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]({ 'Content-Type': 'application/json', 'x-access-token': token });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["RequestOptions"]({ headers: headers });
+        return this.http.post(this.global.getGlobalUrl() + '/get_roledetail', bodyString, options) // ...using post request
+            .toPromise()
+            .then(this.setSessionRole)
+            .catch(this.handleError);
+    };
+    LoginService.prototype.getSystemParameter = function () {
+        // let bodyString = JSON.stringify({ kode_role: body }); // Stringify payload
+        var token = JSON.parse(sessionStorage.getItem('mAuth')).Token;
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]({ 'Content-Type': 'application/json', 'x-access-token': token });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["RequestOptions"]({ headers: headers });
+        return this.http.get(this.global.getGlobalUrl() + '/get_systemparam', options) // ...using get request
+            .toPromise()
+            .then(this.setSessionParameter)
+            .catch(this.handleError);
+    };
+    LoginService.prototype.setSessionUser = function (res) {
+        var body = res.json();
+        // save to session storage
+        try {
+            var auth = {
+                Kode_Bass: body[0].KODE_BASS,
+                Kode_Karyawan: body[0].USERNAME,
+                Role: body[0].KODE_ROLE,
+                Type: body[0].TYPE === 'C' ? 'Cabang' : 'Bass',
+                Token: body[0].TOKEN
+            };
+            sessionStorage.setItem('mAuth', JSON.stringify(auth));
+        }
+        catch (error) {
+            console.log(error);
+        }
+    };
+    LoginService.prototype.setSessionBass = function (res) {
+        var body = res.json();
+        // save to session storage
+        try {
+            var bass = {
+                Nama_Bass: body[0].NAMA_BASS,
+                Alamat_Bass: body[0].ALAMAT_BASS,
+                No_Telp: body[0].NO_TELP,
+                Kota: body[0].KOTA,
+                Contact_Person: body[0].CONTACT_PERSON,
+                Email: body[0].EMAIL
+            };
+            sessionStorage.setItem('mBass', JSON.stringify(bass));
+        }
+        catch (error) {
+            console.log(error);
+        }
+    };
+    LoginService.prototype.setSessionRole = function (res) {
+        var body = res.json();
+        // save to session storage
+        try {
+            var role_1 = [];
+            body.forEach(function (element) {
+                role_1.push({
+                    App_Code: element.KODE_APPLICATION,
+                    Akses: element.HAK_AKSES,
+                    Insert: element.HAK_INSERT,
+                    Edit: element.HAK_EDIT,
+                    Delete: element.HAK_DELETE
+                });
+            });
+            sessionStorage.setItem('mRole', JSON.stringify(role_1));
+        }
+        catch (error) {
+            console.log(error);
+        }
+    };
+    LoginService.prototype.setSessionParameter = function (res) {
+        var body = res.json();
+        // save to session storage
+        try {
+            var param = {
+                Web_Title: body[0].WEB_TITLE,
+                Report_Server_Path: body[0].REPORT_SERVER_PATH,
+                Expired_PO_Date: body[0].EXPIRED_PO_DATE,
+                Bass_Pusat: body[0].BASS_PUSAT,
+                Email_SMTP: body[0].EMAIL_SMTP,
+                Email_Port: body[0].EMAIL_PORT,
+                Email_Username: body[0].EMAIL_USERNAME,
+                Email_Password: body[0].EMAIL_PASSWORD
+            };
+            sessionStorage.setItem('mParameter', JSON.stringify(param));
+        }
+        catch (error) {
+            console.log(error);
+        }
+    };
+    LoginService.prototype.handleError = function (error) {
+        return Promise.reject(error);
+    };
+    LoginService = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_1__angular_http__["Http"], __WEBPACK_IMPORTED_MODULE_2__global_state__["a" /* GlobalState */]])
+    ], LoginService);
+    return LoginService;
+}());
+
+
+/***/ }),
+
+/***/ 915:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_component__ = __webpack_require__(784);
+/* unused harmony export routes */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return routing; });
+
+
+// noinspection TypeScriptValidateTypes
+var routes = [
+    {
+        path: '',
+        component: __WEBPACK_IMPORTED_MODULE_1__login_component__["a" /* Login */]
+    }
+];
+var routing = __WEBPACK_IMPORTED_MODULE_0__angular_router__["RouterModule"].forChild(routes);
+
+
+/***/ }),
+
+/***/ 973:
+/***/ (function(module, exports) {
+
+module.exports = ".auth-main {\n  display: flex;\n  align-items: center;\n  height: 100%;\n  width: 100%;\n  position: absolute; }\n\n.auth-block {\n  width: 540px;\n  margin: 0 auto;\n  border-radius: 5px;\n  background: rgba(0, 0, 0, 0.55);\n  color: #fff;\n  padding: 32px; }\n  .auth-block h1 {\n    font-weight: 300;\n    margin-bottom: 28px;\n    text-align: center; }\n  .auth-block p {\n    font-size: 16px; }\n  .auth-block a {\n    text-decoration: none;\n    outline: none;\n    transition: all 0.2s ease;\n    color: #209e91; }\n    .auth-block a:hover {\n      color: #1b867b; }\n  .auth-block .control-label {\n    padding-top: 11px;\n    color: #ffffff; }\n  .auth-block .form-group {\n    margin-bottom: 12px; }\n\n.auth-input {\n  width: 300px;\n  margin-bottom: 24px; }\n  .auth-input input {\n    display: block;\n    width: 100%;\n    border: none;\n    font-size: 16px;\n    padding: 4px 10px;\n    outline: none; }\n\na.forgot-pass {\n  display: block;\n  text-align: right;\n  margin-bottom: -20px;\n  float: right;\n  z-index: 2;\n  position: relative; }\n\n.auth-link {\n  display: block;\n  font-size: 16px;\n  text-align: center;\n  margin-bottom: 33px; }\n\n.auth-sep {\n  margin-top: 36px;\n  margin-bottom: 24px;\n  line-height: 20px;\n  font-size: 16px;\n  text-align: center;\n  display: block;\n  position: relative; }\n  .auth-sep > span {\n    display: table-cell;\n    width: 30%;\n    white-space: nowrap;\n    padding: 0 24px;\n    color: #ffffff; }\n    .auth-sep > span > span {\n      margin-top: -12px;\n      display: block; }\n  .auth-sep:before, .auth-sep:after {\n    border-top: solid 1px #ffffff;\n    content: \"\";\n    height: 1px;\n    width: 35%;\n    display: table-cell; }\n\n.al-share-auth {\n  text-align: center; }\n  .al-share-auth .al-share {\n    float: none;\n    margin: 0;\n    padding: 0;\n    display: inline-block; }\n    .al-share-auth .al-share li {\n      margin-left: 24px; }\n      .al-share-auth .al-share li:first-child {\n        margin-left: 0; }\n      .al-share-auth .al-share li i {\n        font-size: 24px; }\n\n.btn-auth {\n  color: #ffffff !important; }\n"
+
+/***/ })
+
+});
+//# sourceMappingURL=6.chunk.js.map
