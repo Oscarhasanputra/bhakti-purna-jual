@@ -1,3 +1,7 @@
+/***************************************************************************************************
+ * Load `$localize` onto the global scope - used if i18n tags appear in Angular templates.
+ */
+import '@angular/localize/init';
 // Polyfills
 
 // import 'ie-shim'; // Internet Explorer 9 support
@@ -31,15 +35,6 @@ import 'zone.js/dist/zone';
 // Typescript emit helpers polyfill
 import 'ts-helpers';
 
-if ('production' === ENV) {
-  // Production
-
-
-} else {
-  // Development
-
-  Error.stackTraceLimit = Infinity;
-
-  require('zone.js/dist/long-stack-trace-zone');
-
+if (typeof SVGElement.prototype.contains === 'undefined') {
+  SVGElement.prototype.contains = HTMLDivElement.prototype.contains;
 }
