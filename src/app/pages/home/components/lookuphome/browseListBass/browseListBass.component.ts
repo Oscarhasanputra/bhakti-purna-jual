@@ -1,6 +1,6 @@
 import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/primeng';
-import { ModalDirective } from 'ng2-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap';
 
 import { BrowseListBassService } from './browseListBass.service';
 import { Subscription } from 'rxjs';
@@ -10,9 +10,8 @@ import { GlobalState } from '../../../../../global.state';
 
 @Component({
   selector: 'browselistbass',
-  encapsulation: ViewEncapsulation.None,
-  styles: [require('./browseListBass.component.scss')],
-  template: require('./browseListBass.component.html'),
+  styleUrls:['./browseListBass.component.scss'],
+  templateUrl:'./browseListBass.component.html'
 })
 export class browseListBass {
 
@@ -29,7 +28,7 @@ export class browseListBass {
     this.display = true;
   }
 
-  @ViewChild('childModal') childModal: ModalDirective;
+  @ViewChild('childModal',{static:true}) childModal: ModalDirective;
 
   showChildModal(): void {
     this.childModal.show();

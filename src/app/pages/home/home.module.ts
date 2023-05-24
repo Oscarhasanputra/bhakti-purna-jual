@@ -5,7 +5,7 @@ import { NgaModule } from '../../theme/nga.module';
 
 import { CalendarModule, DataTableModule, SharedModule, DialogModule, TabViewModule } from 'primeng/primeng';
 import { BusyModule } from 'angular2-busy';
-import { Ng2BootstrapModule } from "ng2-bootstrap";
+import { ModalModule } from "ngx-bootstrap";
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { Home } from './home.component';
@@ -35,7 +35,7 @@ import { BarangDalamperJalananService } from './components/barangdalamperjalanan
     DataTableModule,
     DialogModule,
     BusyModule,
-    Ng2BootstrapModule,
+    ModalModule,
     // Ng2SmartTableModule,
     TabViewModule
   ],

@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap';
 import { Router } from '@angular/router';
 import { SelectItem } from 'primeng/primeng';
 
@@ -11,8 +11,8 @@ import { GlobalState } from '../../../../global.state';
 @Component({
   selector: 'partorder',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./partorder.component.scss')],
-  template: require('./partorder.component.html'),
+  styleUrls:['./partorder.component.scss'],
+  templateUrl:'./partorder.component.html'
 })
 export class partOrder {
 
@@ -37,7 +37,7 @@ export class partOrder {
     this.display = true;
   }
 
-  @ViewChild('childModal') childModal: ModalDirective;
+  @ViewChild('childModal',{static:true}) childModal: ModalDirective;
 
   showChildModal(): void {
     this.childModal.show();

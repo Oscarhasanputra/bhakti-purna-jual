@@ -111,13 +111,14 @@ const NGA_VALIDATORS = [
     NgUploaderModule,
   ],
   exports: [
+    CommonModule,
     ...NGA_PIPES,
     ...NGA_DIRECTIVES,
     ...NGA_COMPONENTS
   ]
 })
 export class NgaModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<NgaModule> {
     return <ModuleWithProviders> {
       ngModule: NgaModule,
       providers: [

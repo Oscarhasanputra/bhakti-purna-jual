@@ -7,9 +7,8 @@ import { GlobalState } from '../../../../../../global.state';
 
 @Component({
     selector: 'teknisilist',
-    encapsulation: ViewEncapsulation.None,
-    styles: [require('./teknisilist.scss')],
-    template: require('./teknisilist.html'),
+    styleUrls:["./teknisilist.scss"],
+    templateUrl:'./teknisilist.html'
 })
 export class TeknisiListComponent implements OnInit {
     public teknisiList: any;
