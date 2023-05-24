@@ -31,8 +31,8 @@
               "node_modules/leaflet/dist/leaflet.css",
               "node_modules/chartist/dist/chartist.css",
               "node_modules/fullcalendar/dist/fullcalendar.css",
-              "node_modules/handsontable/dist/handsontable.full.css",
-              "node_modules/ng2-slim-loading-bar/style.css",
+              "assets/handsontable/handsontable.full.css",
+              "assets/ng2-slim-loading-bar/style.css",
               "src/app/theme/theme.scss",
               "src/styles.scss"
             ],
@@ -42,7 +42,7 @@
               "node_modules/jquery-slimscroll/jquery.slimscroll.js",
               "node_modules/tether/dist/js/tether.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
-              "node_modules/handsontable/dist/handsontable.full.js"
+              "assets/handsontable/handsontable.full.js"
             ],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -106,7 +106,7 @@
               "node_modules/jquery-slimscroll/jquery.slimscroll.js",
               "node_modules/tether/dist/js/tether.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
-              "node_modules/handsontable/dist/handsontable.full.js",
+              "assets/handsontable/handsontable.full.js",
               "node_modules/chroma-js/chroma.js"
             ],
             "styles": [
@@ -118,8 +118,8 @@
               "node_modules/leaflet/dist/leaflet.css",
               "node_modules/chartist/dist/chartist.css",
               "node_modules/fullcalendar/dist/fullcalendar.css",
-              "node_modules/handsontable/dist/handsontable.full.css",
-              "node_modules/ng2-slim-loading-bar/style.css",
+              "assets/handsontable/handsontable.full.css",
+              "assets/ng2-slim-loading-bar/style.css",
               "src/app/theme/theme.scss",
               "src/styles.scss"
             ],

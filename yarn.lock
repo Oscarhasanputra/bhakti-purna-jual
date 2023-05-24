@@ -172,7 +172,7 @@
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-2.4.7.tgz"
   "version" "2.4.7"
 
-"@angular/common@^4.0.0", "@angular/common@^9.1.0", "@angular/common@>=6.0.0", "@angular/common@9.1.13":
+"@angular/common@^9.1.0", "@angular/common@>=6.0.0", "@angular/common@9.1.13":
   "integrity" "sha512-QACUhJWlly/nfHUmjopVS1p6ayxxa/NqjyftdCeBJaoyM2YohqWixP/n/keu1K/srJ96aFpUNsZQgmgoRv5SOQ=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-9.1.13.tgz"
   "version" "9.1.13"
@@ -200,7 +200,7 @@
     "sourcemap-codec" "^1.4.8"
     "yargs" "^16.1.1"
 
-"@angular/compiler@^4.0.0", "@angular/compiler@>=2.3.1 <10.0.0 || >9.0.0-beta <10.0.0 || >9.1.0-beta <10.0.0 || >9.2.0-beta <10.0.0", "@angular/compiler@9.1.13":
+"@angular/compiler@>=2.3.1 <10.0.0 || >9.0.0-beta <10.0.0 || >9.1.0-beta <10.0.0 || >9.2.0-beta <10.0.0", "@angular/compiler@9.1.13":
   "integrity" "sha512-9MLB1Xx7odKuxDoybVwiOB1ZEUZpL8FurYm4RVuW39ntsUt0IMC9Hb8UagZLTAWhaWSHydkD/KBQVVobGqd0lA=="
   "resolved" "https://registry.npmjs.org/@angular/compiler/-/compiler-9.1.13.tgz"
   "version" "9.1.13"
@@ -210,15 +210,15 @@
   "resolved" "https://registry.npmjs.org/@angular/compiler/-/compiler-2.0.2.tgz"
   "version" "2.0.2"
 
-"@angular/core@^2.4.7 || ^4.0.0", "@angular/core@^4.0.0", "@angular/core@^9.1.0", "@angular/core@>=2.3.1 <10.0.0 || >9.0.0-beta <10.0.0 || >9.1.0-beta <10.0.0 || >9.2.0-beta <10.0.0", "@angular/core@>=6.0.0", "@angular/core@9.1.13":
-  "integrity" "sha512-mBm24Q9GjkAsxMAzqQ86U1078+yTEpr0+syMEruUtJ0HUH6Fzn3J+6xTLb+BVcGb9RkCkFaV9T5mcn6ZM0f++g=="
-  "resolved" "https://registry.npmjs.org/@angular/core/-/core-9.1.13.tgz"
-  "version" "9.1.13"
-
 "@angular/core@^2.4.7", "@angular/core@2.4.7":
   "integrity" "sha512-qGo3/LoBTtjA7HrmFgLAvavcEhfkI9sv4npBqQAeCykt3yIkPNnphGPSA7cwU+OOPywnS9TCS8rxLK07lzR83w=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-2.4.7.tgz"
   "version" "2.4.7"
+
+"@angular/core@^9.1.0", "@angular/core@>=2.3.1 <10.0.0 || >9.0.0-beta <10.0.0 || >9.1.0-beta <10.0.0 || >9.2.0-beta <10.0.0", "@angular/core@>=6.0.0", "@angular/core@9.1.13":
+  "integrity" "sha512-mBm24Q9GjkAsxMAzqQ86U1078+yTEpr0+syMEruUtJ0HUH6Fzn3J+6xTLb+BVcGb9RkCkFaV9T5mcn6ZM0f++g=="
+  "resolved" "https://registry.npmjs.org/@angular/core/-/core-9.1.13.tgz"
+  "version" "9.1.13"
 
 "@angular/core@~2.0.0", "@angular/core@2.0.2":
   "integrity" "sha512-u/kZyymqN9BAu/je6QRL5hzTAlIKdQxUH7oPJ3kPdzg4neToL9ObrtGplUWl0jLUKqk5qdZE++AeTwfUp2PhTg=="
@@ -230,7 +230,7 @@
   "resolved" "https://registry.npmjs.org/@angular/forms/-/forms-2.4.7.tgz"
   "version" "2.4.7"
 
-"@angular/forms@^4.0.0", "@angular/forms@9.1.13":
+"@angular/forms@9.1.13":
   "integrity" "sha512-soGVZmPq2bzkxvtTyeJB8p3ejzm4xxt+43hJw6Ag8NxpwUFPVa30oJge3JV+u8Y4yBtl5SbOZ4bBX3EkMxLcGQ=="
   "resolved" "https://registry.npmjs.org/@angular/forms/-/forms-9.1.13.tgz"
   "version" "9.1.13"
@@ -5765,15 +5765,6 @@
   optionalDependencies:
     "uglify-js" "^2.6"
 
-"handsontable@^0.35.0":
-  "integrity" "sha512-fWW5PSfBsd9HV2BhQzhXElauC51hRmNEqBgVO8vk7lSRqLcWS47SWckLR7A3N+2ctF0GBsZvxdDls2rxMP1SWg=="
-  "resolved" "https://registry.npmjs.org/handsontable/-/handsontable-0.35.1.tgz"
-  "version" "0.35.1"
-  dependencies:
-    "moment" "2.20.1"
-    "numbro" "1.11.0"
-    "pikaday" "1.5.1"
-
 "har-schema@^2.0.0":
   "integrity" "sha512-Oqluz6zhGX8cyRaTQlFMPw80bSJVG2x/cFb8ZPhUILGgHka9SsokCCOQgpveePerqidZOrT14ipqfJb7ILcW5Q=="
   "resolved" "https://registry.npmjs.org/har-schema/-/har-schema-2.0.0.tgz"
@@ -8377,15 +8368,10 @@
   "resolved" "https://registry.npmjs.org/mkdirp/-/mkdirp-0.3.5.tgz"
   "version" "0.3.5"
 
-"moment@>=2.14.0", "moment@>=2.5.0", "moment@2.x":
+"moment@>=2.14.0", "moment@>=2.5.0":
   "integrity" "sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w=="
   "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.4.tgz"
   "version" "2.29.4"
-
-"moment@2.20.1":
-  "integrity" "sha512-Yh9y73JRljxW5QxN08Fner68eFLxM5ynNOAw2LbIB1YAGeQzZT8QFSUvkAz609Zf+IHhhaUxqZK8dG3W/+HEvg=="
-  "resolved" "https://registry.npmjs.org/moment/-/moment-2.20.1.tgz"
-  "version" "2.20.1"
 
 "move-concurrently@^1.0.1":
   "integrity" "sha512-hdrFxZOycD/g6A6SoI2bB5NA/5NEqD0569+S47WZhPvm46sD50ZHdYaFmnua5lndde9rCHGjmfK7Z8BuCt/PcQ=="
@@ -8497,18 +8483,6 @@
   "integrity" "sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw=="
   "resolved" "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   "version" "2.6.2"
-
-"ng2-handsontable@2.0.0":
-  "integrity" "sha512-rFD03uX0QU9LB2jmOXdJs1nuHDLCrpsetla3kUdlr14EEEuG7YvGa6ZAmeIaRt4vVQ2kHVw2rqROv5g0YyoHUg=="
-  "resolved" "https://registry.npmjs.org/ng2-handsontable/-/ng2-handsontable-2.0.0.tgz"
-  "version" "2.0.0"
-  dependencies:
-    "handsontable" "^0.35.0"
-
-"ng2-slim-loading-bar@4.0.0":
-  "integrity" "sha512-nG5/gl6YW9N+07nVfuhXnaKD0FJVjPaptm95bD8iyo5IYWGo6ZBvqOiJ2Ql5MS3qvLc3Xh12Z5G3uagZCRrOsw=="
-  "resolved" "https://registry.npmjs.org/ng2-slim-loading-bar/-/ng2-slim-loading-bar-4.0.0.tgz"
-  "version" "4.0.0"
 
 "ngx-bootstrap@3.3.0":
   "integrity" "sha512-eGKjMPM4XhYVCr/NdGnQ3SCOSUGMe00lytOmuDAgHf2JwMGfMD3EE7hX9KAONfNbUEuHzRfsjDAuQhWbCvZ8xg=="
@@ -9088,11 +9062,6 @@
   "integrity" "sha512-4jbtZXNAsfZbAHiiqjLPBiCl16dES1zI4Hpzzxw61Tk+loF+sBDBKx1ICKKKwIqQ7M0mFn1TmkN7euSncWgHiQ=="
   "resolved" "https://registry.npmjs.org/number-is-nan/-/number-is-nan-1.0.1.tgz"
   "version" "1.0.1"
-
-"numbro@1.11.0":
-  "integrity" "sha512-HLgprbMBJf/h3zQ91KpvjzTWyxd9pS2xOFoEBTdkUusBi9eSqYq+RlhFn8i+WSHy/ghGRtbN5brnABOR21z4kA=="
-  "resolved" "https://registry.npmjs.org/numbro/-/numbro-1.11.0.tgz"
-  "version" "1.11.0"
 
 "oauth-sign@~0.9.0":
   "integrity" "sha512-fexhUFFPTGV8ybAtSIGbV6gOkSv8UtRbDBnAyLQw4QPKkgNlsH2ByPGtMUqdWkos6YCRmAqViwgZrJc/mRDzZQ=="
@@ -9740,13 +9709,6 @@
   "integrity" "sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g=="
   "resolved" "https://registry.npmjs.org/pify/-/pify-4.0.1.tgz"
   "version" "4.0.1"
-
-"pikaday@1.5.1":
-  "integrity" "sha512-JpGs4DM+DrwhGx/deyi2pUcrUtTcyegR6XOIbFkjSaJp0yYp5d8Bvzlgtl8eaX1gNEqsqJZFIsRMEzdRA1xbDQ=="
-  "resolved" "https://registry.npmjs.org/pikaday/-/pikaday-1.5.1.tgz"
-  "version" "1.5.1"
-  optionalDependencies:
-    "moment" "2.x"
 
 "pinkie-promise@^2.0.0":
   "integrity" "sha512-0Gni6D4UcLTbv9c57DfxDGdr41XfgUjqWZu492f0cIGr16zDU06BWP/RAEvOuo7CQ0CNjHaLlM59YJJFm3NWlw=="
