@@ -1,18 +1,18 @@
 import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/primeng';
-import { ModalDirective } from 'ng2-bootstrap';
+import { SelectItem } from 'primeng/api';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { BrowseCustomerListService } from './browsecustomerlist.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { GlobalState } from '../../../../../global.state';
 
 @Component({
     selector: 'browsecustomerlist',
     encapsulation: ViewEncapsulation.None,
-    styles: [require('./browsecustomerlist.component.scss')],
-    template: require('./browsecustomerlist.component.html'),
+    styleUrls:['./browsecustomerlist.component.scss'],
+    templateUrl:'./browsecustomerlist.component.html'
 })
 export class browseCustomerList {
 
@@ -27,7 +27,7 @@ export class browseCustomerList {
     showPilihKodeCust: boolean = false;
     showPilihListZona: boolean = false;
     @Output() kodeCustomerChild = new EventEmitter<string>();
-    private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+    busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
     showDialog() {
         this.display = true;
@@ -46,7 +46,7 @@ export class browseCustomerList {
     constructor(private browseCustomerListService: BrowseCustomerListService, protected router: Router, public global: GlobalState) {
 
         this.sStorage = this.global.Decrypt('mAuth');
-        this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 25px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:34px"></i>{{message}}</div>'
+        this.busyloadevent.message = 'Please Wait...'
 
         //bind zona
         if (this.sStorage.TYPE == "Cabang") {
@@ -54,7 +54,7 @@ export class browseCustomerList {
 
             this.browseCustomerListService.getZonaList(this.sStorage.KODE_BASS).subscribe(
                 data => {
-                    this.data = data.json();
+                    this.data = data;
                     for (var i = 0; i < this.data.length; i++) {
                         if (this.data[i].ZONA === "ALL") {
                             this.listZona.push({ label: "PILIH ZONA", value: "PILIH ZONA" });
@@ -88,7 +88,7 @@ export class browseCustomerList {
 
             this.browseCustomerListService.getZonaList(this.sStorage.KODE_BASS).subscribe(
                 data => {
-                    this.data = data.json();
+                    this.data = data
                     for (var i = 0; i < this.data.length; i++) {
                         if (this.data[i].ZONA === "ALL") {
                             this.listZona.push({ label: "PILIH ZONA", value: "PILIH ZONA" });
@@ -122,7 +122,7 @@ export class browseCustomerList {
 
             this.browseCustomerListService.getZonaList(this.sStorage.KODE_BASS).subscribe(
                 data => {
-                    this.data = data.json();
+                    this.data = data;
                     for (var i = 0; i < this.data.length; i++) {
                         if (this.data[i].ZONA === "ALL") {
                             this.listZona.push({ label: "PILIH ZONA", value: "PILIH ZONA" });
@@ -172,7 +172,7 @@ export class browseCustomerList {
         if (this.sStorage.TYPE == "Cabang") {
             this.showPilihKodeCust = true;
 
-            this.busyloadevent.busy = this.browseCustomerListService.getCustomerListPusat(this.selectedListZona).then(
+            this.busyloadevent.busy = [this.browseCustomerListService.getCustomerListPusat(this.selectedListZona).then(
                 data => {
                     this.listCust = data;
                 },
@@ -183,11 +183,11 @@ export class browseCustomerList {
                         this.router.navigate(['/login']);
                     }
                 }
-            );
+            )]
         } else if (this.sStorage.KODE_BASS == this.global.Decrypt('mParameter').BASS_PUSAT) {
             this.showPilihKodeCust = true;
 
-            this.busyloadevent.busy = this.browseCustomerListService.getCustomerListPusat(this.selectedListZona).then(
+            this.busyloadevent.busy = [this.browseCustomerListService.getCustomerListPusat(this.selectedListZona).then(
                 data => {
                     this.listCust = data;
                 },
@@ -198,11 +198,11 @@ export class browseCustomerList {
                         this.router.navigate(['/login']);
                     }
                 }
-            );
+            )]
         } else {
             this.showPilihKodeCust = false;
 
-            this.busyloadevent.busy = this.browseCustomerListService.getCustomerList(this.selectedListZona, this.sStorage.KODE_BASS).then(
+            this.busyloadevent.busy = [this.browseCustomerListService.getCustomerList(this.selectedListZona, this.sStorage.KODE_BASS).then(
                 data => {
                     this.listCust = data;
                 },
@@ -213,7 +213,7 @@ export class browseCustomerList {
                         this.router.navigate(['/login']);
                     }
                 }
-            );
+            )]
         }
 
     }

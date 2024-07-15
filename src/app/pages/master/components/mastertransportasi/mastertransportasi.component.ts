@@ -1,16 +1,16 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap';
-import { SelectItem, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { ConfirmationService } from 'primeng/api';
+
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { Router } from '@angular/router';
 import { MasterTransportasiService } from './mastertransportasi.service';
 
 @Component({
   selector: 'mastertransportasi',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./mastertransportasi.component.scss')],
-  template: require('./mastertransportasi.component.html'),
+  styleUrls:['./mastertransportasi.component.scss'],
+  templateUrl:'./mastertransportasi.component.html'
 })
 export class masterTransportasi {
 
@@ -20,7 +20,7 @@ export class masterTransportasi {
   kode_transportasi: any;
   kode_bass: any;
   public source: transportasiList[];
-  private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+  busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
   constructor(private masterTransportasiService: MasterTransportasiService, protected router: Router, private confirmationService: ConfirmationService) {
 
@@ -28,7 +28,7 @@ export class masterTransportasi {
 
     this.sStorage = sessionStorage.getItem('mAuth');
     this.sStorage = JSON.parse(this.sStorage);
-    this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 25px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:34px"></i>{{message}}</div>'
+    this.busyloadevent.message = 'Please Wait...'
 
     this.loadData()
   }
@@ -37,7 +37,7 @@ export class masterTransportasi {
     this.sStorage = sessionStorage.getItem('mAuth');
     this.sStorage = JSON.parse(this.sStorage);
 
-    this.busyloadevent.busy = this.masterTransportasiService.getListMasterTransportasi(this.kode_transportasi).then(
+    this.busyloadevent.busy = [this.masterTransportasiService.getListMasterTransportasi(this.kode_transportasi).then(
       data => {
         this.source = data;
       },
@@ -48,7 +48,7 @@ export class masterTransportasi {
           this.router.navigate(['/login']);
         }
       }
-    );
+    )]
   }
 
   tambahTransportasi() {

@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { MasterKotaService } from './masterkota.service';
 import { MasterZonaService } from '../masterzona/masterzona.service';
-import { ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService } from 'primeng/api';
 import { GlobalState } from '../../../../global.state'
 
 @Component({
@@ -84,7 +84,7 @@ export class MasterKota {
       }
       , err => {
         alert('Gagal update kota');
-        // console.log(err); 
+        // console.log(err);
       }
     )
   }

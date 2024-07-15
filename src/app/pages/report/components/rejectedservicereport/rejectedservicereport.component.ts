@@ -1,9 +1,9 @@
 import { Component, ViewChild, ViewEncapsulation, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap';
+
 
 import { RejectedServiceReportService, User } from './rejectedservicereport.service';
 import { Subscription } from 'rxjs';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { Router } from '@angular/router';
 import { GlobalState } from '../../../../global.state';
 
@@ -12,8 +12,8 @@ import { GlobalState } from '../../../../global.state';
 @Component({
   selector: 'rejectedservicereport',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./rejectedservicereport.component.scss')],
-  template: require('./rejectedservicereport.component.html'),
+  styleUrls:['./rejectedservicereport.component.scss'],
+  templateUrl:'./rejectedservicereport.component.html'
 })
 export class rejectedServiceReport {
 
@@ -27,7 +27,7 @@ export class rejectedServiceReport {
   sParam: any;
   display: boolean = false;
   showPilihKodeBass: boolean;
-  private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+  busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
   appCode: any = "APPL00064";
   hakAkses: any;
 
@@ -52,7 +52,7 @@ export class rejectedServiceReport {
 
     this.tglAkhir = new Date();
 
-    this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 15px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:24px"></i>{{message}}</div>'
+    this.busyloadevent.message = 'Please Wait...'
 
     this.sStorage = this.global.Decrypt('mAuth');
     this.sParam = this.global.Decrypt('mParameter');
@@ -93,8 +93,8 @@ export class rejectedServiceReport {
     }
     // console.log('pilih', this.showPilihKodeBass);
     if (this.showPilihKodeBass == false) {
-      this.busyloadevent.busy = this.rejectedServiceReportService.getRejectedServiceReport(this.sStorage.KODE_BASS, tglAwal, tglAkhir).subscribe(
-        data => { this.rejectedServiceReportServices = data.json() },
+      this.busyloadevent.busy = [this.rejectedServiceReportService.getRejectedServiceReport(this.sStorage.KODE_BASS, tglAwal, tglAkhir).subscribe(
+        data => { this.rejectedServiceReportServices = data },
         err => {
           if (err._body == 'You are not authorized' || err.status == 500) {
             alert("Your Token has expired, please login again !")
@@ -102,10 +102,10 @@ export class rejectedServiceReport {
             this.router.navigate(['/login']);
           }
         }
-      )
+      )]
     } else if (this.showPilihKodeBass == true) {
-      this.busyloadevent.busy = this.rejectedServiceReportService.getRejectedServiceReport(this.sKodeBass, tglAwal, tglAkhir).subscribe(
-        data => { this.rejectedServiceReportServices = data.json() },
+      this.busyloadevent.busy = [this.rejectedServiceReportService.getRejectedServiceReport(this.sKodeBass, tglAwal, tglAkhir).subscribe(
+        data => { this.rejectedServiceReportServices = data},
         err => {
           if (err._body == 'You are not authorized' || err.status == 500) {
             alert("Your Token has expired, please login again !")
@@ -113,7 +113,7 @@ export class rejectedServiceReport {
             this.router.navigate(['/login']);
           }
         }
-      )
+      )]
     }
 
   }
@@ -129,24 +129,24 @@ export class rejectedServiceReport {
           <title>REJECTED SERVICE REPORT</title>
            <style>
 
-            .mytable { 
-                border-collapse: collapse; 
+            .mytable {
+                border-collapse: collapse;
                 margin-top:10px;
                 margin-bottom:40px;
                 table-layout: fixed;
                 width: 100%;
             }
             /* Zebra striping */
-            .mytable tr:nth-of-type(odd) { 
-                background: #eee; 
+            .mytable tr:nth-of-type(odd) {
+                background: #eee;
                 }
-            .mytable th { 
-                background: #3498db; 
-                color: white; 
+            .mytable th {
+                background: #3498db;
+                color: white;
                 }
-            .mytable td, th { 
-                padding: 7px; 
-                border: 1px solid #ccc; 
+            .mytable td, th {
+                padding: 7px;
+                border: 1px solid #ccc;
                 text-align: center;
                 font-size: 10px;
                 }

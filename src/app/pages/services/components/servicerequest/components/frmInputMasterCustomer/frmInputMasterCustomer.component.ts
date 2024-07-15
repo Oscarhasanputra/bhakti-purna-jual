@@ -1,8 +1,7 @@
 import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit, Input  } from '@angular/core';
-import { SelectItem } from 'primeng/primeng';
-import { ModalDirective } from 'ng2-bootstrap';
+import { SelectItem } from 'primeng/api';
 import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule, AbstractControl } from '@angular/forms';
-import { EmailValidator } from '../../../../theme/validators';
+
 
 import { FrmInputMasterCustomerService } from './frmInputMasterCustomer.service';
 import { Subscription } from 'rxjs';
@@ -11,8 +10,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'frminputmastercustomer',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./frmInputMasterCustomer.component.scss')],
-  template: require('./frmInputMasterCustomer.component.html'),
+  styleUrls:['./frmInputMasterCustomer.component.scss'],
+  templateUrl:'./frmInputMasterCustomer.component.html'
 })
 export class frmInputMasterCustomer {
   /* tambah variable input flagUsedforTransaction untuk digunakan di transaksi */
@@ -36,14 +35,14 @@ export class frmInputMasterCustomer {
   validationSukses: any;
   navigasi:any;
 
-  constructor(private frmInputMasterCustomerService: FrmInputMasterCustomerService, private formBuilder: FormBuilder, protected router: Router, public activatedRoute:ActivatedRoute) {    
+  constructor(private frmInputMasterCustomerService: FrmInputMasterCustomerService, private formBuilder: FormBuilder, protected router: Router, public activatedRoute:ActivatedRoute) {
     this.sKodeCustomer = 'Auto Generated';
     this.sStorage = sessionStorage.getItem('mAuth');
     this.sStorage = JSON.parse(this.sStorage);
 
     this.frmInputMasterCustomerService.getKotaList().subscribe(
       data => {
-        this.data = data.json();
+        this.data = data;
         for (var i = 0; i < this.data.length; i++) {
             this.listKota.push({label:this.data[i].KOTA, value:this.data[i].PROVINSI});
         }
@@ -84,7 +83,7 @@ export class frmInputMasterCustomer {
       // console.log("edit");
         this.frmInputMasterCustomerService.getCustomerSingle(this.params.kode_customer).subscribe(
           data => {
-            this.data = data.json();
+            this.data = data;
             this.sKodeCustomer = this.data[0].KODE_CUSTOMER;
             this.registerCustomer = this.formBuilder.group({
               nama_customer: [this.data[0].NAMA_CUSTOMER, Validators.compose([Validators.required])],
@@ -99,7 +98,7 @@ export class frmInputMasterCustomer {
             this.nomor_telepon = this.registerCustomer.controls['nomor_telepon'];
             this.kota = this.registerCustomer.controls['kota'];
             this.nomor_hp = this.registerCustomer.controls['nomor_hp'];
-            
+
           },
           err => {
               if (err._body == 'You are not authorized' || err.status == 500) {

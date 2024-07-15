@@ -1,8 +1,8 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap';
-import { SelectItem, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+// import { SelectItem, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { Router } from '@angular/router';
 import { MasterExplodedSparepartService } from './masterexplodedsparepart.service';
 import { GlobalState } from '../../../../global.state'
@@ -10,8 +10,8 @@ import { GlobalState } from '../../../../global.state'
 @Component({
   selector: 'masterexplodedsparepart',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./masterexplodedsparepart.component.scss')],
-  template: require('./masterexplodedsparepart.component.html'),
+  styleUrls:['./masterexplodedsparepart.component.scss'],
+  templateUrl:'./masterexplodedsparepart.component.html'
 })
 export class MasterExplodedSparepart {
   HakAkses: any;
@@ -37,10 +37,10 @@ export class MasterExplodedSparepart {
   gambarori: any;
   img2 = new Image();
 
-  private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+  busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
   constructor(private service: MasterExplodedSparepartService, protected router: Router, public global: GlobalState) {
-    this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 25px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:34px"></i>{{message}}</div>'
+    this.busyloadevent.message = 'Please Wait...'
     this.KodeBass = this.global.Decrypt('mAuth').KODE_BASS;
 
     this.HakAkses = this.global.Decrypt('mRole').filter(data => data.KODE_APPLICATION == this.appCode)[0];
@@ -54,10 +54,10 @@ export class MasterExplodedSparepart {
   }
 
   loadData() {
-    this.busyloadevent.busy = this.service.getBarangList().then(
+    this.busyloadevent.busy = [this.service.getBarangList().then(
       data => this.baranglist = data
       , err => console.log(err)
-    );
+    )]
   }
 
   draw(scale, translatePos, gambar) {
@@ -132,7 +132,7 @@ export class MasterExplodedSparepart {
 
     canvas.addEventListener('DOMMouseScroll', handleScroll, false);
 
-    canvas.addEventListener("mousewheel", (evt) => {
+    canvas.addEventListener("mousewheel", (evt:any) => {
       if (evt.deltaY < 0) {
         scale *= scaleMultiplier;
         // console.log(scale)

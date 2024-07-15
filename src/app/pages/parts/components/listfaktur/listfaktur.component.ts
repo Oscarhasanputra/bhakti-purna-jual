@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListFakturService } from './listfaktur.service';
 // import { ListBassService } from './components/listbass/listbass.service';
-import { ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService } from 'primeng/api';
 import { GlobalState } from '../../../../global.state';
 
 @Component({
@@ -37,7 +37,7 @@ export class ListFaktur {
   constructor(protected service: ListFakturService,
     // protected listbassservice: ListBassService,
     private router: Router,
-    private confirmationService: ConfirmationService, 
+    private confirmationService: ConfirmationService,
     public global: GlobalState
   ) {
 

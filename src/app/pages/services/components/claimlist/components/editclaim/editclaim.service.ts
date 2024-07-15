@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 // set global url
@@ -24,11 +24,11 @@ export class EditClaimService {
         let bodyString = JSON.stringify({ kode_claim: KodeClaim }); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/claimdetail/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/claimdetail/', bodyString, {headers})
             .toPromise()
-            .then(response => this.smartTableData = response.json())
+            .then(response => this.smartTableData = response)
     }
 
     removeDataClaim(kodeClaim: String, dataDetail: Array<any>): Promise<any> {
@@ -37,10 +37,10 @@ export class EditClaimService {
         let bodyString = JSON.stringify({ kode_claim: kodeClaim, data: dataDetail }); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/claimremovedetail/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/claimremovedetail/', bodyString, {headers})
             .toPromise()
-            .then(response => result = response.json())
+            .then(response => result = response)
     }
 }

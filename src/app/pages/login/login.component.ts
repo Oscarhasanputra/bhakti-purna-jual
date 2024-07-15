@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router, Routes } from '@angular/router';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, BusyConfig, IBusyConfig } from 'ng-busy';
 
 import { LoginService } from './login.service';
 import { GlobalState } from '../../global.state';
@@ -16,6 +16,7 @@ import 'style-loader!./login.scss';
 })
 export class Login {
   busyLoaderEvent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+  // @ViewChild("bustLoad") busyLoad:Element
   public form: FormGroup;
   public kode_bass: AbstractControl;
   public username: AbstractControl;
@@ -24,10 +25,7 @@ export class Login {
   public errorMsg: String;
 
   constructor(private _state: GlobalState, fb: FormBuilder, public loginService: LoginService, public router: Router) {
-    this.busyLoaderEvent.template = `<div style="margin-top:500px; margin-left:600px; position: fixed; z-index:1000; text-align:center; font-size: 24px; ">
-                                      <i class="fa fa-spinner fa-spin" style="font-size:36px;"></i>
-                                      {{message}}
-                                      </div>`;
+    this.busyLoaderEvent.message= `Please Wait....`;
 
     this.form = fb.group({
       'kode_bass': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -46,20 +44,29 @@ export class Login {
     this.submitted = true;
     if (this.form.valid) {
       this.busyLoaderEvent.minDuration = 10000
-      this.busyLoaderEvent.busy = this.loginService.login(values)
+      this.busyLoaderEvent.busy = [this.loginService.login(values)
         .then(
         data => {
-          this.setSessionUser(JSON.parse(data._body).mAuth[0][0][0])
-          this.setSessionBass(JSON.parse(data._body).mBass[0][0][0])
-          this.setSessionRole(JSON.parse(data._body).mRole[0][0])
-          this.setSessionParameter(JSON.parse(data._body).mParameter[0][0][0])
+          console.log("data login")
+          console.log(data)
+          this.setSessionUser(data.mAuth[0][0][0])
+          this.setSessionBass(data.mBass[0][0][0])
+          this.setSessionRole(data.mRole[0][0])
+          this.setSessionParameter(data.mParameter[0][0][0])
+          // this.setSessionUser(JSON.parse(data._body).mAuth[0][0][0])
+          // this.setSessionBass(JSON.parse(data._body).mBass[0][0][0])
+          // this.setSessionRole(JSON.parse(data._body).mRole[0][0])
+          // this.setSessionParameter(JSON.parse(data._body).mParameter[0][0][0])
 
           this._state.notifyDataChanged('user.isLoggedIn', true);
           this.router.navigate(['pages/home']);
         },
         error => {
-          this.errorMsg = JSON.parse(error._body).data;
-        });
+
+          this.errorMsg=error.error.data;
+
+          // this.errorMsg = JSON.parse(error._body).data;
+        })]
     }
   }
 

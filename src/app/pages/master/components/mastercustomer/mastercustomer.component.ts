@@ -1,8 +1,9 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap';
-import { SelectItem, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
-
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+// import { SelectItem, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+import {SelectItem,ConfirmationService} from "primeng/api"
+import {ConfirmDialogModule} from "primeng/confirmdialog"
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { Router } from '@angular/router';
 import { MasterCustomerService } from './mastercustomer.service';
 import { GlobalState } from '../../../../global.state'
@@ -10,8 +11,8 @@ import { GlobalState } from '../../../../global.state'
 @Component({
   selector: 'mastercustomer',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./mastercustomer.component.scss')],
-  template: require('./mastercustomer.component.html'),
+  styleUrls:['./mastercustomer.component.scss'],
+  templateUrl:'./mastercustomer.component.html'
 })
 export class masterCustomer {
   HakAkses: any;
@@ -25,7 +26,7 @@ export class masterCustomer {
   selectedListZona: string;
   nama_customer: any;
   public source: customerList[];
-  private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+  busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
   selectedCust: Array<any>;
   listKodeCust: Array<any>;
 
@@ -44,14 +45,14 @@ export class masterCustomer {
 
     this.nama_customer = '';
 
-    this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 25px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:34px"></i>{{message}}</div>'
+    this.busyloadevent.message = 'Please Wait...'
 
     this.selectedStatus = this.status[0].value;
 
     if (this.HakAkses.HAK_AKSES) {
       this.masterCustomerService.getZonaList(this.sStorage.KODE_BASS).subscribe(
         data => {
-          this.data = data.json();
+          this.data = data;
           for (var i = 0; i < this.data.length; i++) {
             this.listZona.push({ label: this.data[i].NAMA_ZONA, value: this.data[i].ZONA });
           }
@@ -74,7 +75,7 @@ export class masterCustomer {
   }
 
   loadData() {
-    this.busyloadevent.busy = this.masterCustomerService.getListMasterCustomer(this.sStorage.KODE_BASS, this.selectedListZona, this.nama_customer).then(
+    this.busyloadevent.busy = [this.masterCustomerService.getListMasterCustomer(this.sStorage.KODE_BASS, this.selectedListZona, this.nama_customer).then(
       data => {
         this.source = data;
       },
@@ -85,7 +86,7 @@ export class masterCustomer {
           this.router.navigate(['/login']);
         }
       }
-    );
+    )]
   }
 
   tambahCustomer() {

@@ -1,8 +1,7 @@
 import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/primeng';
-import { ModalDirective } from 'ng2-bootstrap';
+import { SelectItem } from 'primeng/api';
 import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule, AbstractControl } from '@angular/forms';
-import { EmailValidator } from '../../../../theme/validators';
+
 
 import { FrmInputMasterMappingCabangService } from './frmInputMasterMappingCabang.service';
 import { Subscription } from 'rxjs';
@@ -12,8 +11,8 @@ import { GlobalState } from '../../../../../../global.state'
 @Component({
   selector: 'frminputmastermappingcabang',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./frmInputMasterMappingCabang.component.scss')],
-  template: require('./frmInputMasterMappingCabang.component.html'),
+  styleUrls:['./frmInputMasterMappingCabang.component.scss'],
+  templateUrl:'./frmInputMasterMappingCabang.component.html'
 })
 export class frmInputMasterMappingCabang {
   appCode = "APPL00060";
@@ -53,7 +52,7 @@ export class frmInputMasterMappingCabang {
     if (this.HakAkses.HAK_AKSES) {
       this.frmInputMasterMappingCabangService.getCabangList().subscribe(
         data => {
-          this.data = data.json();
+          this.data = data;
           for (var i = 0; i < this.data.length; i++) {
             this.listCabang.push({ label: this.data[i].CABANG, value: this.data[i].NAMA_CABANG });
           }
@@ -71,7 +70,7 @@ export class frmInputMasterMappingCabang {
 
       this.frmInputMasterMappingCabangService.getZonaList().subscribe(
         data => {
-          this.data = data.json();
+          this.data = data;
           if (this.data.length == 0) {
 
           } else {

@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { routing } from './parts.routing';
+import { PartsRoutingModule } from './parts.routing';
 import { NgaModule } from '../../theme/nga.module';
 
 //module utama part
@@ -43,9 +43,15 @@ import { ListPartReceiving } from './components/partreceiving/components/listpar
 import { ListPartReceivingService } from './components/partreceiving/components/listpartreceiving/listpartreceiving.service';
 
 //module tambahan
-import { DataTableModule, DialogModule, CalendarModule, ConfirmDialogModule,ConfirmationService } from 'primeng/primeng';
-import { BusyModule } from 'angular2-busy';
-import { ButtonModule } from 'primeng/primeng';
+import {DialogModule} from "primeng/dialog"
+import {CalendarModule} from "primeng/calendar"
+import {ConfirmDialogModule} from "primeng/confirmdialog"
+import {ConfirmationService} from "primeng/api"
+// import
+import { NgBusyModule } from 'ng-busy';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { PrimengDefaultModule } from '../../theme/defaultprimeng.module';
 // import {MomentModule} from 'angular2-moment';
 
 @NgModule({
@@ -53,14 +59,16 @@ import { ButtonModule } from 'primeng/primeng';
     CommonModule,
     NgaModule,
     FormsModule,
-    routing,
+    PartsRoutingModule,
     // MomentModule
-    DataTableModule,
+    // DataTableModule,
     DialogModule,
     CalendarModule,
     ConfirmDialogModule,
     ButtonModule,
-    BusyModule
+    NgBusyModule,
+    TableModule,
+    PrimengDefaultModule,
   ],
   declarations: [
     ListBassListFaktur,

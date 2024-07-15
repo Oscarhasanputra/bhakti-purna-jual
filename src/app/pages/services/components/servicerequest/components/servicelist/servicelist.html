@@ -35,7 +35,114 @@
 
     <div [ngBusy]="busyloadevent"></div>
 
-    <p-dataTable [value]="serviceList" [rows]="10" [paginator]="true" [pageLinks]="6" [rowsPerPageOptions]="[10,20,30]"
+    <p-table
+    [value]="serviceList" [rows]="10" [paginator]="true" [pageLinks]="6" [rowsPerPageOptions]="[10,20,30]"
+        selectionMode="single" [(selection)]="selectedService" (onRowSelect)="onRowSelect($event)"
+    style="color: black"
+    [globalFilterFields]="['KODE_SERVICE','TANGGAL','NOMOR_NOTA','NAMA_CUSTOMER','KODE_PRODUK','NOMOR_SERI','STATUS']"
+    autoLayout="true"
+  >
+    <ng-template pTemplate="header" let-columns>
+    <tr>
+        <th
+        style="color: black"
+        pResizableColumn
+        [pSortableColumn]="'KODE_SERVICE'"
+      >
+        Kode Service
+      </th>
+      <th
+      style="color: black"
+      pResizableColumn
+      [pSortableColumn]="'TANGGAL'"
+    >
+      Tanggal
+    </th>
+    <th
+    style="color: black"
+    pResizableColumn
+    [pSortableColumn]="'NOMOR_NOTA'"
+  >
+    Nomor Nota
+  </th>
+  <th
+  style="color: black"
+  pResizableColumn
+  [pSortableColumn]="'NAMA_CUSTOMER'"
+>
+  Nama Customer
+</th>
+<th
+style="color: black"
+pResizableColumn
+[pSortableColumn]="'KODE_PRODUK'"
+>
+Kode Barang
+</th>
+<th
+style="color: black"
+pResizableColumn
+[pSortableColumn]="'NOMOR_SERI'"
+>
+Nomor Seri
+</th>
+<th
+style="color: black"
+pResizableColumn
+[pSortableColumn]="'STATUS'"
+>
+Status
+</th>
+    </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-data let-ri="rowIndex">
+      <tr [pSelectableRow]="data">
+        <td
+        class="ui-resizable-column"
+        style="position: relative; color: black"
+      >
+        <div>{{ data["KODE_SERVICE"] }}</div>
+      </td>
+      <td
+      class="ui-resizable-column"
+      style="position: relative; color: black"
+    >
+      <div>{{ data["TANGGAL"] | date: 'dd-MMM-yyyy'}}</div>
+    </td>
+    <td
+    class="ui-resizable-column"
+    style="position: relative; color: black"
+  >
+    <div>{{ data["NOMOR_NOTA"] }}</div>
+  </td>
+  <td
+  class="ui-resizable-column"
+  style="position: relative; color: black"
+>
+  <div>{{ data["NAMA_CUSTOMER"] }}</div>
+</td>
+<td
+class="ui-resizable-column"
+style="position: relative; color: black"
+>
+<div>{{ data["KODE_PRODUK"] }}</div>
+</td>
+<td
+class="ui-resizable-column"
+style="position: relative; color: black"
+>
+<div>{{ data["NOMOR_SERI"] }}</div>
+</td>
+<td
+class="ui-resizable-column"
+style="position: relative; color: black"
+>
+<div>{{ data["STATUS"] }}</div>
+</td>
+      </tr>
+    </ng-template>
+  </p-table>
+    <!-- <p-dataTable [value]="serviceList" [rows]="10" [paginator]="true" [pageLinks]="6" [rowsPerPageOptions]="[10,20,30]"
         selectionMode="single" [(selection)]="selectedService" (onRowSelect)="onRowSelect($event)" [style]="{'color': 'black'}">
         <p-column field="KODE_SERVICE" header="Kode Service" [sortable]="true"></p-column>
 
@@ -50,5 +157,5 @@
         <p-column field="KODE_PRODUK" header="Kode Barang" [sortable]="true" ></p-column>
         <p-column field="NOMOR_SERI" header="Nomor Seri" [sortable]="true" ></p-column>
         <p-column field="STATUS" header="Status" [sortable]="true"  [style]="{'width':'100px'}"></p-column>
-    </p-dataTable>
+    </p-dataTable> -->
 </ba-card>

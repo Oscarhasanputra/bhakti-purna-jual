@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 // set global url
@@ -26,11 +26,11 @@ export class FinishingServiceRequestService {
         let bodyString = JSON.stringify({ kode_bass: kode_bass, kode_teknisi: kode_teknisi, status: status }); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/getTeknisiList/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/getTeknisiList/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // getPerbaikan
@@ -38,11 +38,11 @@ export class FinishingServiceRequestService {
         let bodyString = JSON.stringify({ kodeBarang: kodeBarang, namaKerusakan: namaKerusakan, namaPenyebab: namaPenyebab });
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/getperbaikan/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/getperbaikan/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // getPenyebab
@@ -50,11 +50,11 @@ export class FinishingServiceRequestService {
         let bodyString = JSON.stringify({ kodeBarang: kodeBarang, namaKerusakan: namaKerusakan }); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/getpenyebab/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/getpenyebab/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // getservicelist <== ada di module service request
@@ -63,11 +63,11 @@ export class FinishingServiceRequestService {
     getBiayaTransportasi(): Promise<any> {
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/getbiayatransportasi/', {}, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/getbiayatransportasi/', {}, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // invoiceServiceRequest
@@ -75,11 +75,11 @@ export class FinishingServiceRequestService {
         let bodyString = JSON.stringify({ kodeBass: kodeBass, kodeInvoice: kodeInvoice, kodeBarang: kodeBarang, kodeFinishing: kodeFinishing }); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/getpenyebab/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/getpenyebab/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // getReviewClainService
@@ -87,11 +87,11 @@ export class FinishingServiceRequestService {
         let bodyString = JSON.stringify({ kodeService: kodeService }); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/getReviewClaimService/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/getReviewClaimService/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // GET_HARGA <== ada di service request
@@ -101,11 +101,11 @@ export class FinishingServiceRequestService {
         let bodyString = JSON.stringify({ kodeTransportasi: kodeTransportasi }); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/gettransportasi/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/gettransportasi/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // calculatePPN
@@ -113,11 +113,11 @@ export class FinishingServiceRequestService {
         let bodyString = JSON.stringify({ hargaSukuCadang: hargaSukuCadang, hargaService: hargaService, hargaTransport: hargaTransport }); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/calculateppn/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/calculateppn/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // KERUSAKAN_SORT_SELECT <== udah ada di service request
@@ -127,11 +127,11 @@ export class FinishingServiceRequestService {
         let bodyString = JSON.stringify({ kodeService: kodeService }); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/getdetailservicerequest/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/getdetailservicerequest/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // getStokInvoiceSelectByKodePartAndInvoice
@@ -139,11 +139,11 @@ export class FinishingServiceRequestService {
         let bodyString = JSON.stringify({ kodeBass: kodeBass, kodePart: kodePart, noInvoice: noInvoice }); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/getStokInvoiceselectbykodepartandinvoice/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/getStokInvoiceselectbykodepartandinvoice/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // getDetailServiceRequestReceived
@@ -151,11 +151,11 @@ export class FinishingServiceRequestService {
         let bodyString = JSON.stringify({ kodeService: kodeService }); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/getdetailservicerequestreceived/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/getdetailservicerequestreceived/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // getSparepart
@@ -163,11 +163,11 @@ export class FinishingServiceRequestService {
         let bodyString = JSON.stringify({ kodeBass: kodeBass, kodeBarang: kodeBarang, nomorInvoice: nomorInvoice, kodeSparepart: kodeSparepart, jenisService: jenisService, kodeFinishing: kodeFinishing }); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/getsparepart/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/getsparepart/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // saveServiceFinishing
@@ -175,11 +175,11 @@ export class FinishingServiceRequestService {
         let bodyString = JSON.stringify(data); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/saveservicefinishing/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/saveservicefinishing/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // serviceInsertDetail
@@ -187,11 +187,11 @@ export class FinishingServiceRequestService {
         let bodyString = JSON.stringify(data); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/serviceinsertdetail/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/serviceinsertdetail/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // reject
@@ -199,11 +199,11 @@ export class FinishingServiceRequestService {
         let bodyString = JSON.stringify(data); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/reject/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/reject/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // updatestatus
@@ -211,11 +211,11 @@ export class FinishingServiceRequestService {
         let bodyString = JSON.stringify({ kodeService: kodeService, status: status }); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/updatestatus/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/updatestatus/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // stokInsert
@@ -223,11 +223,11 @@ export class FinishingServiceRequestService {
         let bodyString = JSON.stringify({ kodeBass: kodeBass, partID: partID, noInvoice: noInvoice, tanggal: tanggal, description: description, qty: qty, kodeFinishing: kodeFinishing }); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/stokInsert/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/stokInsert/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // updateStatusBeforeClaimService
@@ -235,11 +235,11 @@ export class FinishingServiceRequestService {
         let bodyString = JSON.stringify({ kodeService: kodeService }); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/updateStatusBeforeClaimService/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/updateStatusBeforeClaimService/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 
     // getservicelist
@@ -248,21 +248,21 @@ export class FinishingServiceRequestService {
         // console.log(bodyString)
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/getservicelist/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/getservicelist/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
     // getservice
     getService(kodeService: String): Promise<any> {
         let bodyString = JSON.stringify({ kodeService: kodeService }); // Stringify payload
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/getservice/', bodyString, options)
+        return this.http.post(this.global.GlobalUrl + '/getservice/', bodyString, {headers})
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
     }
 }

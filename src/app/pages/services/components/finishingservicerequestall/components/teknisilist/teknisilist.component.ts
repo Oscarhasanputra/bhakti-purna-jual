@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { TeknisiListService } from './teknisilist.service';
 import { Subject } from 'rxjs';
 import { GlobalState } from '../../../../../../global.state';

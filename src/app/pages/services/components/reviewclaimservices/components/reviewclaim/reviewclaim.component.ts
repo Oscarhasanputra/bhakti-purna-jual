@@ -1,8 +1,8 @@
 import { Component, ViewEncapsulation, Input, EventEmitter, Output, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService } from 'primeng/api';
 import * as _ from 'lodash';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 
 import { ReviewClaimService } from './reviewclaim.service';
 
@@ -30,10 +30,7 @@ export class ReviewClaim implements DoCheck {
   constructor(protected service: ReviewClaimService, protected router: Router,
     private confirmationService: ConfirmationService, public global: GlobalState) {
     this.KodeBass = this.global.Decrypt('mAuth').KODE_BASS;
-    this.busyLoaderEvent.template = `<div style="margin-top:150px; margin-left:550px; position: fixed; z-index:1000; text-align:center; font-size: 24px; ">
-                                      <i class="fa fa-spinner fa-spin" style="font-size:36px;"></i>
-                                      {{message}}
-                                      </div>`;
+    this.busyLoaderEvent.message = `Please Wait...`;
   }
 
   ngDoCheck() {
@@ -45,7 +42,7 @@ export class ReviewClaim implements DoCheck {
   }
 
   loadData(noClaim: String) {
-    this.busyLoaderEvent.busy = this.service.getClaimService(noClaim).then(
+    this.busyLoaderEvent.busy = [this.service.getClaimService(noClaim).then(
       data => {
         this.services = data;
       },
@@ -58,7 +55,7 @@ export class ReviewClaim implements DoCheck {
           alert(err._body);
         }
       }
-    );
+    )]
   }
 
   cancel() {
@@ -78,7 +75,7 @@ export class ReviewClaim implements DoCheck {
             service.REASON = '';
           }
           //Actual logic to perform a confirmation
-          this.busyLoaderEvent.busy = this.service.insertReviewClaim(
+          this.busyLoaderEvent.busy = [this.service.insertReviewClaim(
             this.NoClaim, service.KODE_SERVICE, Number(service.ISVALID), service.REASON,
             this.global.Decrypt('mAuth').USERNAME,
             this.KodeBass,
@@ -95,7 +92,7 @@ export class ReviewClaim implements DoCheck {
               } else {
                 alert(err._body);
               }
-            });
+            })]
         }
       });
     }

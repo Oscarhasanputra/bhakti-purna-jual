@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BusyModule } from 'angular2-busy';
+import { NgBusyModule } from 'ng-busy';
 
-import { routing } from './pages.routing';
+import { PagesRoutingModule } from './pages.routing';
 import { NgaModule } from '../theme/nga.module';
 
 import { Pages } from './pages.component';
 import { AuthGuard } from './login/auth-guard.service';
 import { PagesService } from './pages.service';
+import { PrimengDefaultModule } from '../theme/defaultprimeng.module';
 
 @NgModule({
-  imports: [CommonModule, NgaModule, routing, BusyModule],
+  imports: [CommonModule, NgaModule, PagesRoutingModule, NgBusyModule,PrimengDefaultModule],
   declarations: [Pages],
   providers: [
     AuthGuard,

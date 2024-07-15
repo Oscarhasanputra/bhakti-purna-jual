@@ -1,7 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 
 import { Home } from './home.component';
-import { ModuleWithProviders } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { serviceList } from './components/servicelist/servicelist.component';
 import { partOrder } from './components/partorder/partorder.component'
 import { partOrderExpired } from './components/partorderexpired/partorderexpired.component'
@@ -21,6 +21,12 @@ export const routes: Routes = [
     ]
   }
 ];
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class HomeRoutingModule{
 
-export const routing: ModuleWithProviders = RouterModule.forChild(routes);
+}
+// export const routing: ModuleWithProviders<any> = RouterModule.forChild(routes);
 

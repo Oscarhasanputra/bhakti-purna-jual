@@ -2,7 +2,7 @@ import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 
@@ -10,7 +10,7 @@ import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularcla
  * Platform and Environment providers/directives/pipes
  */
 import { ENV_PROVIDERS } from './environment';
-import { routing } from './app.routing';
+import { AppRoutingModule } from './app.routing';
 
 // App is our top level component
 import { App } from './app.component';
@@ -18,6 +18,9 @@ import { AppState, InternalStateType } from './app.service';
 import { GlobalState } from './global.state';
 import { NgaModule } from './theme/nga.module';
 import { PagesModule } from './pages/pages.module';
+import { Table, TableModule } from "primeng/table";
+import { InputTextModule } from 'primeng/inputtext';
+import { PrimengDefaultModule } from './theme/defaultprimeng.module';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -35,12 +38,13 @@ export type StoreType = {
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
 @NgModule({
+  exports:[TableModule],
   bootstrap: [App],
   declarations: [
     App
   ],
   imports: [ // import Angular's modules
-    BrowserModule,
+    BrowserModule.withServerTransition({appId:"serverApp"}),
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule,
@@ -48,10 +52,12 @@ export type StoreType = {
     ReactiveFormsModule,
     NgaModule.forRoot(),
     PagesModule,
-    routing
+    AppRoutingModule,
+    InputTextModule,
+    TableModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
-    ENV_PROVIDERS,
+    // ENV_PROVIDERS,
     APP_PROVIDERS
   ]
 })

@@ -1,8 +1,8 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap';
-import { SelectItem, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { ConfirmationService } from 'primeng/api';
+
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { Router } from '@angular/router';
 import { MasterTeknisiService } from './masterteknisi.service';
 import { GlobalState } from '../../../../global.state';
@@ -10,8 +10,8 @@ import { GlobalState } from '../../../../global.state';
 @Component({
   selector: 'masterteknisi',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./masterteknisi.component.scss')],
-  template: require('./masterteknisi.component.html'),
+  styleUrls:['./masterteknisi.component.scss'],
+  templateUrl:'./masterteknisi.component.html'
 })
 export class masterTeknisi {
 
@@ -23,7 +23,7 @@ export class masterTeknisi {
   kode_bass: any;
   showPilihKodeBass: boolean = false;
   public source: teknisiList[];
-  private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+  busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
   constructor(private masterTeknisiService: MasterTeknisiService, protected router: Router,
     private confirmationService: ConfirmationService, public global: GlobalState) {
@@ -37,7 +37,7 @@ export class masterTeknisi {
 
     this.selectedStatus = this.status[0].value;
 
-    this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 25px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:34px"></i>{{message}}</div>'
+    this.busyloadevent.message = 'Please Wait...'
 
     this.sStorage = this.global.Decrypt('mAuth')
 
@@ -59,7 +59,7 @@ export class masterTeknisi {
   }
 
   loadData() {
-    this.busyloadevent.busy = this.masterTeknisiService.getListMasterTeknisi(this.kode_bass, this.kode_teknisi, this.selectedStatus).then(
+    this.busyloadevent.busy = [this.masterTeknisiService.getListMasterTeknisi(this.kode_bass, this.kode_teknisi, this.selectedStatus).then(
       data => {
         this.source = data;
       },
@@ -70,7 +70,7 @@ export class masterTeknisi {
           this.router.navigate(['/login']);
         }
       }
-    );
+    )]
   }
 
   tambahTeknisi() {
@@ -82,6 +82,7 @@ export class masterTeknisi {
   }
 
   delete(kode_teknisi) {
+
     if (this.sStorage.KODE_ROLE == 'ROLEADMIN') {
       this.confirmationService.confirm({
         message: 'Anda yakin ingin menonaktifkan teknisi ' + kode_teknisi + ' di BASS ' + this.kode_bass + '?',

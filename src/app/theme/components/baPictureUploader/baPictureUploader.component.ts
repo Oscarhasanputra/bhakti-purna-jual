@@ -1,5 +1,5 @@
-import {Component, ViewChild, Input, Output, EventEmitter, ElementRef, Renderer} from '@angular/core';
-import { NgUploaderOptions } from 'ngx-uploader';
+import {Component, ViewChild, Input, Output, EventEmitter, ElementRef, Renderer2} from '@angular/core';
+// import { NgUploaderOptions } from 'ngx-uploader';
 
 @Component({
   selector: 'ba-picture-uploader',
@@ -11,7 +11,7 @@ export class BaPictureUploader {
   @Input() defaultPicture:string = '';
   @Input() picture:string = '';
 
-  @Input() uploaderOptions:NgUploaderOptions = { url: '' };
+  @Input() uploaderOptions:any = { url: '' };
   @Input() canDelete:boolean = true;
 
   @Output() onUpload = new EventEmitter<any>();
@@ -21,7 +21,7 @@ export class BaPictureUploader {
 
   public uploadInProgress:boolean;
 
-  constructor(private renderer: Renderer) {
+  constructor(private renderer: Renderer2) {
   }
 
   beforeUpload(uploadingFile): void {
@@ -40,7 +40,7 @@ export class BaPictureUploader {
   }
 
   bringFileSelector():boolean {
-    this.renderer.invokeElementMethod(this._fileUpload.nativeElement, 'click');
+    this.renderer.selectRootElement(this._fileUpload.nativeElement,true).click();
     return false;
   }
 

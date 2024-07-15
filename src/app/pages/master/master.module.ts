@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { routing } from './master.routing';
+import { MasterRoutingModule } from './master.routing';
 import { NgaModule } from '../../theme/nga.module';
 import { EqualValidator } from './equal-validator.directive';
 
-import { BusyModule } from 'angular2-busy';
-import { DataTableModule, DialogModule, CalendarModule, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+import { NgBusyModule } from 'ng-busy';
 
 import { Master } from './master.component';
 
@@ -53,19 +52,27 @@ import { MasterAplikasiService } from './components/masteraplikasi/masteraplikas
 import { MasterRoleService } from './components/masterrole/masterrole.service';
 import { MasterTransportasiService } from './components/mastertransportasi/mastertransportasi.service';
 import { MasterMappingCabangZonaService } from './components/mastermappingcabangzona/mastermappingcabangzona.service';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { CalendarModule } from 'primeng/calendar';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { InputTextModule } from 'primeng/inputtext';
+import { PrimengDefaultModule } from '../../theme/defaultprimeng.module';
 
 @NgModule({
   imports: [
     CommonModule,
     NgaModule,
     FormsModule,
-    routing,
-    DataTableModule,
+    MasterRoutingModule,
+    TableModule,
     DialogModule,
     CalendarModule,
     ConfirmDialogModule,
-    BusyModule,
-    ReactiveFormsModule
+    NgBusyModule,
+    ReactiveFormsModule,
+    PrimengDefaultModule
   ],
   declarations: [
     Master,

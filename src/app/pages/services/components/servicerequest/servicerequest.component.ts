@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
-import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
+import { ConfirmationService } from 'primeng/api';
 import { ServiceRequestService } from './servicerequest.service';
 import { Subject } from 'rxjs';
 import { DatePipe } from '@angular/common';
@@ -10,8 +10,8 @@ import { GlobalState } from '../../../../global.state';
 @Component({
     selector: 'servicerequest',
     encapsulation: ViewEncapsulation.None,
-    styles: [require('./servicerequest.scss')],
-    template: require('./servicerequest.html'),
+    styleUrls:['./servicerequest.scss'],
+    templateUrl:'./servicerequest.html',
     providers: [DatePipe, ConfirmationService]
 })
 export class ServiceRequestComponent implements OnInit {
@@ -43,7 +43,7 @@ export class ServiceRequestComponent implements OnInit {
 
     constructor(public router: Router, private actroute: ActivatedRoute, private service: ServiceRequestService,
         private datepipe: DatePipe, private confirmationService: ConfirmationService, public global: GlobalState) {
-        this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 25px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:34px"></i>{{message}}</div>'
+        this.busyloadevent.message = 'Please Wait...'
     }
 
     ngOnInit() {
@@ -51,7 +51,7 @@ export class ServiceRequestComponent implements OnInit {
         this.gloNamaBass = this.global.Decrypt('mBass').NAMA_BASS;
         this.gloUsername = this.global.Decrypt('mAuth').USERNAME;
 
-        // cek hak akses 
+        // cek hak akses
         this.hakAkses = this.global.Decrypt('mRole').filter(data => data.KODE_APPLICATION == this.appCode)[0];
         if (this.hakAkses.HAK_AKSES) {
             // validasi tombol insert dan edit
@@ -302,7 +302,7 @@ export class ServiceRequestComponent implements OnInit {
                                         if (result) {
                                             if (this.data.kodeService == "") {
                                                 // insert ke database
-                                                this.busyloadevent.busy = this.service.serviceInsert(this.data).then(
+                                                this.busyloadevent.busy = [this.service.serviceInsert(this.data).then(
                                                     data => {
                                                         this.data['kodeService'] = data.kode_service
                                                         let bassPusat = this.global.Decrypt('mParameter').BASS_PUSAT
@@ -320,7 +320,7 @@ export class ServiceRequestComponent implements OnInit {
                                                         } else {
                                                             alert(err._body.data);
                                                         }
-                                                    });
+                                                    })]
                                             } else {
                                                 // update ke database
                                                 console.log(this.data)
@@ -408,7 +408,7 @@ export class ServiceRequestComponent implements OnInit {
             Email_SMTP: this.global.Decrypt('mParameter').EMAIL_SMTP,
             Email_Port: 465, // this.global.Decrypt('mParameter').EMAIL_PORT,
             Email_Username: "edvin.megantara8@gmail.com", //this.global.Decrypt('mParameter').EMAIL_USERNAME,
-            Email_Password: "1991megantara", // this.global.Decrypt('mParameter').EMAIL_PASSWORD, 
+            Email_Password: "1991megantara", // this.global.Decrypt('mParameter').EMAIL_PASSWORD,
             mailTo: "edvin.megantara9@gmail.com", // this.data.emailAssignToBass,
             mailSubject: "Service Request (" + this.gloUsername + "/" + this.gloNamaBass + "/" + this.today.toISOString().substring(0, 10) + ")",
             mailBody: body
@@ -435,10 +435,10 @@ export class ServiceRequestComponent implements OnInit {
         this.service.getReviewClaimService(kodeService).then(
             data => {
                 // console.log("get review claim service : " + data)
-                /*  
+                /*
                     belum berfungsi
                     jika row nya > 0
-                    jika row = 0 maka status review not valid 
+                    jika row = 0 maka status review not valid
                     jika status review not valid = true mka disable enable true dan sebaliknya
                 */
                 if (data.length > 0) {
@@ -599,6 +599,8 @@ export class ServiceRequestComponent implements OnInit {
     public print(): void {
         if (this.data.kodeService !== "") {
             let printContents, popupWin;
+            console.log("printing")
+            console.log(printContents)
             printContents = document.getElementById('print-section').innerHTML;
             popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
             popupWin.document.open();
@@ -608,24 +610,24 @@ export class ServiceRequestComponent implements OnInit {
                         <title>Service Reuest</title>
                         <style>
 
-                        .mytable { 
-                            border-collapse: collapse; 
+                        .mytable {
+                            border-collapse: collapse;
                             margin-top:10px;
                             margin-bottom:40px;
                             table-layout: fixed;
                             width: 100%;
                         }
                         /* Zebra striping */
-                        .mytable tr:nth-of-type(odd) { 
-                            background: #eee; 
+                        .mytable tr:nth-of-type(odd) {
+                            background: #eee;
                             }
-                        .mytable th { 
-                            background: #3498db; 
-                            color: white; 
+                        .mytable th {
+                            background: #3498db;
+                            color: white;
                             }
-                        .mytable td, th { 
-                            padding: 7px; 
-                            border: 1px solid #ccc; 
+                        .mytable td, th {
+                            padding: 7px;
+                            border: 1px solid #ccc;
                             text-align: center;
                             font-size: 10px;
                             }

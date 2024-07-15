@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 // set global url
@@ -28,12 +28,14 @@ export class PaidClaimServicesService {
             status: Status
         }); // Stringify payload
         // get token in localstorage
+        console.log("get review body param")
+        console.log(bodyString)
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/claimreviewlist/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/claimreviewlist/', bodyString, {headers})
             .toPromise()
-            .then(response => this.smartTableData = response.json())
+            .then(response => this.smartTableData = response)
     }
 
     insertPaidClaim(kodeClaim: String, inputtedBy: String, inputtedByBass: String, inputtedDate: Date): Promise<any> {
@@ -44,11 +46,11 @@ export class PaidClaimServicesService {
         }); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/insertpaidclaim/', bodyString, options)
+        return this.http.post(this.global.GlobalUrl + '/insertpaidclaim/', bodyString, {headers})
             .toPromise()
-            .then(response => result = response.json())
+            .then(response => result = response)
     }
 }

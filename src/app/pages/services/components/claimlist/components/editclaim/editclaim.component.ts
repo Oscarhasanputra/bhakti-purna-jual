@@ -1,8 +1,9 @@
 import { Component, ViewEncapsulation, Input, EventEmitter, Output, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService } from 'primeng/api';
+
 import * as _ from 'lodash';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 
 import { EditClaimService } from './editclaim.service';
 
@@ -33,10 +34,7 @@ export class EditClaim implements DoCheck {
   constructor(protected service: EditClaimService, protected router: Router,
     private confirmationService: ConfirmationService, public global: GlobalState) {
     this.KodeBass = this.global.Decrypt('mAuth').KODE_BASS
-    this.busyLoaderEvent.template = `<div style="margin-top:150px; margin-left:550px; position: fixed; z-index:1000; text-align:center; font-size: 24px; ">
-                                      <i class="fa fa-spinner fa-spin" style="font-size:36px;"></i>
-                                      {{message}}
-                                      </div>`;
+    this.busyLoaderEvent.message = `Please Wait...`;
   }
 
   ngDoCheck() {
@@ -50,7 +48,7 @@ export class EditClaim implements DoCheck {
 
   loadData(noClaim: String) {
     this.timeZone = this.TglClaim.getTimezoneOffset
-    this.busyLoaderEvent.busy = this.service.getClaimDetail(noClaim).then(
+    this.busyLoaderEvent.busy = [this.service.getClaimDetail(noClaim).then(
       data => {
         this.services = data;
         this.selectedServices = _.cloneDeep(data);
@@ -64,7 +62,7 @@ export class EditClaim implements DoCheck {
           alert(err._body);
         }
       }
-    );
+    )]
   }
 
   cancel() {
@@ -93,7 +91,7 @@ export class EditClaim implements DoCheck {
               return true;
             });
 
-            this.busyLoaderEvent.busy = this.service.removeDataClaim(this.NoClaim, removedClaim).then(
+            this.busyLoaderEvent.busy = [this.service.removeDataClaim(this.NoClaim, removedClaim).then(
               data => {
                 alert(data);
                 this.loadData(this.NoClaim);
@@ -107,7 +105,7 @@ export class EditClaim implements DoCheck {
                 } else {
                   alert(err._body);
                 }
-              });
+              })]
           }
         }
       }

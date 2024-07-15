@@ -1,6 +1,6 @@
 import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/primeng';
-import { ModalDirective } from 'ng2-bootstrap';
+import { SelectItem } from 'primeng/api';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { BrowseListBassReportService } from './browseListBassReport.service';
 import { Subscription } from 'rxjs';
@@ -10,8 +10,8 @@ import { GlobalState } from '../../../../../global.state';
 @Component({
   selector: 'browselistbassreport',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./browseListBassReport.component.scss')],
-  template: require('./browseListBassReport.component.html'),
+  styleUrls:['./browseListBassReport.component.scss'],
+  templateUrl:'./browseListBassReport.component.html'
 })
 export class browseListBassReport {
 

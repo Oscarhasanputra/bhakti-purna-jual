@@ -7,6 +7,7 @@ import { reportFinishingService } from './components/reportfinishingservice/repo
 import { rejectedServiceReport } from './components/rejectedservicereport/rejectedservicereport.component';
 import { reportPartOrder } from './components/reportpartorder/reportpartorder.component';
 import { reportPartReceivings } from './components/reportpartreceiving/reportpartreceiving.component';
+import { NgModule } from '@angular/core';
 
 // noinspection TypeScriptValidateTypes
 const routes: Routes = [
@@ -23,5 +24,9 @@ const routes: Routes = [
     ]
   }
 ];
-
-export const routing = RouterModule.forChild(routes);
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class ReportRoutingModule{}
+// export const routing = RouterModule.forChild(routes);

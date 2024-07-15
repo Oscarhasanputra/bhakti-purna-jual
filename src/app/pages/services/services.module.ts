@@ -2,15 +2,24 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
-import { Debounce } from 'angular2-debounce';
-
-import { routing } from './services.routing';
+// import { Debounce } from 'angular2-debounce';
+//
+import { ServiceRoutingModule } from './services.routing';
 import { Services } from './services.component';
 
-import { DataTableModule, DialogModule, CalendarModule, InputTextareaModule } from 'primeng/primeng';
-import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
-import { ButtonModule } from 'primeng/primeng';
-import { BusyModule } from 'angular2-busy';
+// import { DataTableModule, DialogModule, CalendarModule, InputTextareaModule } from 'primeng/primeng';
+// import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+// import { ButtonModule } from 'primeng/primeng';
+
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { CalendarModule } from 'primeng/calendar';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import {InputTextareaModule} from "primeng/inputtextarea"
+
+import { NgBusyModule } from 'ng-busy';
 // import { ReviewClaimServicesModule } from './components/reviewclaimservices/reviewclaimservices.module'
 
 //Service Request
@@ -75,21 +84,24 @@ import { PaidClaimServices } from './components/paidclaimservices/paidclaimservi
 import { PaidClaimServicesService } from './components/paidclaimservices/paidclaimservices.service';
 import { LookUpBassPaidClaim } from './components/paidclaimservices/components/lookupbass-paidclaim/lookupbasspaidclaim.component';
 import { LookUpBassPaidClaimService } from './components/paidclaimservices/components/lookupbass-paidclaim/lookupbasspaidclaim.service';
+import { PrimengDefaultModule } from '../../theme/defaultprimeng.module';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     NgaModule,
-    routing,
-    DataTableModule,
+    ServiceRoutingModule,
+    TableModule,
     DialogModule,
     CalendarModule,
     ConfirmDialogModule,
     ButtonModule,
-    BusyModule,
-    InputTextareaModule,
-    ReactiveFormsModule
+    NgBusyModule,
+    ReactiveFormsModule,
+    PrimengDefaultModule,
+    // InputTextareaModule
   ],
   declarations: [
     Services,
@@ -102,7 +114,7 @@ import { LookUpBassPaidClaimService } from './components/paidclaimservices/compo
     LookUpBassPaidClaim,
     LookUpBassReviewClaim,
     ServiceRequestComponent,
-    Debounce,
+    // Debounce,
     frmInputMasterCustomer,
     ServiceListComponent,
     CustomerListComponent,

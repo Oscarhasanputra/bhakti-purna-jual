@@ -1,7 +1,7 @@
 import { Routes, RouterModule }  from '@angular/router';
 
 import { Login } from './login.component';
-import { ModuleWithProviders } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 
 // noinspection TypeScriptValidateTypes
 export const routes: Routes = [
@@ -10,5 +10,12 @@ export const routes: Routes = [
     component: Login
   }
 ];
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class LoginRoutingModule{
 
-export const routing: ModuleWithProviders = RouterModule.forChild(routes);
+}
+
+// export const routing: ModuleWithProviders<any> = RouterModule.forChild(routes);

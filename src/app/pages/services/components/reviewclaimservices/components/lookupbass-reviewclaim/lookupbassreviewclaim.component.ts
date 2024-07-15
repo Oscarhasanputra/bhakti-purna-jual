@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 
 import { LookUpBassReviewClaimService } from './lookupbassreviewclaim.service';
 import { GlobalState } from '../../../../../../global.state';
@@ -21,10 +21,7 @@ export class LookUpBassReviewClaim {
     @Output() modalData = new EventEmitter<String>();
 
     constructor(protected service: LookUpBassReviewClaimService, protected router: Router, public global: GlobalState) {
-        this.busyLoaderEvent.template = `<div style="margin-top:150px; margin-left:550px; position: fixed; z-index:1000; text-align:center; font-size: 24px; ">
-                                      <i class="fa fa-spinner fa-spin" style="font-size:36px;"></i>
-                                      {{message}}
-                                      </div>`;
+        this.busyLoaderEvent.message = `Please Wait...`;
     }
 
     showModal() {
@@ -45,7 +42,7 @@ export class LookUpBassReviewClaim {
 
     loadDataBass() {
         if (this.global.Decrypt('mAuth').TYPE == "Cabang") {
-            this.busyLoaderEvent.busy = this.service.getBassListUnderCabang(this.global.Decrypt('mAuth').KODE_BASS)
+            this.busyLoaderEvent.busy = [this.service.getBassListUnderCabang(this.global.Decrypt('mAuth').KODE_BASS)
                 .then(
                 data => {
                     this.datas = data;
@@ -56,9 +53,9 @@ export class LookUpBassReviewClaim {
                         sessionStorage.clear();
                         this.router.navigate(['/login']);
                     }
-                });
+                })]
         } else {
-            this.busyLoaderEvent.busy = this.service.getBassList("")
+            this.busyLoaderEvent.busy = [this.service.getBassList("")
                 .then(
                 data => {
                     this.datas = data;
@@ -69,7 +66,7 @@ export class LookUpBassReviewClaim {
                         sessionStorage.clear();
                         this.router.navigate(['/login']);
                     }
-                });
+                })]
         }
     }
 }

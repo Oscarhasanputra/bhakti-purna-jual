@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  back-end:
+    image: bhakti-purna-jual-frontend
+    ports:
+      - '4200:80'

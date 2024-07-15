@@ -1,14 +1,12 @@
-FROM node:6.9.5
-
-RUN git clone https://github.com/akveo/ng2-admin.git /var/www \
-    && cd /var/www \
-    && npm install --global rimraf \
-    && npm run clean \
-    && npm install --global webpack webpack-dev-server typescript@2.1.5 \
-    && npm install \
-    && npm run prebuild:prod && npm run build:prod
-
-EXPOSE 8080
-
-WORKDIR /var/www
-ENTRYPOINT ["npm", "run", "server:prod"]
+FROM node:16-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+CMD ["npm", "config","rm","proxy"]
+CMD ["npm", "config","rm","https-proxy"]
+CMD ["ng", "build"]
+FROM nginx:alpine
+COPY --from=build /app/dist/browser/ /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80

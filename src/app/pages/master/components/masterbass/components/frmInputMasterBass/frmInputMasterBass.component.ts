@@ -1,6 +1,6 @@
 import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/primeng';
-import { ModalDirective } from 'ng2-bootstrap';
+import { SelectItem } from 'primeng/api';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { EmailValidator } from '../../../../../../theme/validators';
 
@@ -12,8 +12,8 @@ import { GlobalState } from '../../../../../../global.state'
 @Component({
   selector: 'frminputmasterbass',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./frmInputMasterBass.component.scss')],
-  template: require('./frmInputMasterBass.component.html'),
+  styleUrls:['./frmInputMasterBass.component.scss'],
+  templateUrl:'./frmInputMasterBass.component.html'
 })
 export class frmInputMasterBass {
   HakAkses: any;
@@ -45,7 +45,7 @@ export class frmInputMasterBass {
     if (this.HakAkses.HAK_AKSES) {
       this.frmInputMasterBassService.getKotaList().subscribe(
         data => {
-          this.data = data.json();
+          this.data = data;
           for (var i = 0; i < this.data.length; i++) {
             this.listKota.push({ label: this.data[i].KOTA, value: this.data[i].PROVINSI });
           }
@@ -93,7 +93,7 @@ export class frmInputMasterBass {
 
         this.frmInputMasterBassService.getBassSingle(this.params.kode_bass).subscribe(
           data => {
-            this.data = data.json();
+            this.data = data;
             this.sKodeBass = this.data[0].KODE_BASS;
             this.registerBass = this.formBuilder.group({
               nama_bass: [this.data[0].NAMA_BASS, Validators.compose([Validators.required])],

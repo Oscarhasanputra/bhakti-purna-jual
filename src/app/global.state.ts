@@ -25,10 +25,10 @@ export class GlobalState {
   Decrypt(key: string): any {
     try {
       let result = sessionStorage.getItem(key);
+
       let bytes = CryptoJS.AES.decrypt(JSON.parse(result), this.secretNumber);
 
       let decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-
       return decryptedData;
     } catch (error) {
       alert(error)

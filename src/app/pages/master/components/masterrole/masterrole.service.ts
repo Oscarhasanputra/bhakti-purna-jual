@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -17,24 +17,24 @@ export class MasterRoleService {
 
         let token = this.global.Decrypt('mAuth').TOKEN
         let bodyString = JSON.stringify({"kode_role":kode_role}); // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json','x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json','x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/getRoleList/', bodyString, options)
+        return this.http.post(this.global.GlobalUrl + '/getRoleList/', bodyString, {headers})
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
     deleteRole(kode_role): Promise<any> {
 
         let token = this.global.Decrypt('mAuth').TOKEN
         let bodyString = JSON.stringify({"kode_role":kode_role}); // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json','x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json','x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/deleteRole/', bodyString, options)
+        return this.http.post(this.global.GlobalUrl + '/deleteRole/', bodyString, {headers})
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
 }

@@ -1,8 +1,9 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap';
-import { SelectItem, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
-
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+// import { SelectItem, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+import {ConfirmDialogModule} from "primeng/confirmdialog"
+import {SelectItem,ConfirmationService} from "primeng/api"
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { Router } from '@angular/router';
 import { MasterBassService } from './masterbass.service';
 import { GlobalState } from '../../../../global.state'
@@ -10,8 +11,8 @@ import { GlobalState } from '../../../../global.state'
 @Component({
   selector: 'masterbass',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./masterbass.component.scss')],
-  template: require('./masterbass.component.html'),
+  styleUrls:['./masterbass.component.scss'],
+  templateUrl:'./masterbass.component.html',
   providers: [ConfirmationService]
 })
 export class masterBass {
@@ -25,7 +26,7 @@ export class masterBass {
   sStorage: any;
   selectedListZona: string;
   public source: bassList[];
-  private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+  busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
   constructor(private masterBassService: MasterBassService, protected router: Router,
     private confirmationService: ConfirmationService, public global: GlobalState) {
@@ -34,7 +35,7 @@ export class masterBass {
     this.status.push({ label: 'Active', value: "A" });
     this.status.push({ label: 'Inactive', value: "I" });
 
-    this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 25px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:34px"></i>{{message}}</div>'
+    this.busyloadevent.message = 'Please Wait...'
 
     this.selectedStatus = this.status[0].value;
 
@@ -45,7 +46,7 @@ export class masterBass {
     if (this.HakAkses.HAK_AKSES) {
       this.masterBassService.getZonaList(this.sStorage.KODE_BASS).subscribe(
         data => {
-          this.data = data.json();
+          this.data = data;
           for (var i = 0; i < this.data.length; i++) {
             this.listZona.push({ label: this.data[i].NAMA_ZONA, value: this.data[i].ZONA });
           }
@@ -67,7 +68,7 @@ export class masterBass {
   }
 
   loadData() {
-    this.busyloadevent.busy = this.masterBassService.getListMasterBass(this.selectedListZona, this.selectedStatus).then(
+    this.busyloadevent.busy = [this.masterBassService.getListMasterBass(this.selectedListZona, this.selectedStatus).then(
       data => {
         this.source = data;
       },
@@ -78,7 +79,7 @@ export class masterBass {
           this.router.navigate(['/login']);
         }
       }
-    );
+    )]
   }
 
   tambahBass() {

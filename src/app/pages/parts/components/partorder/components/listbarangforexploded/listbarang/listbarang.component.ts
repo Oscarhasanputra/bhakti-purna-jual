@@ -114,7 +114,8 @@ export class ListBarang {
 
     canvas.addEventListener('DOMMouseScroll', handleScroll, false);
 
-    canvas.addEventListener("mousewheel", (evt) => {
+    canvas.addEventListener("mousewheel", (evt:any) => {
+
       if (evt.deltaY < 0) {
         scale *= scaleMultiplier;
         // console.log(scale)

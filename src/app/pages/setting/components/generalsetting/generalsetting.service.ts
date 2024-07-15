@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders,HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GlobalState } from '../../../../global.state';
 
@@ -23,15 +23,15 @@ export class GeneralSettingService {
             email_password: body.email_password,
             email_service: body.email_service
         }); // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.getGlobalUrl() + '/updategeneralsetting', bodyString, options) // ...using post request
+        return this.http.post(this.global.getGlobalUrl() + '/updategeneralsetting', bodyString, {headers}) // ...using post request
             .toPromise()
             .catch(this.handleError);
     }
 
-    private handleError(error: Response | any) {
+    private handleError(error: HttpResponse<any> | any) {
         // console.log(error);
         return Promise.reject(error);
     }
@@ -39,12 +39,12 @@ export class GeneralSettingService {
     getSystemParameter(): Promise<any> {
         // let bodyString = JSON.stringify({ kode_role: body }); // Stringify payload
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.global.getGlobalUrl() + '/get_systemparam', options) // ...using get request
+        return this.http.get(this.global.getGlobalUrl() + '/get_systemparam', {headers}) // ...using get request
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
             .catch(this.handleError);
     }
 }

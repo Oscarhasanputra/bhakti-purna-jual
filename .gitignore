@@ -27,6 +27,7 @@ build/Release
 ehthumbs.db
 Icon?
 Thumbs.db
+/.vscode/**
 
 # Node Files #
 /node_modules

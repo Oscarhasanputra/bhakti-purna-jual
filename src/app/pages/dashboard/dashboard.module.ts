@@ -4,14 +4,16 @@ import { FormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
 
 import { Dashboard } from './dashboard.component';
-import { routing }       from './dashboard.routing';
+import { DashboardRoutingModule }       from './dashboard.routing';
+import { PrimengDefaultModule } from '../../theme/defaultprimeng.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     NgaModule,
-    routing
+    DashboardRoutingModule,
+    PrimengDefaultModule
   ],
   declarations: [
     Dashboard

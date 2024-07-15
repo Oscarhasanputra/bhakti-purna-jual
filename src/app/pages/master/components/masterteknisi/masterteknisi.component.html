@@ -1,33 +1,152 @@
 <ba-card title="Maintain Teknisi">
-    <div *ngIf="showPilihKodeBass">
-        <browselistbassmaster (kodeBassChild)='kodeBassEvent($event)'></browselistbassmaster>
-    </div>
+  <div *ngIf="showPilihKodeBass">
+    <browselistbassmaster
+      (kodeBassChild)="kodeBassEvent($event)"
+    ></browselistbassmaster>
+  </div>
 
-    <div class="dropdownbtn">
-        Status : <select class="form-control" [(ngModel)]="selectedStatus">
-            <option *ngFor="let s of status" [value]="s.value">
-            {{s.label}}
-            </option>
-        </select>
-    </div>
+  <div class="dropdownbtn">
+    Status :
+    <select class="form-control" [(ngModel)]="selectedStatus">
+      <option *ngFor="let s of status" [value]="s.value">
+        {{ s.label }}
+      </option>
+    </select>
+  </div>
 
-    <div hidden>
-        Nama : <input type="text" class="form-control" [(ngModel)]="kode_teknisi">
-    </div>
-    <br>
-    <button class="btn btn-primary" (click)="loadData()">Search</button>
-    <button class="btn btn-primary" (click)="tambahTeknisi()">Tambah Teknisi</button>
-
+  <div hidden>
+    Nama : <input type="text" class="form-control" [(ngModel)]="kode_teknisi" />
+  </div>
+  <br />
+  <button class="btn btn-primary" (click)="loadData()">Search</button>
+  <button class="btn btn-primary" (click)="tambahTeknisi()">
+    Tambah Teknisi
+  </button>
 </ba-card>
 
 <div [ngBusy]="busyloadevent"></div>
 
 <ba-card title="Teknisi List" baCardClass="with-scroll table-panel">
-    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
-        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-        <input #gb type="text" pInputText size="50" placeholder="Search">
-    </div>
-    <p-dataTable [value]="source" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+  <div
+    class="ui-widget-header"
+    style="padding: 4px 10px; border-bottom: 0 none"
+  >
+    <i class="fa fa-search" style="margin: 4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="50" placeholder="Search" />
+  </div>
+  <p-table
+    [value]="source"
+    [rows]="10"
+    [paginator]="true"
+    #dt
+    [globalFilterFields]="[
+      'KODE_BASS',
+      'NAMA_BASS',
+      'KODE_TEKNISI',
+      'NAMA_TEKNISI',
+      'FLAG'
+    ]"
+    autoLayout="true"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th
+          style="color: black"
+          pResizableColumn
+          [pSortableColumn]="'KODE_BASS'"
+        >
+          Kode Bass
+        </th>
+        <th
+          style="color: black"
+          pResizableColumn
+          [pSortableColumn]="'NAMA_BASS'"
+        >
+          Nama Bass
+        </th>
+        <th
+          style="color: black"
+          pResizableColumn
+          [pSortableColumn]="'KODE_TEKNISI'"
+        >
+          Kode Teknis
+        </th>
+        <th
+          style="color: black"
+          pResizableColumn
+          [pSortableColumn]="'NAMA_TEKNISI'"
+        >
+          Nama Teknisi
+        </th>
+        <th style="color: black" pResizableColumn [pSortableColumn]="'FLAG'">
+          Status
+        </th>
+        <th style="color: black" pResizableColumn class="col-button">
+          <button type="button" pButton icon="fa fa-refresh"></button>
+        </th>
+        <th style="color: black" pResizableColumn class="col-button">
+          <button type="button" pButton icon="fa fa-refresh"></button>
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-data>
+      <tr>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>{{ data["KODE_BASS"] }}</div>
+        </td>
+        <td class="ui-resizable-column" style="position: relative; color: black">
+            <div>{{ data["NAMA_BASS"] }}</div>
+          </td>
+          <td class="ui-resizable-column" style="position: relative; color: black">
+            <div>{{ data["KODE_TEKNISI"] }}</div>
+          </td>
+          <td class="ui-resizable-column" style="position: relative; color: black">
+            <div>{{ data["NAMA_TEKNISI"] }}</div>
+          </td>
+          <td class="ui-resizable-column" style="position: relative; color: black">
+            <div>{{ data["FLAG"] }}</div>
+          </td>
+          <td
+            class="ui-resizable-column col-button"
+            style="position: relative; color: black"
+          >
+            <button
+              (click)="edit(data['KODE_BASS'], data['KODE_TEKNISI'])"
+              class="status-button btn btn-xs btn-primary"
+            >
+              Edit
+            </button>
+          </td>
+          <td
+            class="ui-resizable-column col-button"
+            style="position: relative; color: black"
+          >
+            <div *ngIf="data['FLAG'] == 'Inactive'">
+              <button
+                (click)="activate(data['KODE_TEKNISI'])"
+                class="btn btn-xs btn-warning"
+              >
+                Reactivate
+              </button>
+            </div>
+            <div *ngIf="data['FLAG'] == 'Active'">
+              <button
+                (click)="delete(data['KODE_TEKNISI'])"
+                class="btn btn-xs btn-danger"
+              >
+                Non-Aktif
+              </button>
+            </div>
+          </td>
+      </tr>
+
+    </ng-template>
+  </p-table>
+  <!-- <p-dataTable [value]="source" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
         <p-column field="KODE_BASS" header="Kode Bass" [style]="{'color':'black'}"></p-column>
         <p-column field="NAMA_BASS" header="Nama Bass" [style]="{'color':'black'}"></p-column>
         <p-column field="KODE_TEKNISI" header="Kode Teknisi" [style]="{'color':'black'}"></p-column>
@@ -35,7 +154,7 @@
         <p-column field="FLAG" header="Status" [style]="{'color':'black'}"></p-column>
         <p-column styleClass="col-button">
             <ng-template pTemplate="header">
-                <button type="button" pButton icon="fa-refresh"></button>
+                <button type="button" pButton icon="fa fa-refresh"></button>
             </ng-template>
             <ng-template let-data="rowData" pTemplate="body">
                 <button (click)="edit(data.KODE_BASS,data.KODE_TEKNISI)" class="status-button btn btn-xs btn-primary">Edit</button>
@@ -43,7 +162,7 @@
         </p-column>
         <p-column styleClass="col-button">
             <ng-template pTemplate="header">
-                <button type="button" pButton icon="fa-refresh"></button>
+                <button type="button" pButton icon="fa fa-refresh"></button>
             </ng-template>
             <ng-template let-data="rowData" pTemplate="body">
                 <div *ngIf="data.FLAG == 'Inactive'">
@@ -55,7 +174,12 @@
 
             </ng-template>
         </p-column>
-    </p-dataTable>
+    </p-dataTable> -->
 </ba-card>
 
-<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" style="color:black;"></p-confirmDialog>
+<p-confirmDialog
+  header="Confirmation"
+  icon="fa fa-question-circle"
+  width="425"
+  style="color: black"
+></p-confirmDialog>

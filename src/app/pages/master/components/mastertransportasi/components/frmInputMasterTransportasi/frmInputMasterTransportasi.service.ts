@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -21,21 +21,21 @@ export class FrmInputMasterTransportasiService {
 
 
         // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/saveTambahTransportasi/', bodyString, options) // ...using post request
+        return this.http.post(this.global.GlobalUrl + '/saveTambahTransportasi/', bodyString, {headers}) // ...using post request
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
     getTransportasiSingle(kode_transportasi) {
         let token = this.global.Decrypt('mAuth').TOKEN
         let bodyString = JSON.stringify({ "kode_transportasi": kode_transportasi });
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/getTransportasiSingle/', bodyString, options);
+        return this.http.post<any>(this.global.GlobalUrl + '/getTransportasiSingle/', bodyString, {headers});
     }
 
     editTransportasi(registerTransportasi, kode_transportasi): Promise<any> {
@@ -45,12 +45,12 @@ export class FrmInputMasterTransportasiService {
         let bodyString = JSON.stringify(registerTransportasi);
         // console.log(bodyString);
         // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/updateTransportasi/', bodyString, options) // ...using post request
+        return this.http.post(this.global.GlobalUrl + '/updateTransportasi/', bodyString, {headers}) // ...using post request
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
 }

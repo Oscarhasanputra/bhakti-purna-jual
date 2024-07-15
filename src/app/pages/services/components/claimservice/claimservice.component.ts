@@ -1,8 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService } from 'primeng/api';
 import * as _ from 'lodash';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 
 import { ClaimServiceService } from './claimservice.service';
 
@@ -31,10 +31,7 @@ export class ClaimService {
 
   constructor(protected service: ClaimServiceService, protected router: Router,
     private confirmationService: ConfirmationService, public global: GlobalState) {
-    this.busyLoaderEvent.template = `<div style="margin-top:150px; margin-left:450px; position: fixed; z-index:1000; text-align:center; font-size: 24px; ">
-                                      <i class="fa fa-spinner fa-spin" style="font-size:36px;"></i>
-                                      {{message}}
-                                      </div>`;
+    this.busyLoaderEvent.message = `Please Wait...`;
     this.NoClaim = ""
     this.KodeBass = this.global.Decrypt('mAuth').KODE_BASS;
     this.NamaBass = this.global.Decrypt('mBass').NAMA_BASS;
@@ -59,7 +56,7 @@ export class ClaimService {
     }
   }
   loadData() {
-    this.busyLoaderEvent.busy = this.service.getDataClaim(this.KodeBass, this.dateFr.toISOString().substring(0, 10), this.dateTo.toISOString().substring(0, 10)).then(
+    this.busyLoaderEvent.busy = [this.service.getDataClaim(this.KodeBass, this.dateFr.toISOString().substring(0, 10), this.dateTo.toISOString().substring(0, 10)).then(
       data => {
         this.services = data;
         this.selectedServices = _.cloneDeep(data);
@@ -73,7 +70,7 @@ export class ClaimService {
           alert(err._body);
         }
       }
-    );
+    )]
   }
 
   saveData(selectedClaim: Array<Services>) {
@@ -89,7 +86,7 @@ export class ClaimService {
           if (selectedClaim.length == 0) {
             alert("Harap memilih service yang ingin di claim !");
           } else {
-            this.busyLoaderEvent.busy = this.service.saveDataClaim(this.dateTrx, this.KodeBass, this.global.Decrypt('mAuth').USERNAME, selectedClaim).then(
+            this.busyLoaderEvent.busy = [this.service.saveDataClaim(this.dateTrx, this.KodeBass, this.global.Decrypt('mAuth').USERNAME, selectedClaim).then(
               data => {
                 alert("Nomor Claim anda adalah : " + data);
                 this.loadData();
@@ -104,7 +101,7 @@ export class ClaimService {
                 } else {
                   alert(err._body);
                 }
-              });
+              })]
           }
         }
       }

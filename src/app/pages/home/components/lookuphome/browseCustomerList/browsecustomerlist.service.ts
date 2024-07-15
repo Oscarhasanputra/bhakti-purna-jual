@@ -42,7 +42,7 @@ export class BrowseCustomerListService {
         let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
         // let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.global.GlobalUrl + '/getZonaList/' + kode_dealer, {headers});
+        return this.http.get<any>(this.global.GlobalUrl + '/getZonaList/' + kode_dealer, {headers});
     }
 
 }

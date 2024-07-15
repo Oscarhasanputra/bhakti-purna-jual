@@ -1,17 +1,203 @@
 <div [ngBusy]="busyLoaderEvent"></div>
 <div class="widgets">
-    <div class="row">
-        <ba-card baCardClass="with-scroll">
-            <div class="col-md-10">
-                <div class="form-group row">
-                    <label class="col-sm-3 form-control-label" style="font-size: 18px; font-weight: bold;">Nomor Claim :</label>
-                    <label class="col-sm-5" style="font-size: 18px; font-weight: bold;">
-                            {{NoClaim}}
-                        </label>
-                </div>
-            </div>
-
-            <p-dataTable [value]="services" [responsive]="true" [stacked]="stacked" sortMode="multiple" [rows]="4" [paginator]="true"
+  <div class="row">
+    <ba-card baCardClass="with-scroll">
+      <div class="col-md-10">
+        <div class="form-group row">
+          <label
+            class="col-sm-3 form-control-label"
+            style="font-size: 18px; font-weight: bold"
+            >Nomor Claim :</label
+          >
+          <label class="col-sm-5" style="font-size: 18px; font-weight: bold">
+            {{NoClaim}}
+          </label>
+        </div>
+      </div>
+      <p-table
+        [value]="services"
+        [responsive]="true"
+        sortMode="multiple"
+        [rows]="4"
+        [paginator]="true"
+        [pageLinks]="5"
+        style="color: black"
+        [globalFilterFields]="['NOMOR_NOTA','TANGGAL','NAMA_CUSTOMER','ALAMAT_CUSTOMER','KODE_BARANG','NOMOR_SERI_BARANG','ISVALID','REASON']"
+        autoLayout="true"
+      >
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th
+              style="color: black"
+              pResizableColumn
+              [pSortableColumn]="'NOMOR_NOTA'"
+            >
+              No Nota
+            </th>
+            <th
+              style="color: black"
+              pResizableColumn
+              [pSortableColumn]="'TANGGAL'"
+            >
+              Tanggal
+            </th>
+            <th
+              style="color: black"
+              pResizableColumn
+              [pSortableColumn]="'NAMA_CUSTOMER'"
+            >
+              Customer
+            </th>
+            <th
+              style="color: black; width: 250px"
+              pResizableColumn
+              [pSortableColumn]="'ALAMAT_CUSTOMER'"
+            >
+              Alamat
+            </th>
+            <th
+              style="color: black"
+              pResizableColumn
+              [pSortableColumn]="'KODE_BARANG'"
+            >
+              Kode Barang
+            </th>
+            <th
+              style="color: black"
+              pResizableColumn
+              [pSortableColumn]="'NOMOR_SERI_BARANG'"
+            >
+              Nomor Seri
+            </th>
+            <th
+              style="color: black; width: 60px"
+              pResizableColumn
+              class="col-button"
+              [pSortableColumn]="'ISVALID'"
+            >
+              Valid
+            </th>
+            <th
+              style="color: black; width: 60px"
+              pResizableColumn
+              class="col-button"
+              [pSortableColumn]="'ISVALID'"
+            >
+              Not Valid
+            </th>
+            <th
+              style="color: black; width: 200px"
+              pResizableColumn
+              class="col-button"
+              [pSortableColumn]="'REASON'"
+            >
+              Catatan
+            </th>
+            <th
+              style="color: black; width: 75px"
+              pResizableColumn
+              class="col-button"
+              [hidden]="StatusClaim=='2'"
+            >
+              Proceed
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-ri="rowIndex">
+          <tr>
+            <td
+              class="ui-resizable-column"
+              style="position: relative; color: black"
+            >
+              <div>{{ data["NOMOR_NOTA"] }}</div>
+            </td>
+            <td
+              class="ui-resizable-column"
+              style="position: relative; color: black"
+            >
+              <div>{{ data["TANGGAL"] | date: 'dd-MMM-yyyy'}}</div>
+            </td>
+            <td
+              class="ui-resizable-column"
+              style="position: relative; color: black"
+            >
+              <div>{{ data["NAMA_CUSTOMER"] }}</div>
+            </td>
+            <td
+              class="ui-resizable-column"
+              style="position: relative; color: black"
+            >
+              <div>{{ data["ALAMAT_CUSTOMER"] }}</div>
+            </td>
+            <td
+              class="ui-resizable-column"
+              style="position: relative; color: black"
+            >
+              <div>{{ data["KODE_BARANG"] }}</div>
+            </td>
+            <td
+              class="ui-resizable-column col-button"
+              style="position: relative; color: black"
+            >
+              <div>{{ data["NOMOR_SERI_BARANG"] }}</div>
+            </td>
+            <td
+              class="ui-resizable-column"
+              style="position: relative; color: black"
+            >
+              <div style="text-align: center">
+                <input
+                  type="radio"
+                  [name]="'radioValid'+ri"
+                  value="1"
+                  [(ngModel)]="data['ISVALID']"
+                />
+              </div>
+            </td>
+            <td
+              class="ui-resizable-column col-button"
+              style="position: relative; color: black"
+            >
+              <div style="text-align: center">
+                <input
+                  type="radio"
+                  [name]="'radioValid'+ri"
+                  value="0"
+                  [(ngModel)]="data['ISVALID']"
+                />
+              </div>
+            </td>
+            <td
+              class="ui-resizable-column col-button"
+              style="position: relative; color: black"
+            >
+              <div style="text-align: center">
+                <textarea
+                  rows="1"
+                  cols="15"
+                  [(ngModel)]="data['REASON']"
+                  [disabled]="data['ISVALID'] =='1'"
+                ></textarea>
+              </div>
+            </td>
+            <td
+              class="ui-resizable-column col-button"
+              style="position: relative; color: black"
+              [hidden]="StatusClaim=='2'"
+            >
+              <div style="text-align: center">
+                <button
+                  type="button"
+                  pButton
+                  (click)="reviewService(data)"
+                  icon="fa fa-upload"
+                ></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <!-- <p-dataTable [value]="services" [responsive]="true" [stacked]="stacked" sortMode="multiple" [rows]="4" [paginator]="true"
                 [pageLinks]="5" [style]="{'color':'black'}" [rowStyleClass]="changeBgColor">
                 <p-column field="NOMOR_NOTA" header="No Nota"></p-column>
                 <p-column field="TANGGAL" header="Tanggal">
@@ -51,17 +237,27 @@
                         </div>
                     </ng-template>
                 </p-column>
-            </p-dataTable>
+            </p-dataTable> -->
 
-            <div style="text-align: center;">
-                <button type="button" class="btn btn-primary btn-lg" style="width:150px" (click)="cancel()">Close</button>
-            </div>
-        </ba-card>
-    </div>
+      <div style="text-align: center">
+        <button
+          type="button"
+          class="btn btn-primary btn-lg"
+          style="width: 150px"
+          (click)="cancel()"
+        >
+          Close
+        </button>
+      </div>
+    </ba-card>
+  </div>
 </div>
 
-<p-confirmDialog width="425 " style="color: black; font-weight: bold; " appendTo="body"></p-confirmDialog>
-
+<p-confirmDialog
+  width="425 "
+  style="color: black; font-weight: bold"
+  appendTo="body"
+></p-confirmDialog>
 
 <!--<table>
                 <tr>

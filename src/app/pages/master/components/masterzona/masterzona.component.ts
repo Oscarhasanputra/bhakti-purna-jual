@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { MasterZonaService } from './masterzona.service';
-import { ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService } from 'primeng/api';
 import { GlobalState } from '../../../../global.state';
 
 @Component({
@@ -108,7 +108,7 @@ export class MasterZona {
           }
           , err => {
             alert('Gagal delete zona');
-            // console.log(err); 
+            // console.log(err);
           }
         )
 
@@ -130,7 +130,7 @@ export class MasterZona {
       }
       , err => {
         alert('Gagal save zona');
-        //  console.log(err); 
+        //  console.log(err);
       }
     )
   }

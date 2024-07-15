@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -15,10 +15,10 @@ export class MasterBassService {
 
     getZonaList(kode_dealer) {
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.global.GlobalUrl + '/getZonaList/' + kode_dealer, options);
+        return this.http.get<any>(this.global.GlobalUrl + '/getZonaList/' + kode_dealer, {headers});
     }
 
     getListMasterBass(kode_zona, status): Promise<any> {
@@ -27,33 +27,33 @@ export class MasterBassService {
         }
         let token = this.global.Decrypt('mAuth').TOKEN
         let bodyString = JSON.stringify({ "kode_zona": kode_zona, "status": status }); // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/getListMasterBass/', bodyString, options)
+        return this.http.post(this.global.GlobalUrl + '/getListMasterBass/', bodyString, {headers})
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
     deleteBass(kode_bass): Promise<any> {
         let token = this.global.Decrypt('mAuth').TOKEN
         let bodyString = JSON.stringify({ "kode_bass": kode_bass }); // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/deleteBass/', bodyString, options)
+        return this.http.post(this.global.GlobalUrl + '/deleteBass/', bodyString, {headers})
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
     activateBass(kode_bass): Promise<any> {
         let token = this.global.Decrypt('mAuth').TOKEN
         let bodyString = JSON.stringify({ "kode_bass": kode_bass }); // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/activateBass/', bodyString, options)
+        return this.http.post(this.global.GlobalUrl + '/activateBass/', bodyString, {headers})
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 }

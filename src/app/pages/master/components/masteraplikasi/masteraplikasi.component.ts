@@ -1,8 +1,9 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap';
-import { SelectItem, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
-
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+// import { SelectItem, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+import {ConfirmDialogModule} from "primeng/confirmdialog"
+import {SelectItem,ConfirmationService} from "primeng/api"
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { Router } from '@angular/router';
 import { MasterAplikasiService } from './masteraplikasi.service';
 import { GlobalState } from '../../../../global.state'
@@ -10,8 +11,8 @@ import { GlobalState } from '../../../../global.state'
 @Component({
   selector: 'masteraplikasi',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./masteraplikasi.component.scss')],
-  template: require('./masteraplikasi.component.html'),
+  styleUrls:['./masteraplikasi.component.scss'],
+  templateUrl:'./masteraplikasi.component.html'
 })
 export class masterAplikasi {
   HakAkses: any;
@@ -21,10 +22,10 @@ export class masterAplikasi {
   sStorage: any;
   kode_aplikasi: any;
   public source: aplikasiList[];
-  private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+  busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
   constructor(private masterAplikasiService: MasterAplikasiService, protected router: Router, public global: GlobalState) {
-    this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 25px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:34px"></i>{{message}}</div>'
+    this.busyloadevent.message = 'Please Wait...'
 
     this.HakAkses = this.global.Decrypt('mRole').filter(data => data.KODE_APPLICATION == this.appCode)[0];
 
@@ -40,7 +41,7 @@ export class masterAplikasi {
   }
 
   loadData() {
-    this.busyloadevent.busy = this.masterAplikasiService.getListMasterAplikasi(this.kode_aplikasi).then(
+    this.busyloadevent.busy = [this.masterAplikasiService.getListMasterAplikasi(this.kode_aplikasi).then(
       data => {
         this.source = data;
       },
@@ -51,7 +52,7 @@ export class masterAplikasi {
           this.router.navigate(['/login']);
         }
       }
-    );
+    )]
   }
 }
 

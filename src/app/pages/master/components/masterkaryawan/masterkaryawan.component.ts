@@ -1,8 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { MasterKaryawanService } from './masterkaryawan.service';
-import { ConfirmationService } from 'primeng/primeng';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { ConfirmationService } from 'primeng/api';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { GlobalState } from '../../../../global.state'
 
 @Component({
@@ -203,7 +203,7 @@ export class MasterKaryawan {
             }
             , err => {
               alert('Gagal reset password karyawan');
-              // console.log(err); 
+              // console.log(err);
             }
           )
         }
@@ -224,7 +224,7 @@ export class MasterKaryawan {
       }
       , err => {
         alert('Gagal save karyawan');
-        // console.log(err); 
+        // console.log(err);
       }
     )
   }
@@ -239,7 +239,7 @@ export class MasterKaryawan {
       }
       , err => {
         alert('Gagal update karyawan');
-        // console.log(err); 
+        // console.log(err);
       }
     )
   }
@@ -263,7 +263,7 @@ export class MasterKaryawan {
 
 
   browseBassbyText() {
-    this.busyLoaderEvent.busy = this.servicekaryawan.getBassListAll(this.dataHeader.kdBasstxt).then(
+    this.busyLoaderEvent.busy = [this.servicekaryawan.getBassListAll(this.dataHeader.kdBasstxt).then(
       data => {
         if (data.length == 0) {
           if (this.dataHeader.kdBasstxt != '') {
@@ -282,11 +282,11 @@ export class MasterKaryawan {
           sessionStorage.clear();
           this.router.navigate(['/login']);
         }
-      });
+      })]
   }
 
   browseBass() {
-    this.busyLoaderEvent.busy = this.servicekaryawan.getBassListAll("")
+    this.busyLoaderEvent.busy = [this.servicekaryawan.getBassListAll("")
       .then(
       data => {
         this.basslist = data;
@@ -298,7 +298,7 @@ export class MasterKaryawan {
           sessionStorage.clear();
           this.router.navigate(['/login']);
         }
-      });
+      })]
 
     this.display2 = true;
   }

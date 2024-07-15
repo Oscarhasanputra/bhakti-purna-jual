@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
-import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
+import { ConfirmationService } from 'primeng/api';
 import { FinishingServiceRequestAllService } from './finishingservicerequestall.service';
 import { ServiceRequestService } from '../servicerequest/servicerequest.service';
 import { Subject } from 'rxjs';
@@ -11,12 +11,12 @@ import { GlobalState } from '../../../../global.state';
 @Component({
     selector: 'finishingservicerequest',
     encapsulation: ViewEncapsulation.None,
-    styles: [require('./finishingservicerequestall.scss')],
-    template: require('./finishingservicerequestall.html'),
+    styleUrls:['./finishingservicerequestall.scss'],
+    templateUrl:'./finishingservicerequestall.html',
     providers: [DatePipe, ConfirmationService]
 })
 export class FinishingServiceRequestAllComponent implements OnInit {
-    private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+    busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
     kodePart: string = ""
     public appCode: String = "APPL00013";
@@ -41,7 +41,7 @@ export class FinishingServiceRequestAllComponent implements OnInit {
     public flaghidenInputCustomer: Boolean = false
     public flagAssignToBass: Boolean = false;
 
-    // flag for property 
+    // flag for property
     public flagTanggal: Boolean = true;
     public flagTanggalSelesaiTextbox: Boolean = true;
     public flagTanggalKembaliTextbox: Boolean = true;
@@ -83,7 +83,7 @@ export class FinishingServiceRequestAllComponent implements OnInit {
 
     constructor(public router: Router, private actroute: ActivatedRoute, private servicerequest: ServiceRequestService, private service: FinishingServiceRequestAllService,
         private datepipe: DatePipe, private confirmationService: ConfirmationService, public global: GlobalState) {
-        this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 25px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:34px"></i>{{message}}</div>'
+        this.busyloadevent.message = 'Please Wait...'
     }
 
     ngOnInit() {
@@ -91,7 +91,7 @@ export class FinishingServiceRequestAllComponent implements OnInit {
         this.gloNamaBass = this.global.Decrypt('mBass').NAMA_BASS;
         this.gloUsername = this.global.Decrypt('mAuth').USERNAME;
 
-        // cek hak akses 
+        // cek hak akses
         this.hakAkses = this.global.Decrypt('mRole').filter(data => data.KODE_APPLICATION == this.appCode)[0];
         if (this.hakAkses.HAK_AKSES) {
             // validasi tombol insert dan edit
@@ -267,7 +267,7 @@ export class FinishingServiceRequestAllComponent implements OnInit {
             // close button = true
             this.flagButtonClose = true
         } else {
-            // if status review not valid = true 
+            // if status review not valid = true
             // maka close button true
             if (this.statusReviewNotValid) {
                 this.flagButtonClose = true
@@ -482,10 +482,10 @@ export class FinishingServiceRequestAllComponent implements OnInit {
         this.service.getReviewClaimService(kodeService).then(
             data => {
                 // console.log("get review claim service : " + data)
-                /*  
+                /*
                     belum berfungsi
                     jika row nya > 0
-                    jika row = 0 maka status review not valid 
+                    jika row = 0 maka status review not valid
                     jika status review not valid = true mka disable enable true dan sebaliknya
                 */
                 if (data.length > 0) {
@@ -708,14 +708,14 @@ export class FinishingServiceRequestAllComponent implements OnInit {
 
         this.subTotal = this.hargaTotalSukuCadang + this.biayaService + this.biayaTransportasi.BIAYA_TRANSPORTASI
 
-        // // hitung ppn 
+        // // hitung ppn
         this.hitungPPN(this.hargaTotalSukuCadang, this.biayaService, this.biayaTransportasi.BIAYA_TRANSPORTASI)
     }
 
     // crud button
     public save() {
 
-        // validasi 
+        // validasi
         this.confirmationService.confirm({
             header: 'Confirmation',
             message: 'Simpan service request ini?',
@@ -739,7 +739,7 @@ export class FinishingServiceRequestAllComponent implements OnInit {
                                                         this.data.kodeTransportasi = this.biayaTransportasi.KODE_TRANS
 
                                                         // console.log(this.data)
-                                                        this.busyloadevent.busy = this.service.saveServiceFinishingAll(this.data).then(
+                                                        this.busyloadevent.busy = [this.service.saveServiceFinishingAll(this.data).then(
                                                             data => {
                                                                 this.data['kodeService'] = data.data.sets.getKodeService[0][0][0].kodeService
 
@@ -854,7 +854,7 @@ export class FinishingServiceRequestAllComponent implements OnInit {
                                                                     alert(err._body.data);
                                                                 }
                                                             }
-                                                        )
+                                                        )]
                                                     }
                                                 }
                                             )
@@ -1292,24 +1292,24 @@ export class FinishingServiceRequestAllComponent implements OnInit {
                         <title>Service Reuest</title>
                         <style>
 
-                        .mytable { 
-                            border-collapse: collapse; 
+                        .mytable {
+                            border-collapse: collapse;
                             margin-top:10px;
                             margin-bottom:40px;
                             table-layout: fixed;
                             width: 100%;
                         }
                         /* Zebra striping */
-                        .mytable tr:nth-of-type(odd) { 
-                            background: #eee; 
+                        .mytable tr:nth-of-type(odd) {
+                            background: #eee;
                             }
-                        .mytable th { 
-                            background: #3498db; 
-                            color: white; 
+                        .mytable th {
+                            background: #3498db;
+                            color: white;
                             }
-                        .mytable td, th { 
-                            padding: 7px; 
-                            border: 1px solid #ccc; 
+                        .mytable td, th {
+                            padding: 7px;
+                            border: 1px solid #ccc;
                             text-align: center;
                             font-size: 10px;
                             }

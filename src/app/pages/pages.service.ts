@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpResponse,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GlobalState } from '../global.state';
 
@@ -14,16 +14,16 @@ export class PagesService {
     getMenu(body: String): Promise<any> {
         let bodyString = JSON.stringify({ kode_role: body }); // Stringify payload
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.getGlobalUrl() + '/get_menu', bodyString, options) // ...using post request
+        return this.http.post(this.global.getGlobalUrl() + '/get_menu', bodyString, {headers}) // ...using post request
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
             .catch(this.handleError);
     }
 
-    private handleError(error: Response | any) {
+    private handleError(error: HttpResponse<any> | any) {
         return Promise.reject(error);
     }
 

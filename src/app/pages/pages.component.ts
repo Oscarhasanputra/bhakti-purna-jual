@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Routes, Router } from '@angular/router';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 
 import { BaMenuService } from '../theme';
 import { PAGES_MENU } from './pages.menu';
@@ -33,10 +33,8 @@ export class Pages {
 
   constructor(public router: Router, private _menuService: BaMenuService, public pagesService: PagesService,
     private _state: GlobalState) {
-    this.busyLoaderEvent.template = `<div style="margin-top:100px; margin-left:600px; position: fixed; z-index:1000; text-align:center; font-size: 24px; ">
-                                      <i class="fa fa-spinner fa-spin" style="font-size:36px;"></i>
-                                      {{message}}
-                                      </div>`;
+      // this.busyLoaderEvent.template=""
+    this.busyLoaderEvent.message = `Please Wait...`;
   }
 
   ngOnInit() {
@@ -44,9 +42,10 @@ export class Pages {
     // console.log(this._state.Decrypt('mAuth').KODE_BASS)
     //set menu
     let menuPart: any = _.cloneDeep(PAGES_MENU);
-    this.busyLoaderEvent.busy = this.pagesService.getMenu(this._state.Decrypt('mAuth').KODE_ROLE)
+    this.busyLoaderEvent.busy = [this.pagesService.getMenu(this._state.Decrypt('mAuth').KODE_ROLE)
       .then(
       data => {
+
         for (let x in data) {
           menuFilter.push(data[x].menu);
         }
@@ -73,7 +72,7 @@ export class Pages {
           alert(err._body.data);
         }
       }
-      )
+      )]
     //end menu
     // this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU);
   }

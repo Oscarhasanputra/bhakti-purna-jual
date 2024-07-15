@@ -1,17 +1,17 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 
 import { PartOrderExpiredService } from './partorderexpired.service';
 import { Subscription } from 'rxjs';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { GlobalState } from '../../../../global.state';
 
 @Component({
   selector: 'partorderexpired',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./partorderexpired.component.scss')],
-  template: require('./partorderexpired.component.html'),
+  styleUrls:['./partorderexpired.component.scss'],
+  templateUrl:'./partorderexpired.component.html'
 })
 export class partOrderExpired {
 
@@ -19,7 +19,7 @@ export class partOrderExpired {
   public source: partOrderExpired[];
   tglAwal: any = "";
   tglAkhir: any = "";
-  private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+  busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
   public kodeBassEvent(childData: any) {
     this.sKodeBass = childData;
@@ -39,7 +39,7 @@ export class partOrderExpired {
 
     this.sKodeBass = this.global.Decrypt('mAuth').KODE_BASS;
 
-    this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 15px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:24px"></i>{{message}}</div>'
+    this.busyloadevent.message= 'Please Wait...'
   }
 
   tampil(kode_po) {
@@ -47,7 +47,7 @@ export class partOrderExpired {
   }
 
   loadData() {
-    this.busyloadevent.busy = this.partOrderExpiredService.getPartOrderExpiredHomeSelect(this.tglAwal, this.tglAkhir, this.sKodeBass).then(
+    this.busyloadevent.busy = [this.partOrderExpiredService.getPartOrderExpiredHomeSelect(this.tglAwal, this.tglAkhir, this.sKodeBass).then(
       data => {
         this.source = data;
       },
@@ -58,7 +58,7 @@ export class partOrderExpired {
           this.router.navigate(['/login']);
         }
       }
-    );
+    )]
   }
 
 }

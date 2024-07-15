@@ -1,6 +1,6 @@
 import {Component, ViewChild, Input, Output, ElementRef, EventEmitter} from '@angular/core';
 
-import 'fullcalendar/dist/fullcalendar.js';
+import 'fullcalendar/main.min.js';
 
 import 'style-loader!./baFullCalendar.scss';
 

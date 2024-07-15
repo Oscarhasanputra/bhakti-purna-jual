@@ -1,8 +1,8 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap';
-import { SelectItem, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { ConfirmationService } from 'primeng/api';
+
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { Router } from '@angular/router';
 import { MasterRoleService } from './masterrole.service';
 import { GlobalState } from '../../../../global.state';
@@ -10,8 +10,8 @@ import { GlobalState } from '../../../../global.state';
 @Component({
   selector: 'masterrole',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./masterrole.component.scss')],
-  template: require('./masterrole.component.html'),
+  styleUrls:['./masterrole.component.scss'],
+  templateUrl:'./masterrole.component.html'
 })
 export class masterRole {
 
@@ -22,11 +22,11 @@ export class masterRole {
   login_role: any;
   showPilihKodeBass: boolean = false;
   public source: roleList[];
-  private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+  busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
   constructor(private masterRoleService: MasterRoleService, protected router: Router, private confirmationService: ConfirmationService,
     public global: GlobalState) {
-    this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 25px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:34px"></i>{{message}}</div>'
+    this.busyloadevent.message = 'Please Wait...'
 
     this.kode_role = '';
 
@@ -36,7 +36,7 @@ export class masterRole {
   }
 
   loadData() {
-    this.busyloadevent.busy = this.masterRoleService.getListMasterRole(this.kode_role).then(
+    this.busyloadevent.busy = [this.masterRoleService.getListMasterRole(this.kode_role).then(
       data => {
         this.source = data;
       },
@@ -47,7 +47,7 @@ export class masterRole {
           this.router.navigate(['/login']);
         }
       }
-    );
+    )]
   }
 
   tambahRole() {
@@ -63,7 +63,7 @@ export class masterRole {
       message: 'Anda yakin ingin menghapus role ' + kode_role + ' ?',
       accept: () => {
         //Actual logic to perform a confirmation
-        this.busyloadevent.busy = this.masterRoleService.deleteRole(kode_role).then(
+        this.busyloadevent.busy = [this.masterRoleService.deleteRole(kode_role).then(
           data => {
             this.loadData();
             alert('Role ' + kode_role + ' berhasil di hapus');
@@ -75,7 +75,7 @@ export class masterRole {
               this.router.navigate(['/login']);
             }
           }
-        );
+        )]
       }
     });
   }

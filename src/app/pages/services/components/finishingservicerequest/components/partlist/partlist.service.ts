@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 // set global url
@@ -27,11 +27,11 @@ export class PartlistService {
         // console.log(bodyString)
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.global.GlobalUrl + '/getsparepart/', bodyString, options)
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.global.GlobalUrl + '/getsparepart/', bodyString, {headers})
             .toPromise()
-            .then(response =>  response.json())
+            .then(response =>  response)
     }
 
 }

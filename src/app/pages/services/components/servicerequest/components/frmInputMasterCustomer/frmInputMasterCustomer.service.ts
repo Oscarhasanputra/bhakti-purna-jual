@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -16,10 +16,10 @@ export class FrmInputMasterCustomerService {
 
     getKotaList() {
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.global.GlobalUrl + '/getKotaSelect/', options);
+        return this.http.get<any>(this.global.GlobalUrl + '/getKotaSelect/', {headers});
     }
 
     saveTambahCustomer(registerCustomer): Promise<any> {
@@ -29,21 +29,21 @@ export class FrmInputMasterCustomerService {
         let bodyString = JSON.stringify(registerCustomer);
 
         // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/saveTambahCustomer/', bodyString, options) // ...using post request
+        return this.http.post(this.global.GlobalUrl + '/saveTambahCustomer/', bodyString, {headers}) // ...using post request
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
     getCustomerSingle(kode_customer) {
         let token = this.global.Decrypt('mAuth').TOKEN
         let bodyString = JSON.stringify({ "kode_customer": kode_customer });
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/getCustomerSingle/', bodyString, options);
+        return this.http.post<any>(this.global.GlobalUrl + '/getCustomerSingle/', bodyString, {headers});
     }
 
     editCustomer(registerCustomer, kode_customer): Promise<any> {
@@ -52,12 +52,12 @@ export class FrmInputMasterCustomerService {
         let bodyString = JSON.stringify(registerCustomer);
 
         // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/updateCustomer/', bodyString, options) // ...using post request
+        return this.http.post(this.global.GlobalUrl + '/updateCustomer/', bodyString, {headers}) // ...using post request
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
 }

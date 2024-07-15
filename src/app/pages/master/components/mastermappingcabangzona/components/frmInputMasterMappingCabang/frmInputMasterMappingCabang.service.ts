@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -15,18 +15,18 @@ export class FrmInputMasterMappingCabangService {
 
     getCabangList() {
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.global.GlobalUrl + '/getCabang/', options);
+        return this.http.get<any>(this.global.GlobalUrl + '/getCabang/', {headers});
     }
 
     getZonaList() {
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.global.GlobalUrl + '/getZonaMapping/', options);
+        return this.http.get<any>(this.global.GlobalUrl + '/getZonaMapping/', {headers});
     }
 
     saveTambahMappingZona(registerMappingZona): Promise<any> {
@@ -36,21 +36,21 @@ export class FrmInputMasterMappingCabangService {
         let bodyString = JSON.stringify(registerMappingZona);
 
         // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/saveMappingZona/', bodyString, options) // ...using post request
+        return this.http.post(this.global.GlobalUrl + '/saveMappingZona/', bodyString, {headers}) // ...using post request
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
     getTeknisiSingle(kode_bass, kode_teknisi) {
         let token = this.global.Decrypt('mAuth').TOKEN
         let bodyString = JSON.stringify({ "kode_bass": kode_bass, "kode_teknisi": kode_teknisi });
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/getTeknisiSingle/', bodyString, options);
+        return this.http.post(this.global.GlobalUrl + '/getTeknisiSingle/', bodyString, {headers});
     }
 
     editTeknisi(registerTeknisi, kode_bass, kode_teknisi): Promise<any> {
@@ -61,12 +61,12 @@ export class FrmInputMasterMappingCabangService {
         let bodyString = JSON.stringify(registerTeknisi);
 
         // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/updateTeknisi/', bodyString, options) // ...using post request
+        return this.http.post(this.global.GlobalUrl + '/updateTeknisi/', bodyString, {headers}) // ...using post request
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
 }

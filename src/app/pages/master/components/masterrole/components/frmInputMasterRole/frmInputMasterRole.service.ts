@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -18,12 +18,12 @@ export class FrmInputMasterRoleService {
 
         let token = this.global.Decrypt('mAuth').TOKEN
         let bodyString = JSON.stringify({"kode_role":kode_role}); // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json','x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json','x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/getRoleDetailList/', bodyString, options)
+        return this.http.post(this.global.GlobalUrl + '/getRoleDetailList/', bodyString, {headers})
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
     saveTambahRole(payload): Promise<any> {
@@ -33,24 +33,24 @@ export class FrmInputMasterRoleService {
 
 
         // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/saveTambahRole/', bodyString, options) // ...using post request
+        return this.http.post(this.global.GlobalUrl + '/saveTambahRole/', bodyString, {headers}) // ...using post request
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
     getRoleHeader(kode_role): Promise<any> {
 
         let token = this.global.Decrypt('mAuth').TOKEN
         let bodyString = JSON.stringify({"kode_role":kode_role}); // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json','x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json','x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/getRoleList/', bodyString, options)
+        return this.http.post(this.global.GlobalUrl + '/getRoleList/', bodyString, {headers})
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
     updateRole(payload): Promise<any> {
@@ -60,12 +60,12 @@ export class FrmInputMasterRoleService {
 
 
         // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/updateRole/', bodyString, options) // ...using post request
+        return this.http.post(this.global.GlobalUrl + '/updateRole/', bodyString, {headers}) // ...using post request
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
 }

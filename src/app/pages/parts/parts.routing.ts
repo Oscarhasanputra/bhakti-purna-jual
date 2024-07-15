@@ -5,6 +5,7 @@ import { PartOrder } from './components/partorder/partorder.component';
 import { PartReceiving } from './components/partreceiving/partreceiving.component';
 import { MaintainPartOrder } from './components/maintainpartorder/maintainpartorder.component';
 import { ListFaktur } from './components/listfaktur/listfaktur.component';
+import { NgModule } from '@angular/core';
 
 // noinspection TypeScriptValidateTypes
 const routes: Routes = [
@@ -24,5 +25,12 @@ const routes: Routes = [
     ]
   }
 ];
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class PartsRoutingModule{
 
-export const routing = RouterModule.forChild(routes);
+}
+
+// export const routing = RouterModule.forChild(routes);

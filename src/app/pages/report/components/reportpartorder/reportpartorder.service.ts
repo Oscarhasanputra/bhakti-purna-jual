@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { GlobalState } from '../../../../global.state';
@@ -14,18 +14,18 @@ export class ReportPartOrderService {
 
     getReportPartOrderServices(kode_dealer,kode_zona,tgl_awal,tgl_akhir){
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.global.GlobalUrl + '/reportpartorder/' + kode_dealer + '/' + kode_zona + '/' + tgl_awal + '/' + tgl_akhir, options);
+        return this.http.get<any>(this.global.GlobalUrl + '/reportpartorder/' + kode_dealer + '/' + kode_zona + '/' + tgl_awal + '/' + tgl_akhir, {headers});
     }
 
     getZonaList(kode_dealer){
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.global.GlobalUrl + '/getZonaList/' + kode_dealer, options);
+        return this.http.get<any>(this.global.GlobalUrl + '/getZonaList/' + kode_dealer, {headers});
     }
 }
 

@@ -2,7 +2,7 @@ import { NgModule, ModuleWithProviders }      from '@angular/core';
 import { CommonModule }  from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgUploaderModule } from 'ngx-uploader';
+import { NgxUploaderModule } from 'ngx-uploader';
 
 import {
   BaThemeConfig
@@ -54,6 +54,7 @@ import {
   EmailValidator,
   EqualPasswordsValidator
 } from './validators';
+import { InputTextModule } from 'primeng/inputtext';
 
 const NGA_COMPONENTS = [
   BaAmChart,
@@ -108,18 +109,19 @@ const NGA_VALIDATORS = [
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    NgUploaderModule,
+    NgxUploaderModule
   ],
   exports: [
     CommonModule,
     ...NGA_PIPES,
     ...NGA_DIRECTIVES,
     ...NGA_COMPONENTS
-  ]
+  ],
+  bootstrap:[...NGA_COMPONENTS]
 })
 export class NgaModule {
   static forRoot(): ModuleWithProviders<NgaModule> {
-    return <ModuleWithProviders> {
+    return {
       ngModule: NgaModule,
       providers: [
         BaThemeConfigProvider,

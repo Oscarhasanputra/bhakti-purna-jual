@@ -1,43 +1,138 @@
 <!-- lookup barang list -->
 <ba-card title="list barang" baCardClass="with-scroll" *ngIf="flagHidden">
-    <div class="form-horizontal col-md-10 offset-md-2">
-        <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-3 form-control-label">Kode/Nama Barang</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" id="inputEmail3"  [(ngModel)]="barangfilter.kodeBarang" [ngModelOptions]="{standalone: true}" placeholder="Cari berdasakan Kode/Nama Barang">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-3 form-control-label">Merk</label>
-            <div class="col-sm-3">
-                <select class="form-control" id="exampleSelect1" [(ngModel)]="barangfilter.merk" [ngModelOptions]="{standalone: true}">
-                    <option *ngFor="let list of merkList" [ngValue]="list.KODE_MEREK">{{ list.Nama_Merek }}</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-3 form-control-label">Jenis</label>
-            <div class="col-sm-3">
-                <select class="form-control" id="exampleSelect1"  [(ngModel)]="barangfilter.jenis" [ngModelOptions]="{standalone: true}">
-                    <option *ngFor="let list of jenisList" [ngValue]="list.KODE_JENIS">{{ list.Nama_JENiS }}</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="offset-sm-3 col-sm-7">
-            <button class="btn btn-warning" (click)="searchBarangClicked(barangfilter.kodeBarang, barangfilter.merk, barangfilter.jenis)">Search</button>
-            <button class="btn btn-success" (click)="onCancelBarangBrowse()"><i class="ion-arrow-return-left"></i> Kembali</button>
-            </div>
-        </div>
-    </div> 
-    
-    <div [ngBusy]="busyloadevent"></div>
+  <div class="form-horizontal col-md-10 offset-md-2">
+    <div class="form-group row">
+      <label for="inputEmail3" class="col-sm-3 form-control-label"
+        >Kode/Nama Barang</label
+      >
+      <div class="col-sm-5">
+        <input
+          type="text"
+          class="form-control"
+          id="inputEmail3"
+          [(ngModel)]="barangfilter.kodeBarang"
+          [ngModelOptions]="{standalone: true}"
+          placeholder="Cari berdasakan Kode/Nama Barang"
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputEmail3" class="col-sm-3 form-control-label">Merk</label>
+      <div class="col-sm-3">
+        <select
+          class="form-control"
+          id="exampleSelect1"
+          [(ngModel)]="barangfilter.merk"
+          [ngModelOptions]="{standalone: true}"
+        >
+          <option *ngFor="let list of merkList" [ngValue]="list.KODE_MEREK">
+            {{ list.Nama_Merek }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputEmail3" class="col-sm-3 form-control-label">Jenis</label>
+      <div class="col-sm-3">
+        <select
+          class="form-control"
+          id="exampleSelect1"
+          [(ngModel)]="barangfilter.jenis"
+          [ngModelOptions]="{standalone: true}"
+        >
+          <option *ngFor="let list of jenisList" [ngValue]="list.KODE_JENIS">
+            {{ list.Nama_JENiS }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="offset-sm-3 col-sm-7">
+        <button
+          class="btn btn-warning"
+          (click)="searchBarangClicked(barangfilter.kodeBarang, barangfilter.merk, barangfilter.jenis)"
+        >
+          Search
+        </button>
+        <button class="btn btn-success" (click)="onCancelBarangBrowse()">
+          <i class="ion-arrow-return-left"></i> Kembali
+        </button>
+      </div>
+    </div>
+  </div>
 
-    <p-dataTable [value]="barangList" [rows]="10" [paginator]="true" [pageLinks]="6" [rowsPerPageOptions]="[10,20,30]" [style]="{'color': 'black'}"
+  <div [ngBusy]="busyloadevent"></div>
+  <p-table
+    [value]="barangList"
+    [rows]="10"
+    [paginator]="true"
+    [pageLinks]="6"
+    [rowsPerPageOptions]="[10,20,30]"
+    selectionMode="single"
+    [(selection)]="selectedBarang"
+    (onRowSelect)="onRowSelectBarang($event)"
+    style="color: black"
+    [globalFilterFields]="['NOMOR_NOTA','TANGGAL','NAMA_CUSTOMER','ALAMAT_CUSTOMER','KODE_BARANG','NOMOR_SERI_BARANG','ISVALID','REASON']"
+    autoLayout="true"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th
+          style="color: black"
+          pResizableColumn
+          [pSortableColumn]="'Kode_Barang'"
+        >
+          Kode Barang
+        </th>
+        <th
+          style="color: black"
+          pResizableColumn
+          [pSortableColumn]="'Nama_Barang'"
+        >
+          Nama
+        </th>
+        <th style="color: black" pResizableColumn [pSortableColumn]="'Merek'">
+          Merek
+        </th>
+        <th style="color: black" pResizableColumn [pSortableColumn]="'Jenis'">
+          Jenis
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-data let-ri="rowIndex">
+      <tr>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>{{ data["Kode_Barang"] }}</div>
+        </td>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>{{ data["Nama_Barang"] }}</div>
+        </td>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>{{ data["Merek"] }}</div>
+        </td>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>{{ data["Jenis"] }}</div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <!-- <p-dataTable [value]="barangList" [rows]="10" [paginator]="true" [pageLinks]="6" [rowsPerPageOptions]="[10,20,30]" [style]="{'color': 'black'}"
         selectionMode="single" [(selection)]="selectedBarang" (onRowSelect)="onRowSelectBarang($event)">
         <p-column field="Kode_Barang" header="Kode Barang" [sortable]="true"></p-column>
         <p-column field="Nama_Barang" header="Nama" [sortable]="true" ></p-column>
         <p-column field="Merek" header="Merek" [sortable]="true" ></p-column>
         <p-column field="Jenis" header="Jenis" [sortable]="true" ></p-column>
-    </p-dataTable>        
+    </p-dataTable>         -->
 </ba-card>

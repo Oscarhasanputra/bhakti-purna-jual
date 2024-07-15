@@ -21,6 +21,7 @@ import { frmInputMasterTransportasi } from './components/mastertransportasi/comp
 import { frmInputMasterMappingCabang } from './components/mastermappingcabangzona/components/frmInputMasterMappingCabang/frmInputMasterMappingCabang.component';
 
 import { MasterExplodedSparepart } from './components/masterexplodedsparepart/masterexplodedsparepart.component';
+import { NgModule } from '@angular/core';
 
 // noinspection TypeScriptValidateTypes
 const routes: Routes = [
@@ -56,4 +57,9 @@ const routes: Routes = [
   }
 ];
 
-export const routing = RouterModule.forChild(routes);
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class MasterRoutingModule{}
+// export const routing = RouterModule.forChild(routes);

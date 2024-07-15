@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, Headers, RequestOptions, Response } from '@angular/http';
+import {HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -22,21 +22,21 @@ export class FrmInputMasterTeknisiService {
 
 
         // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/saveTambahTeknisi/', bodyString, options) // ...using post request
+        return this.http.post(this.global.GlobalUrl + '/saveTambahTeknisi/', bodyString, {headers}) // ...using post request
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
     getTeknisiSingle(kode_bass, kode_teknisi) {
         let token = this.global.Decrypt('mAuth').TOKEN
         let bodyString = JSON.stringify({ "kode_bass": kode_bass, "kode_teknisi": kode_teknisi });
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/getTeknisiSingle/', bodyString, options);
+        return this.http.post<any>(this.global.GlobalUrl + '/getTeknisiSingle/', bodyString, {headers});
     }
 
     editTeknisi(registerTeknisi, kode_bass, kode_teknisi): Promise<any> {
@@ -47,12 +47,12 @@ export class FrmInputMasterTeknisiService {
         let bodyString = JSON.stringify(registerTeknisi);
         // console.log(bodyString);
         // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/updateTeknisi/', bodyString, options) // ...using post request
+        return this.http.post(this.global.GlobalUrl + '/updateTeknisi/', bodyString, {headers}) // ...using post request
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
 }

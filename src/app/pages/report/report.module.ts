@@ -3,14 +3,18 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
 
-import { routing } from './report.routing';
+import { ReportRoutingModule } from './report.routing';
 
-import { CalendarModule, DataTableModule, SharedModule, DialogModule } from 'primeng/primeng';
 
-import { BusyModule } from 'angular2-busy';
+import {CalendarModule} from "primeng/calendar"
+import {TableModule} from "primeng/table"
+import {SharedModule} from "primeng/api"
+import {DialogModule} from "primeng/dialog"
 
-import { Ng2BootstrapModule } from "ng2-bootstrap";
+import { NgBusyModule } from 'ng-busy';
 
+// import { Ng2BootstrapModule } from "ngx-bootstrap";
+import {} from "ngx-bootstrap/ngx-bootstrap"
 import { Report } from './report.component';
 import { reportClaim } from './components/reportclaim/reportclaim.component';
 import { reportServiceList } from './components/reportservicelist/reportservicelist.component';
@@ -27,6 +31,7 @@ import { RejectedServiceReportService } from './components/rejectedservicereport
 import { ReportPartOrderService } from './components/reportpartorder/reportpartorder.service';
 import { ReportPartReceivingService } from './components/reportpartreceiving/reportpartreceiving.service';
 import { BrowseListBassReportService } from './components/lookupreport/browseListBassReport/browseListBassReport.service'
+import { PrimengDefaultModule } from '../../theme/defaultprimeng.module';
 
 
 
@@ -35,12 +40,14 @@ import { BrowseListBassReportService } from './components/lookupreport/browseLis
   imports: [
     CommonModule,
     NgaModule,
-    routing,
+    ReportRoutingModule,
     CalendarModule,
-    BusyModule,
+    NgBusyModule,
     DialogModule,
-    Ng2BootstrapModule,
-    DataTableModule,
+    FormsModule,
+    PrimengDefaultModule,
+    // Ng2BootstrapModule,
+    TableModule,
     SharedModule
   ],
   declarations: [

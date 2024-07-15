@@ -1,27 +1,26 @@
 import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/primeng';
-import { ModalDirective } from 'ng2-bootstrap';
+// import { SelectItem } from 'primeng/api';
 import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { EmailValidator } from '../../../../../../theme/validators';
 
 import { FrmInputMasterRoleService } from './frmInputMasterRole.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { GlobalState } from '../../../../../../global.state';
 
 @Component({
   selector: 'frminputmasterrole',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./frmInputMasterRole.component.scss')],
-  template: require('./frmInputMasterRole.component.html'),
+  styleUrls:['./frmInputMasterRole.component.scss'],
+  templateUrl:'./frmInputMasterRole.component.html'
 })
 export class frmInputMasterRole {
 
   public sKodeRole: any;
   sStorage: any;
   source: roleDetailList[];
-  private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+  busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
   marked = false;
   selectedRows: Array<any> = [];
   nama_role: any;
@@ -45,7 +44,7 @@ export class frmInputMasterRole {
     });
 
     if (this.params.status == "edit") {
-      this.busyloadevent.busy = this.frmInputMasterRoleService.getRoleHeader(this.params.kode_role).then(
+      this.busyloadevent.busy = [this.frmInputMasterRoleService.getRoleHeader(this.params.kode_role).then(
         data => {
           this.roleHeader = data;
           this.nama_role = this.roleHeader[0].NAMA_ROLE;
@@ -64,9 +63,9 @@ export class frmInputMasterRole {
             this.router.navigate(['/login']);
           }
         }
-      );
+      )]
 
-      this.busyloadevent.busy = this.frmInputMasterRoleService.getListRoleDetail(this.params.kode_role).then(
+      this.busyloadevent.busy = [this.frmInputMasterRoleService.getListRoleDetail(this.params.kode_role).then(
         data => {
           this.source = data;
         },
@@ -77,10 +76,10 @@ export class frmInputMasterRole {
             this.router.navigate(['/login']);
           }
         }
-      );
+      )]
     } else {
       let kode_role = '%%';
-      this.busyloadevent.busy = this.frmInputMasterRoleService.getListRoleDetail(kode_role).then(
+      this.busyloadevent.busy = [this.frmInputMasterRoleService.getListRoleDetail(kode_role).then(
         data => {
           this.source = data;
         },
@@ -91,7 +90,7 @@ export class frmInputMasterRole {
             this.router.navigate(['/login']);
           }
         }
-      );
+      )]
     }
 
   }

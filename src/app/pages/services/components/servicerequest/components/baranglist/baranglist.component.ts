@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { BarangListService } from './baranglist.service';
 import { Subject } from 'rxjs';
 import { GlobalState } from '../../../../../../global.state';
@@ -8,8 +8,8 @@ import { GlobalState } from '../../../../../../global.state';
 @Component({
     selector: 'baranglist',
     encapsulation: ViewEncapsulation.None,
-    styles: [require('./baranglist.scss')],
-    template: require('./baranglist.html'),
+    styleUrls:['./baranglist.scss'],
+    templateUrl:'./baranglist.html'
 })
 export class BarangListComponent implements OnInit {
     public merkList: any;
@@ -22,7 +22,7 @@ export class BarangListComponent implements OnInit {
     public gloUsername: any;
     public barangfilter = { kodeBarang: "", merk: "", jenis: "" }
 
-    private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+    busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
     @Output() onHiddenMain = new EventEmitter<Boolean>();
     @Output() onCancel = new EventEmitter<Boolean>();
@@ -30,7 +30,7 @@ export class BarangListComponent implements OnInit {
 
     constructor(public router: Router, private actroute: ActivatedRoute, private service: BarangListService,
         public global: GlobalState) {
-        this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 25px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:34px"></i>{{message}}</div>'
+        this.busyloadevent.message = 'Please Wait...'
     }
 
     ngOnInit() {
@@ -84,7 +84,7 @@ export class BarangListComponent implements OnInit {
     public searchBarangEventOnBlur(filter: string) {
         if (filter !== '') {
             this.barangfilter['kodeBarang'] = filter
-            this.busyloadevent.busy = this.service.getBarang(filter, '', '').then(
+            this.busyloadevent.busy = [this.service.getBarang(filter, '', '').then(
                 data => {
                     this.barangList = data
 
@@ -106,12 +106,12 @@ export class BarangListComponent implements OnInit {
                     } else {
                         alert(err._body.data);
                     }
-                });
+                })]
         }
     }
 
     public getMerk() {
-        this.busyloadevent.busy = this.service.getMerk().then(
+        this.busyloadevent.busy = [this.service.getMerk().then(
             data => {
                 this.merkList = data;
                 this.barangfilter['merk'] = this.merkList[0].KODE_MEREK
@@ -124,11 +124,11 @@ export class BarangListComponent implements OnInit {
                 } else {
                     alert(err._body.data);
                 }
-            });
+            })]
     }
 
     public getJenis() {
-        this.busyloadevent.busy = this.service.getJenis().then(
+        this.busyloadevent.busy = [this.service.getJenis().then(
             data => {
                 this.jenisList = data;
                 this.barangfilter['jenis'] = this.jenisList[0].KODE_JENIS
@@ -141,11 +141,11 @@ export class BarangListComponent implements OnInit {
                 } else {
                     alert(err._body.data);
                 }
-            });
+            })]
     }
 
     public getBarang(kodeBarang: String, merk: String, jenis: String) {
-        this.busyloadevent.busy = this.service.getBarang(kodeBarang, merk, jenis).then(
+        this.busyloadevent.busy = [this.service.getBarang(kodeBarang, merk, jenis).then(
             data => {
                 this.barangList = data;
             },
@@ -157,7 +157,7 @@ export class BarangListComponent implements OnInit {
                 } else {
                     alert(err._body.data);
                 }
-            });
+            })]
     }
 
 

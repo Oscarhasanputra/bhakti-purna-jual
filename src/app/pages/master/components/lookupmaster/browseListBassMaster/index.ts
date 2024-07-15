@@ -1,1 +1,2 @@
-export * from './browseListBass.component';
+// export * from './browseListBass.component';
+export * from './browseListBassMaster.component'

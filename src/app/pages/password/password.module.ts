@@ -4,9 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
 
 import { Password } from './password.component';
-import { routing } from './password.routing';
+import { PasswordRoutingModule } from './password.routing';
 
 import { PasswordService } from './password.service';
+import { PrimengDefaultModule } from '../../theme/defaultprimeng.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { PasswordService } from './password.service';
     ReactiveFormsModule,
     FormsModule,
     NgaModule,
-    routing
+    PasswordRoutingModule,
+    PrimengDefaultModule
   ],
   declarations: [
     Password

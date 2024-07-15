@@ -1,28 +1,172 @@
 <div [ngBusy]="busyloadevent"></div>
 
 <ba-card title="Barang List" baCardClass="with-scroll table-panel">
-    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
-        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-        <input #gb1 type="text" pInputText size="50" placeholder="Search">
-    </div>
+  <div
+    class="ui-widget-header"
+    style="padding: 4px 10px; border-bottom: 0 none"
+  >
+    <i class="fa fa-search" style="margin: 4px 4px 0 0"></i>
+    <input #gb1 type="text" pInputText size="50" placeholder="Search" />
+  </div>
 
-    <p-dataTable [value]="baranglist" [(selection)]="selectedBarang" [responsive]="true" sortMode="multiple" [rows]="5" [paginator]="true"
+  <p-table
+    #dt
+    [sortOrder]="1"
+    [value]="baranglist"
+    sortMode="multiple"
+    [globalFilterFields]="['Kode_Barang', 'Nama_Barang', 'Merek', 'Jenis']"
+    [rows]="5"
+    [paginator]="true"
+    [responsive]="true"
+    [(selection)]="selectedBarang"
+    [selectionMode]="'single'"
+    (onRowSelect)="onRowSelectBarang($event)"
+    autoLayout="true"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th
+          style="color: black"
+          pResizableColumn
+          [pSortableColumn]="'Kode_Barang'"
+        >
+          Kode Barang
+        </th>
+        <th
+          style="color: black"
+          pResizableColumn
+          [pSortableColumn]="'Nama_Barang'"
+        >
+          Nama Barang
+        </th>
+        <th style="color: black" pResizableColumn [pSortableColumn]="'Merek'">
+          Merk
+        </th>
+        <th style="color: black" pResizableColumn [pSortableColumn]="'Jenis'">
+          Jenis
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-data>
+      <tr [pSelectableRow]="data">
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>
+            {{ data["Kode_Barang"] }}
+          </div>
+        </td>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>
+            {{ data["Nama_Barang"] }}
+          </div>
+        </td>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>
+            {{ data["Merek"] }}
+          </div>
+        </td>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>
+            {{ data["Jenis"] }}
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <!-- <p-dataTable [value]="baranglist" [(selection)]="selectedBarang" [responsive]="true" sortMode="multiple" [rows]="5" [paginator]="true"
         [pageLinks]="3" [style]="{'color': 'black'}" selectionMode="single" (onRowSelect)="onRowSelectBarang($event)" [globalFilter]="gb1"
         #dt1>
         <p-column field="Kode_Barang" header="Kode Barang" [sortable]="true"></p-column>
         <p-column field="Nama_Barang" header="Nama Barang" [sortable]="true"></p-column>
         <p-column field="Merek" header="Merk" [sortable]="true"></p-column>
         <p-column field="Jenis" header="Jenis" [sortable]="true"></p-column>
-    </p-dataTable>
+    </p-dataTable> -->
 </ba-card>
 
-<p-dialog header="LIST EXPLODED HEADER" [(visible)]="display2" modal="true" height="600" width="1000" responsive="true" appendTo="body">
-    <!--<ba-card baCardClass="with-scroll">-->
-    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
-        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-        <input #gb2 type="text" pInputText size="50" placeholder="Search">
-    </div>
-    <p-dataTable [value]="explodedheaderlist" [(selection)]="selectedExplodedheader" [responsive]="true" sortMode="multiple"
+<p-dialog
+  header="LIST EXPLODED HEADER"
+  [(visible)]="display2"
+  modal="true"
+  height="600"
+  width="1000"
+  responsive="true"
+  appendTo="body"
+>
+  <!--<ba-card baCardClass="with-scroll">-->
+  <div
+    class="ui-widget-header"
+    style="padding: 4px 10px; border-bottom: 0 none"
+  >
+    <i class="fa fa-search" style="margin: 4px 4px 0 0"></i>
+    <input #gb2 type="text" pInputText size="50" placeholder="Search" />
+  </div>
+  <p-table
+    #dt
+    [sortOrder]="1"
+    [value]="explodedheaderlist"
+    sortMode="multiple"
+    [globalFilterFields]="['ExplodedID', 'tgl_Revisi']"
+    [rows]="5"
+    [paginator]="true"
+    [responsive]="true"
+    [(selection)]="selectedExplodedheader"
+    [selectionMode]="'single'"
+    (onRowSelect)="onRowSelectExplodedHeader($event)"
+    autoLayout="true"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th
+          style="color: black"
+          pResizableColumn
+          [pSortableColumn]="'ExplodedID'"
+        >
+          Kode Exploded
+        </th>
+        <th
+          style="color: black"
+          pResizableColumn
+          [pSortableColumn]="'tgl_Revisi'"
+        >
+          Tanggal Revisi
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-data>
+      <tr [pSelectableRow]="data">
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>
+            {{ data["ExplodedID"] }}
+          </div>
+        </td>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>
+            {{ data["tgl_Revisi"] | date : "dd-MMM-yyyy" }}
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <!-- <p-dataTable [value]="explodedheaderlist" [(selection)]="selectedExplodedheader" [responsive]="true" sortMode="multiple"
         [rows]="5" [paginator]="true" [pageLinks]="3" [style]="{'color': 'black'}" selectionMode="single" (onRowSelect)="onRowSelectExplodedHeader($event)"
         [globalFilter]="gb2" #dt2>
         <p-column field="ExplodedID" header="Kode Exploded" [sortable]="true"></p-column>
@@ -31,24 +175,116 @@
                 <span>{{data[col.field] | date: 'dd-MMM-yyyy'}}</span>
             </ng-template>
         </p-column>
-    </p-dataTable>
-    <br />
-    <button type="button" class="btn btn-primary" (click)="Back()">Cancel</button>
-    <!--</ba-card>-->
+    </p-dataTable> -->
+  <br />
+  <button type="button" class="btn btn-primary" (click)="Back()">Cancel</button>
+  <!--</ba-card>-->
 </p-dialog>
 
-<p-dialog header="LIST EXPLODED DETAIL" [(visible)]="display3" modal="true" height="650" width="1000" responsive="true" appendTo="body">
-    <!--<ba-card baCardClass="with-scroll">-->
-    <div class="col-md-6">
-        <canvas id="myCanvas" width="480" height="480" style="border:1px solid #d3d3d3;"></canvas>
-        <img id="scream" [src]="gambar" [hidden]="true" />
+<p-dialog
+  header="LIST EXPLODED DETAIL"
+  [(visible)]="display3"
+  modal="true"
+  height="650"
+  width="1000"
+  responsive="true"
+  appendTo="body"
+>
+  <!--<ba-card baCardClass="with-scroll">-->
+  <div class="col-md-6">
+    <canvas
+      id="myCanvas"
+      width="480"
+      height="480"
+      style="border: 1px solid #d3d3d3"
+    ></canvas>
+    <img id="scream" [src]="gambar" [hidden]="true" />
+  </div>
+  <div class="col-md-6">
+    <div
+      class="ui-widget-header"
+      style="padding: 4px 10px; border-bottom: 0 none"
+    >
+      <i class="fa fa-search" style="margin: 4px 4px 0 0"></i>
+      <input #gb3 type="text" pInputText size="50" placeholder="Search" />
     </div>
-    <div class="col-md-6">
-        <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
-            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-            <input #gb3 type="text" pInputText size="50" placeholder="Search">
-        </div>
-        <p-dataTable [style]="{'width':'480px', 'font-size':'10px', 'font-weight':'bold'}" [value]="explodeddetaillist" [(selection)]="selectedExplodeddetail"
+    <p-table
+      #dt
+      [sortOrder]="1"
+      sortMode="multiple"
+      [globalFilterFields]="['Nomor', 'PartID', 'PartName', 'Harga']"
+      [rows]="5"
+      [value]="explodeddetaillist"
+      [(selection)]="selectedExplodeddetail"
+      [paginator]="true"
+      [responsive]="true"
+      [selectionMode]="'multiple'"
+      style="width: 480px; font-size: 10px; font-weight: bold"
+      autoLayout="true"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th style="color: black" pResizableColumn [pSortableColumn]="'Nomor'">
+            No.
+          </th>
+          <th
+            style="color: black"
+            pResizableColumn
+            [pSortableColumn]="'PartID'"
+          >
+            Kode Part
+          </th>
+          <th
+            style="color: black"
+            pResizableColumn
+            [pSortableColumn]="'PartName'"
+          >
+            Nama Part
+          </th>
+          <th style="color: black" pResizableColumn [pSortableColumn]="'Harga'">
+            Harga
+          </th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-data>
+        <tr>
+          <td
+            class="ui-resizable-column"
+            style="position: relative; color: black"
+          >
+            <div>
+              {{ data["Nomor"] }}
+            </div>
+          </td>
+          <td
+            class="ui-resizable-column"
+            style="position: relative; color: black"
+          >
+            <div>
+              {{ data["PartID"] }}
+            </div>
+          </td>
+          <td
+            class="ui-resizable-column"
+            style="position: relative; color: black"
+          >
+            <div>
+              {{ data["PartName"] }}
+            </div>
+          </td>
+          <td
+            class="ui-resizable-column"
+            style="position: relative; color: black"
+          >
+            <div>
+              {{ data["Harga"] }}
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <!-- <p-dataTable [style]="{'width':'480px', 'font-size':'10px', 'font-weight':'bold'}" [value]="explodeddetaillist" [(selection)]="selectedExplodeddetail"
             [responsive]="true" sortMode="multiple" [rows]="8" [paginator]="true" [pageLinks]="3" [style]="{'color': 'black'}"
             selectionMode="multiple" [globalFilter]="gb3" #dt3>
             <p-column [style]="{'width':'3px'}" selectionMode="multiple"></p-column>
@@ -56,22 +292,95 @@
             <p-column [style]="{'width':'40px'}" field="PartID" header="Kode Part" [sortable]="true"></p-column>
             <p-column [style]="{'width':'70px'}" field="PartName" header="Nama Part" [sortable]="true"></p-column>
             <p-column [style]="{'width':'30px'}" field="Harga" header="Harga" [sortable]="true"></p-column>
-        </p-dataTable>
+        </p-dataTable> -->
 
-        <button type="button" class="btn btn-primary" (click)="addtogrid()">Show</button> &nbsp; &nbsp; &nbsp;
-        <button type="button" class="btn btn-primary" (click)="Back()">Cancel</button>
-    </div>
-    <!--</ba-card>-->
+    <button type="button" class="btn btn-primary" (click)="addtogrid()">
+      Show
+    </button>
+    &nbsp; &nbsp; &nbsp;
+    <button type="button" class="btn btn-primary" (click)="Back()">
+      Cancel
+    </button>
+  </div>
+  <!--</ba-card>-->
 </p-dialog>
 
-<p-dialog header="LIST SPAREPART" [(visible)]="display4" modal="true" height="600" width="1000" responsive="true" appendTo="body">
-    <p-dataTable [value]="selectedExplodeddetail2" [responsive]="true" sortMode="multiple" [rows]="5" [paginator]="true" [pageLinks]="3"
+<p-dialog
+  header="LIST SPAREPART"
+  [(visible)]="display4"
+  modal="true"
+  height="600"
+  width="1000"
+  responsive="true"
+  appendTo="body"
+>
+  <p-table
+    #dt
+    [sortOrder]="1"
+    sortMode="multiple"
+    [globalFilterFields]="['Nomor', 'PartID', 'PartName', 'Harga']"
+    [value]="selectedExplodeddetail2"
+    [rows]="5"
+    [paginator]="true"
+    [responsive]="true"
+    [selectionMode]="'multiple'"
+    autoLayout="true"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th style="color: black" pResizableColumn [pSortableColumn]="'Part_ID'">
+          ID Sparepart
+        </th>
+        <th
+          style="color: black"
+          pResizableColumn
+          [pSortableColumn]="'Part_Name'"
+        >
+          Nama Sparepart
+        </th>
+        <th style="color: black" pResizableColumn [pSortableColumn]="'Harga'">
+          Harga
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-data>
+      <tr>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>
+            {{ data["Part_ID"] }}
+          </div>
+        </td>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>
+            {{ data["Part_Name"] }}
+          </div>
+        </td>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>
+            {{ data["Harga"] }}
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- <p-dataTable [value]="selectedExplodeddetail2" [responsive]="true" sortMode="multiple" [rows]="5" [paginator]="true" [pageLinks]="3"
         [style]="{'color': 'black'}" selectionMode="single">
         <p-column field="Part_ID" header="ID Sparepart"></p-column>
         <p-column field="Part_Name" header="Nama Sparepart"></p-column>
         <p-column field="Harga" header="Harga"></p-column>
-    </p-dataTable>
-    <br />
-    <button type="button" class="btn btn-primary" (click)="Back()">Close</button>
-    <!--</ba-card>-->
+    </p-dataTable> -->
+  <br />
+  <button type="button" class="btn btn-primary" (click)="Back()">Close</button>
+  <!--</ba-card>-->
 </p-dialog>

@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { CustomerListService } from './customerlist.service';
 import { Subject } from 'rxjs';
 import { GlobalState } from '../../../../../../global.state';
@@ -8,8 +8,8 @@ import { GlobalState } from '../../../../../../global.state';
 @Component({
     selector: 'customerlist',
     encapsulation: ViewEncapsulation.None,
-    styles: [require('./customerlist.scss')],
-    template: require('./customerlist.html'),
+    styleUrls:['./customerlist.scss'],
+    templateUrl:'./customerlist.html'
 })
 export class CustomerListComponent implements OnInit {
     public zonaList: any;
@@ -21,7 +21,7 @@ export class CustomerListComponent implements OnInit {
     public gloUsername: any;
     public customer = { filter: "", zona: "" }
 
-    private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+    busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
     @Output() onHiddenMain = new EventEmitter<Boolean>();
     @Output() onCancel = new EventEmitter<Boolean>();
@@ -30,7 +30,7 @@ export class CustomerListComponent implements OnInit {
     constructor(public router: Router, private actroute: ActivatedRoute, private service: CustomerListService,
         public global: GlobalState) {
 
-        this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 25px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:34px"></i>{{message}}</div>'
+        this.busyloadevent.message = 'Please Wait...'
 
     }
 
@@ -43,7 +43,7 @@ export class CustomerListComponent implements OnInit {
 
     // event - event customer *
     public buttonCustomerBrowseClicked() {
-        this.busyloadevent.busy = this.service.getZonaList(this.gloKodeBass).then(
+        this.busyloadevent.busy = [this.service.getZonaList(this.gloKodeBass).then(
             data => {
                 this.zonaList = data;
                 this.customer.zona = this.zonaList[0].ZONA
@@ -61,7 +61,7 @@ export class CustomerListComponent implements OnInit {
                 } else {
                     alert(err._body.data);
                 }
-            });
+            })]
     }
 
     // *
@@ -97,7 +97,7 @@ export class CustomerListComponent implements OnInit {
     public searchCustomerEventOnBlur(filter: string) {
         if (filter !== '') {
             this.customer['filter'] = filter
-            this.busyloadevent.busy = this.service.getCustomerService(filter, '', this.gloKodeBass).then(
+            this.busyloadevent.busy = [this.service.getCustomerService(filter, '', this.gloKodeBass).then(
                 data => {
                     this.customerList = data
                     // console.log("jumlah row customer : ", this.customerList.length)
@@ -119,12 +119,12 @@ export class CustomerListComponent implements OnInit {
                     } else {
                         alert(err._body.data);
                     }
-                });
+                })]
         }
     }
 
     public getZona() {
-        this.busyloadevent.busy = this.service.getZonaList(this.gloKodeBass).then(
+        this.busyloadevent.busy = [this.service.getZonaList(this.gloKodeBass).then(
             data => {
                 this.zonaList = data;
                 this.customer.zona = this.zonaList[0].ZONA
@@ -137,11 +137,11 @@ export class CustomerListComponent implements OnInit {
                 } else {
                     alert(err._body.data);
                 }
-            });
+            })]
     }
 
     public getCustomer(filter: String, zona: String) {
-        this.busyloadevent.busy = this.service.getCustomerService(filter, zona, this.gloKodeBass).then(
+        this.busyloadevent.busy = [this.service.getCustomerService(filter, zona, this.gloKodeBass).then(
             data => {
                 this.customerList = data;
             },
@@ -153,7 +153,7 @@ export class CustomerListComponent implements OnInit {
                 } else {
                     alert(err._body.data);
                 }
-            });
+            })]
     }
 
 

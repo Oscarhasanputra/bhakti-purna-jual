@@ -6,8 +6,8 @@ import { GlobalState } from '../../../../../../global.state';
 @Component({
     selector: 'list-service',
     encapsulation: ViewEncapsulation.None,
-    styles: [require('./serviceList.scss')],
-    template: require('./serviceList.html'),
+    styleUrls:['./serviceList.scss'],
+    templateUrl:'./serviceList.html'
 })
 export class ServiceList {
     serviceList: ServiceListModel[];
@@ -84,7 +84,7 @@ export class ServiceList {
                 }
             }
             , err => {
-                // console.log(err); 
+                // console.log(err);
                 this.ServiceDataInput.KODE_SERVICE = '';
             }
         );

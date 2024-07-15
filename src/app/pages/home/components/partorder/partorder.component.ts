@@ -1,11 +1,10 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
-import { SelectItem } from 'primeng/primeng';
+// import { SelectItem } from 'primeng';
 
 import { PartOrderService } from './partorder.service';
-import { Subscription } from 'rxjs';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { GlobalState } from '../../../../global.state';
 
 @Component({
@@ -26,12 +25,12 @@ export class partOrder {
   showPilihListZona: boolean = false;
   sStorage: any;
   data: Array<any> = [];
-  listZona: SelectItem[] = [];
+  listZona: any[] = [];
   showPilihKodeBass: boolean = false;
   listBass: listBass[];
   display: boolean = false;
   sKodeBass: any;
-  private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+  busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
   showDialog() {
     this.display = true;
@@ -64,7 +63,7 @@ export class partOrder {
     this.inputted_by_bass = ''
 
     this.sStorage = this.global.Decrypt('mAuth');
-    this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 15px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:24px"></i>{{message}}</div>'
+    this.busyloadevent.message = 'Please Wait...'
 
     //dropdown zona
     if (this.sStorage.TYPE == "Cabang") {
@@ -72,7 +71,7 @@ export class partOrder {
 
       this.partOrderService.getZonaList(this.sStorage.KODE_BASS).subscribe(
         data => {
-          this.data = data.json();
+          this.data = data;
           for (var i = 0; i < this.data.length; i++) {
             this.listZona.push({ label: this.data[i].NAMA_ZONA, value: this.data[i].ZONA });
           }
@@ -93,7 +92,7 @@ export class partOrder {
 
       this.partOrderService.getZonaList(this.sStorage.KODE_BASS).subscribe(
         data => {
-          this.data = data.json();
+          this.data = data;
           for (var i = 0; i < this.data.length; i++) {
             this.listZona.push({ label: this.data[i].NAMA_ZONA, value: this.data[i].ZONA });
           }
@@ -113,7 +112,7 @@ export class partOrder {
 
       this.partOrderService.getZonaList(this.sStorage.KODE_BASS).subscribe(
         data => {
-          this.data = data.json();
+          this.data = data;
           for (var i = 0; i < this.data.length; i++) {
             this.listZona.push({ label: this.data[i].NAMA_ZONA, value: this.data[i].ZONA });
           }
@@ -184,7 +183,7 @@ export class partOrder {
       this.sKodeBass = this.sStorage.KODE_BASS;
     }
 
-    this.busyloadevent.busy = this.partOrderService.getPartOrder(this.kode_bass, this.tglAwal, this.tglAkhir, this.selectedListZona, this.sKodeBass).then(
+    this.busyloadevent.busy = [this.partOrderService.getPartOrder(this.kode_bass, this.tglAwal, this.tglAkhir, this.selectedListZona, this.sKodeBass).then(
       data => {
         this.source = data;
       },
@@ -195,7 +194,7 @@ export class partOrder {
           this.router.navigate(['/login']);
         }
       }
-    );
+    )]
   }
 
   ZonaChanged(value) {

@@ -12,7 +12,56 @@
             <input #gb type="text" pInputText size="50" placeholder="Search">
         </div>
 
-        <p-dataTable [value]="source" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+
+        <p-table [columns]="cols_of_header" #dt_un sortField="modified_date" [sortOrder]="1" [value]="source"
+        [rows]="10" [paginator]="true" [responsive]="true" autoLayout="true">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="color:black" *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+
+
+        <ng-template pTemplate="body" let-data >
+            <tr >
+                <td  class="ui-resizable-column" style="position: relative;color:black;">
+                    <div>
+                     {{data['NO_INVOICE']}}
+                    </div>
+                </td>
+                <td  class="ui-resizable-column" style="position: relative;color:black;">
+                    <div>
+                     {{data['NO_PO']}}
+                    </div>
+                </td>
+                <td  class="ui-resizable-column" style="position: relative;color:black;">
+                    <div>
+                        {{data["TANGGAL"] | date: 'dd-MMM-yyyy'}}
+                    </div>
+                </td>
+                <td  class="ui-resizable-column" style="position: relative;color:black;">
+                    <div>
+                     {{data['KODE_BASS']}}
+                    </div>
+                </td>
+                <td class="ui-resizable-column" style="position: relative;color:black;">
+                    <div>
+                     {{data['NAMA_BASS']}}
+                    </div>
+                </td>
+                <td class="ui-resizable-column" style="position: relative;color:black;">
+                    <div>
+                     {{data['STATUS']}}
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+
+        <!-- <p-dataTable [value]="source" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
             <p-column field="NO_INVOICE" header="No Invoice" [style]="{'color':'black'}"></p-column>
             <p-column field="NO_PO" header="No PO" [style]="{'color':'black'}"></p-column>
             <p-column field="TANGGAL" header="Tanggal" [style]="{'color':'black'}">
@@ -23,5 +72,6 @@
             <p-column field="KODE_BASS" header="Kode Bass" [style]="{'color':'black'}"></p-column>
             <p-column field="NAMA_BASS" header="Nama Bass" [style]="{'color':'black'}"></p-column>
             <p-column field="STATUS" header="Status" [style]="{'color':'black'}"></p-column>
-        </p-dataTable>
+        </p-dataTable> -->
 </ba-card>
+<!-- <div #card style="margin-top: 10px; text-align: center; font-size: 15px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:24px"></i>{{message}}</div> -->

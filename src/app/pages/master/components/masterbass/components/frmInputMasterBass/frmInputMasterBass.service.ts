@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -15,10 +15,10 @@ export class FrmInputMasterBassService {
 
     getKotaList() {
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.global.GlobalUrl + '/getKotaSelect/', options);
+        return this.http.get<any>(this.global.GlobalUrl + '/getKotaSelect/', {headers});
     }
 
     saveTambahBass(registerBass): Promise<any> {
@@ -29,20 +29,20 @@ export class FrmInputMasterBassService {
         let bodyString = JSON.stringify(registerBass);
 
         // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/saveTambahBass/', bodyString, options) // ...using post request
+        return this.http.post(this.global.GlobalUrl + '/saveTambahBass/', bodyString, {headers}) // ...using post request
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
     getBassSingle(kode_bass) {
         let token = this.global.Decrypt('mAuth').TOKEN
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.global.GlobalUrl + '/getBassSingle/' + kode_bass, options);
+        return this.http.get<any>(this.global.GlobalUrl + '/getBassSingle/' + kode_bass, {headers});
     }
 
     editBass(registerBass, kode_bass): Promise<any> {
@@ -50,12 +50,12 @@ export class FrmInputMasterBassService {
 
         registerBass["kode_bass"] = kode_bass;
         let bodyString = JSON.stringify(registerBass);
-        let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.GlobalUrl + '/updateBass/', bodyString, options) // ...using post request
+        return this.http.post(this.global.GlobalUrl + '/updateBass/', bodyString, {headers}) // ...using post request
             .toPromise()
-            .then(response => this.data = response.json());
+            .then(response => this.data = response);
     }
 
 }

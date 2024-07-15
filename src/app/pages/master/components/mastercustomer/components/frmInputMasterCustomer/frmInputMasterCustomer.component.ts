@@ -1,8 +1,8 @@
 import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/primeng';
-import { ModalDirective } from 'ng2-bootstrap';
+import { SelectItem } from 'primeng/api';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule, AbstractControl } from '@angular/forms';
-import { EmailValidator } from '../../../../theme/validators';
+
 
 import { FrmInputMasterCustomerService } from './frmInputMasterCustomer.service';
 import { Subscription } from 'rxjs';
@@ -12,8 +12,8 @@ import { GlobalState } from '../../../../../../global.state'
 @Component({
   selector: 'frminputmastercustomer',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./frmInputMasterCustomer.component.scss')],
-  template: require('./frmInputMasterCustomer.component.html'),
+  styleUrls:['./frmInputMasterCustomer.component.scss'],
+  templateUrl:'./frmInputMasterCustomer.component.html'
 })
 export class frmInputMasterCustomer {
   HakAkses: any;
@@ -44,7 +44,7 @@ export class frmInputMasterCustomer {
     if (this.HakAkses.HAK_AKSES) {
       this.frmInputMasterCustomerService.getKotaList().subscribe(
         data => {
-          this.data = data.json();
+          this.data = data;
           for (var i = 0; i < this.data.length; i++) {
             this.listKota.push({ label: this.data[i].KOTA, value: this.data[i].PROVINSI });
           }
@@ -88,7 +88,7 @@ export class frmInputMasterCustomer {
       if (this.HakAkses.HAK_EDIT) {
         this.frmInputMasterCustomerService.getCustomerSingle(this.params.kode_customer).subscribe(
           data => {
-            this.data = data.json();
+            this.data = data;
             this.sKodeCustomer = this.data[0].KODE_CUSTOMER;
             this.registerCustomer = this.formBuilder.group({
               nama_customer: [this.data[0].NAMA_CUSTOMER, Validators.compose([Validators.required])],

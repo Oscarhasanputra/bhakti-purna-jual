@@ -3,13 +3,17 @@ import { CommonModule }  from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
 
-import { CalendarModule, DataTableModule, SharedModule, DialogModule, TabViewModule } from 'primeng/primeng';
-import { BusyModule } from 'angular2-busy';
-import { ModalModule } from "ngx-bootstrap";
+// import { CalendarModule,  DialogModule, TabViewModule } from 'primeng/primeng';
+import {DialogModule} from "primeng/dialog"
+import {CalendarModule} from "primeng/calendar"
+import {TabViewModule} from "primeng/tabview"
+import {TableModule} from "primeng/table"
+import { NgBusyModule } from 'ng-busy';
+import { ModalModule } from "ngx-bootstrap/modal";
 // import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { Home } from './home.component';
-import { routing }       from './home.routing';
+import { HomeRoutingModule }       from './home.routing';
 import { serviceList } from './components/servicelist/servicelist.component'
 import { partOrder } from './components/partorder/partorder.component'
 import { partOrderExpired } from './components/partorderexpired/partorderexpired.component'
@@ -24,18 +28,23 @@ import { BrowseCustomerListService } from './components/lookuphome/browseCustome
 import { PartOrderService } from './components/partorder/partorder.service'
 import { PartOrderExpiredService } from './components/partorderexpired/partorderexpired.service'
 import { BarangDalamperJalananService } from './components/barangdalamperjalanan/barangdalamperjalanan.service'
+import { InputTextModule } from 'primeng/inputtext';
+import { PrimengDefaultModule } from '../../theme/defaultprimeng.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     NgaModule,
-    routing,
+    HomeRoutingModule,
     CalendarModule,
-    DataTableModule,
+    TableModule,
+    // DataTableModule,
     DialogModule,
-    BusyModule,
+    NgBusyModule,
     ModalModule,
+    InputTextModule,
+    PrimengDefaultModule,
     // Ng2SmartTableModule,
     TabViewModule
   ],

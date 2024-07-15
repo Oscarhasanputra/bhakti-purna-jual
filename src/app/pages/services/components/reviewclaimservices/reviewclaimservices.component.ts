@@ -1,14 +1,14 @@
 import { Component, ViewEncapsulation, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfirmDialogModule, ConfirmationService, DialogModule } from 'primeng/primeng';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { ConfirmationService } from 'primeng/api';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 
 import { ReviewClaimServicesService } from './reviewclaimservices.service';
 
 import { Claims } from './claim';
 
 import { GlobalState } from '../../../../global.state';
-import { MasterBass } from '../../../lookup/masterbass/masterbass.component';
+// import { MasterBass } from '../../../lookup/masterbass/masterbass.component';
 
 @Component({
   selector: 'review-claim-service',
@@ -32,10 +32,7 @@ export class ReviewClaimServices {
   selectedStatusClaim: String = "";
 
   constructor(protected service: ReviewClaimServicesService, protected router: Router, private confirmationService: ConfirmationService, public global: GlobalState) {
-    this.busyLoaderEvent.template = `<div style="margin-top:150px; margin-left:450px; position: fixed; z-index:1000; text-align:center; font-size: 24px; ">
-                                      <i class="fa fa-spinner fa-spin" style="font-size:36px;"></i>
-                                      {{message}}
-                                      </div>`;
+    this.busyLoaderEvent.message = `Please Wait...`;
     let today = new Date();
     let month = today.getMonth();
     let year = today.getFullYear();
@@ -78,7 +75,8 @@ export class ReviewClaimServices {
   }
 
   loadData() {
-    this.busyLoaderEvent.busy = this.service.getReviewClaimList(this.global.Decrypt('mParameter').KODE_BASS,
+
+    this.busyLoaderEvent.busy = [this.service.getReviewClaimList(this.global.Decrypt('mParameter').KODE_BASS,
       this.kodeBassParam,
       this.dateFr.toISOString().substring(0, 10), this.dateTo.toISOString().substring(0, 10), this.selectedStatus)
       .then(
@@ -93,7 +91,7 @@ export class ReviewClaimServices {
         } else {
           alert(err._body);
         }
-      });
+      })]
   }
 
   viewClaim(claim: any) {

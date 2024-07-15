@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { ServiceListService } from './servicelist.service';
 import { Subject } from 'rxjs';
 import { GlobalState } from '../../../../../../global.state';
@@ -8,8 +8,8 @@ import { GlobalState } from '../../../../../../global.state';
 @Component({
     selector: 'servicelist',
     encapsulation: ViewEncapsulation.None,
-    styles: [require('./servicelist.scss')],
-    template: require('./servicelist.html'),
+    styleUrls:['./servicelist.scss'],
+    templateUrl:'./servicelist.html'
 })
 export class ServiceListComponent implements OnInit {
     busyLoaderEvent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
@@ -29,7 +29,7 @@ export class ServiceListComponent implements OnInit {
     @Output() onCancel = new EventEmitter<Boolean>();
     @Output() onRowSelected = new EventEmitter<Object>();
 
-    private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+    busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
     constructor(public router: Router, private actroute: ActivatedRoute, private service: ServiceListService,
         public global: GlobalState) {
@@ -43,7 +43,7 @@ export class ServiceListComponent implements OnInit {
         this.dateFr.setFullYear(prevYear);
         this.dateTo = new Date();
 
-        this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 25px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:34px"></i>{{message}}</div>'
+        this.busyloadevent.message = 'Please Wait...'
     }
 
     ngOnInit() {
@@ -94,7 +94,7 @@ export class ServiceListComponent implements OnInit {
     public searchServiceEventOnBlur(kodeService: string) {
         if (kodeService !== '') {
             this.filterService['kodeService'] = kodeService
-            this.busyloadevent.busy = this.service.getServiceList(kodeService, this.gloKodeBass, "", "", "ServiceRequest", "").then(
+            this.busyloadevent.busy = [this.service.getServiceList(kodeService, this.gloKodeBass, "", "", "ServiceRequest", "").then(
                 data => {
                     this.serviceList = data
                     // console.log("jumlah row : ", this.serviceList.length)
@@ -116,13 +116,13 @@ export class ServiceListComponent implements OnInit {
                     } else {
                         alert(err._body.data);
                     }
-                });
+                })]
         }
     }
 
     // get data in service
     public getServiceList(kodeService: String, kodeBass: String, dari: String, sampai: String, type: String, nomorNota: String) {
-        this.busyloadevent.busy = this.service.getServiceList(kodeService, kodeBass, dari, sampai, type, nomorNota).then(
+        this.busyloadevent.busy = [this.service.getServiceList(kodeService, kodeBass, dari, sampai, type, nomorNota).then(
             data => {
                 this.serviceList = data;
                 // console.log(this.serviceList)
@@ -138,7 +138,7 @@ export class ServiceListComponent implements OnInit {
                 } else {
                     alert(err._body);
                 }
-            });
+            })]
     }
 
 

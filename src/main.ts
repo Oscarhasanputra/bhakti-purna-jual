@@ -14,6 +14,7 @@ import { decorateModuleRef } from './app/environment';
 // }
 
 document.addEventListener('DOMContentLoaded', () => {
+   console.log("on load document")
      platformBrowserDynamic().bootstrapModule(AppModule)
      .then(decorateModuleRef)
   .catch(err => console.error(err));

@@ -10,6 +10,7 @@ import { PaidClaimServices } from './components/paidclaimservices/paidclaimservi
 import { ServiceRequestComponent } from './components/servicerequest/servicerequest.component';
 import { FinishingServiceRequestComponent } from './components/finishingservicerequest/finishingservicerequest.component';
 import { FinishingServiceRequestAllComponent } from './components/finishingservicerequestall/finishingservicerequestall.component';
+import { NgModule } from '@angular/core';
 
 
 // noinspection TypeScriptValidateTypes
@@ -29,5 +30,9 @@ const routes: Routes = [
     ]
   }
 ];
-
-export const routing = RouterModule.forChild(routes);
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class ServiceRoutingModule{}
+// export const routing = RouterModule.forChild(routes);

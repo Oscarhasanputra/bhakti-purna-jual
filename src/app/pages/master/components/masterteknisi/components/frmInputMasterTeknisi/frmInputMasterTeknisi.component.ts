@@ -1,8 +1,7 @@
 import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/primeng';
-import { ModalDirective } from 'ng2-bootstrap';
+// import { SelectItem } from 'primeng/api';
 import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule, AbstractControl } from '@angular/forms';
-import { EmailValidator } from '../../../../theme/validators';
+
 
 import { FrmInputMasterTeknisiService } from './frmInputMasterTeknisi.service';
 import { Subscription } from 'rxjs';
@@ -11,8 +10,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'frminputmasterteknisi',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./frmInputMasterTeknisi.component.scss')],
-  template: require('./frmInputMasterTeknisi.component.html'),
+  styleUrls:['./frmInputMasterTeknisi.component.scss'],
+  templateUrl:'./frmInputMasterTeknisi.component.html'
 })
 export class frmInputMasterTeknisi {
 
@@ -48,7 +47,7 @@ export class frmInputMasterTeknisi {
       // console.log("edit");
       this.frmInputMasterTeknisiService.getTeknisiSingle(this.params.kode_bass, this.params.kode_teknisi).subscribe(
         data => {
-          this.data = data.json();
+          this.data = data;
           this.sKodeTeknisi = this.data[0].KODE_TEKNISI;
           this.registerTeknisi = this.formBuilder.group({
             nama_teknisi: [this.data[0].NAMA_TEKNISI, Validators.compose([Validators.required])]

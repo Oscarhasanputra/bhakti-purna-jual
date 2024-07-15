@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { TeknisiListService } from './teknisilist.service';
 import { Subject } from 'rxjs';
 import { GlobalState } from '../../../../../../global.state';
@@ -8,8 +8,8 @@ import { GlobalState } from '../../../../../../global.state';
 @Component({
     selector: 'teknisilist',
     encapsulation: ViewEncapsulation.None,
-    styles: [require('./teknisilist.scss')],
-    template: require('./teknisilist.html'),
+    styleUrls:['./teknisilist.scss'],
+    templateUrl:'./teknisilist.html'
 })
 export class TeknisiListComponent implements OnInit {
     public teknisiList: any;
@@ -24,10 +24,10 @@ export class TeknisiListComponent implements OnInit {
     @Output() onCancel = new EventEmitter<Boolean>();
     @Output() onRowSelected = new EventEmitter<Object>();
 
-    private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+    busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
     constructor(public router: Router, private actroute: ActivatedRoute, private service: TeknisiListService, public global: GlobalState) {
-        this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 25px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:34px"></i>{{message}}</div>'
+        this.busyloadevent.message = 'Please Wait...'
 
     }
 
@@ -69,7 +69,7 @@ export class TeknisiListComponent implements OnInit {
     public searchTeknisiEventOnBlur(filter: string) {
         if (filter !== '') {
             this.filterTeknisi['kode_teknisi'] = filter
-            this.busyloadevent.busy = this.service.getTeknisiList(this.gloKodeBass, filter, 'A').then(
+            this.busyloadevent.busy = [this.service.getTeknisiList(this.gloKodeBass, filter, 'A').then(
                 data => {
                     this.teknisiList = data
                     // console.log("jumlah row teknisi : ", this.teknisiList.length)
@@ -91,13 +91,13 @@ export class TeknisiListComponent implements OnInit {
                     } else {
                         alert(err._body.data);
                     }
-                });
+                })]
         }
     }
 
     // get data in service
     public getTeknisiList(kodeBass: String, kodeTeknisi: String) {
-        this.busyloadevent.busy = this.service.getTeknisiList(kodeBass, kodeTeknisi, "A").then(
+        this.busyloadevent.busy = [this.service.getTeknisiList(kodeBass, kodeTeknisi, "A").then(
             data => {
                 this.teknisiList = data;
                 // console.log(this.teknisiList)
@@ -110,6 +110,6 @@ export class TeknisiListComponent implements OnInit {
                 } else {
                     alert(err._body.data);
                 }
-            });
+            })]
     }
 }

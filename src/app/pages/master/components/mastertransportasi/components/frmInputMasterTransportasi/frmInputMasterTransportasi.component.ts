@@ -1,8 +1,7 @@
 import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/primeng';
-import { ModalDirective } from 'ng2-bootstrap';
+// import { SelectItem } from 'primeng/primeng';
 import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule, AbstractControl } from '@angular/forms';
-import { EmailValidator } from '../../../../theme/validators';
+
 
 import { FrmInputMasterTransportasiService } from './frmInputMasterTransportasi.service';
 import { Subscription } from 'rxjs';
@@ -11,8 +10,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'frminputmastertransportasi',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./frmInputMasterTransportasi.component.scss')],
-  template: require('./frmInputMasterTransportasi.component.html'),
+  styleUrls:['./frmInputMasterTransportasi.component.scss'],
+  templateUrl:'./frmInputMasterTransportasi.component.html'
 })
 export class frmInputMasterTransportasi {
 
@@ -51,7 +50,7 @@ export class frmInputMasterTransportasi {
       // console.log("edit");
       this.frmInputMasterTransportasiService.getTransportasiSingle(this.params.kode_transportasi).subscribe(
         data => {
-          this.data = data.json();
+          this.data = data;
           this.sKodeTransportasi = this.data[0].KODE_TRANS;
           this.registerTransportasi = this.formBuilder.group({
             jarak: [this.data[0].JARAK, Validators.compose([Validators.required])],

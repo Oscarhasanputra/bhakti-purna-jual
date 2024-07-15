@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
-import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
+import { ConfirmationService } from 'primeng/api';
 import { FinishingServiceRequestService } from './finishingservicerequest.service';
 import { ServiceRequestService } from '../servicerequest/servicerequest.service';
 import { Subject } from 'rxjs';
@@ -11,8 +11,8 @@ import { GlobalState } from '../../../../global.state';
 @Component({
     selector: 'finishingservicerequest',
     encapsulation: ViewEncapsulation.None,
-    styles: [require('./finishingservicerequest.scss')],
-    template: require('./finishingservicerequest.html'),
+    styleUrls:['./finishingservicerequest.scss'],
+    templateUrl:'./finishingservicerequest.html',
     providers: [DatePipe, ConfirmationService]
 })
 export class FinishingServiceRequestComponent implements OnInit {
@@ -38,7 +38,7 @@ export class FinishingServiceRequestComponent implements OnInit {
     public flagRejected: Boolean = false;
     public statusReviewNotValid: Boolean = false;
 
-    // flag for property 
+    // flag for property
     public flagTanggalSelesaiTextbox: Boolean = true;
     public flagTanggalKembaliTextbox: Boolean = true;
     public flagDiambilOlehCustomerTextbox: Boolean = true;
@@ -78,7 +78,7 @@ export class FinishingServiceRequestComponent implements OnInit {
 
     constructor(public router: Router, private actroute: ActivatedRoute, private servicerequest: ServiceRequestService, private service: FinishingServiceRequestService,
         private datepipe: DatePipe, private confirmationService: ConfirmationService, public global: GlobalState) {
-        this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 25px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:34px"></i>{{message}}</div>'
+        this.busyloadevent.message = 'Please Wait...'
     }
 
     ngOnInit() {
@@ -86,7 +86,7 @@ export class FinishingServiceRequestComponent implements OnInit {
         this.gloNamaBass = this.global.Decrypt('mBass').NAMA_BASS;
         this.gloUsername = this.global.Decrypt('mAuth').USERNAME;
 
-        // cek hak akses 
+        // cek hak akses
         this.hakAkses = this.global.Decrypt('mRole').filter(data => data.KODE_APPLICATION == this.appCode)[0];
 
         if (this.hakAkses.HAK_AKSES) {
@@ -104,7 +104,7 @@ export class FinishingServiceRequestComponent implements OnInit {
 
             if (this.actroute.snapshot.params['no_service']) {
                 let kodeService = this.actroute.snapshot.params['no_service']
-                this.busyloadevent.busy = this.service.getService(kodeService).then(
+                this.busyloadevent.busy = [this.service.getService(kodeService).then(
                     data => {
                         // console.log('ambil data by param: ', data)
                         let event = { data: data[0] }
@@ -113,7 +113,7 @@ export class FinishingServiceRequestComponent implements OnInit {
                     err => {
                         console.log(err)
                     }
-                )
+                )]
             };
 
         } else {
@@ -271,7 +271,7 @@ export class FinishingServiceRequestComponent implements OnInit {
             // close button = true
             this.flagButtonClose = true
         } else {
-            // if status review not valid = true 
+            // if status review not valid = true
             // maka close button true
             if (this.statusReviewNotValid) {
                 this.flagButtonClose = true
@@ -484,10 +484,10 @@ export class FinishingServiceRequestComponent implements OnInit {
         this.service.getReviewClaimService(kodeService).then(
             data => {
                 // console.log("get review claim service : " + data)
-                /*  
+                /*
                     belum berfungsi
                     jika row nya > 0
-                    jika row = 0 maka status review not valid 
+                    jika row = 0 maka status review not valid
                     jika status review not valid = true mka disable enable true dan sebaliknya
                 */
                 if (data.length > 0) {
@@ -709,13 +709,13 @@ export class FinishingServiceRequestComponent implements OnInit {
 
         this.subTotal = this.hargaTotalSukuCadang + this.biayaService + this.biayaTransportasi.BIAYA_TRANSPORTASI
 
-        // // hitung ppn 
+        // // hitung ppn
         this.hitungPPN(this.hargaTotalSukuCadang, this.biayaService, this.biayaTransportasi.BIAYA_TRANSPORTASI)
     }
 
     // crud button
     public save() {
-        // validasi 
+        // validasi
         this.confirmationService.confirm({
             header: 'Confirmation',
             message: 'Selesaikan claim service ini?',
@@ -731,7 +731,7 @@ export class FinishingServiceRequestComponent implements OnInit {
                                 this.data.kodeTransportasi = this.biayaTransportasi.KODE_TRANS
 
                                 // console.log(this.data)
-                                this.busyloadevent.busy = this.service.saveServiceFinishing(this.data).then(
+                                this.busyloadevent.busy = [this.service.saveServiceFinishing(this.data).then(
                                     data => {
                                         //stok di comment karena belom terpakai
                                         this.service.getDetailServiceRequestReceived(this.data.kodeService).then(
@@ -842,7 +842,7 @@ export class FinishingServiceRequestComponent implements OnInit {
                                             alert(err._body.data);
                                         }
                                     }
-                                )
+                                )]
                             }
                         }
                     )
@@ -1124,24 +1124,24 @@ export class FinishingServiceRequestComponent implements OnInit {
                         <title>Service Reuest</title>
                         <style>
 
-                        .mytable { 
-                            border-collapse: collapse; 
+                        .mytable {
+                            border-collapse: collapse;
                             margin-top:10px;
                             margin-bottom:40px;
                             table-layout: fixed;
                             width: 100%;
                         }
                         /* Zebra striping */
-                        .mytable tr:nth-of-type(odd) { 
-                            background: #eee; 
+                        .mytable tr:nth-of-type(odd) {
+                            background: #eee;
                             }
-                        .mytable th { 
-                            background: #3498db; 
-                            color: white; 
+                        .mytable th {
+                            background: #3498db;
+                            color: white;
                             }
-                        .mytable td, th { 
-                            padding: 7px; 
-                            border: 1px solid #ccc; 
+                        .mytable td, th {
+                            padding: 7px;
+                            border: 1px solid #ccc;
                             text-align: center;
                             font-size: 10px;
                             }

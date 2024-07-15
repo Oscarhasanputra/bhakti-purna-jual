@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { FakturListService } from './fakturlist.service';
 import { Subject } from 'rxjs';
 import { GlobalState } from '../../../../../../global.state';
@@ -8,8 +8,8 @@ import { GlobalState } from '../../../../../../global.state';
 @Component({
     selector: 'fakturlist',
     encapsulation: ViewEncapsulation.None,
-    styles: [require('./fakturlist.scss')],
-    template: require('./fakturlist.html'),
+    styleUrls:['./fakturlist.scss'],
+    templateUrl:'./fakturlist.html'
 })
 export class FakturListComponent implements OnInit {
     public fakturList: any;
@@ -24,10 +24,10 @@ export class FakturListComponent implements OnInit {
     @Output() onCancel = new EventEmitter<Boolean>();
     @Output() onRowSelected = new EventEmitter<Object>();
 
-    private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+    busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
     constructor(public router: Router, private actroute: ActivatedRoute, private service: FakturListService, public global: GlobalState) {
-        this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 25px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:34px"></i>{{message}}</div>'
+        this.busyloadevent.message= 'Please Wait...'
     }
 
     ngOnInit() {
@@ -73,7 +73,7 @@ export class FakturListComponent implements OnInit {
 
     // get data in service
     public getFakturList(kodeBass: String, kodeInvoice: String, kodeBarang: String, kodeFinishing: String) {
-        this.busyloadevent.busy = this.service.getFakturList(kodeBass, kodeInvoice, kodeBarang, kodeFinishing).then(
+        this.busyloadevent.busy = [this.service.getFakturList(kodeBass, kodeInvoice, kodeBarang, kodeFinishing).then(
             data => {
                 this.fakturList = data;
                 // console.log(this.fakturList)
@@ -86,6 +86,6 @@ export class FakturListComponent implements OnInit {
                 } else {
                     alert(err._body.data);
                 }
-            });
+            })]
     }
 }

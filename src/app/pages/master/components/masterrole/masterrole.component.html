@@ -1,28 +1,134 @@
 <ba-card title="Maintain Role">
-    <div hidden>
-        Kode Role : <input type="text" class="form-control" [(ngModel)]="kode_role">
-    </div>
-    <br>
-    <button class="btn btn-primary" (click)="loadData()" hidden>Search</button>
-    <button class="btn btn-primary" (click)="tambahRole()">Tambah Role</button>
-
+  <div hidden>
+    Kode Role :
+    <input type="text" class="form-control" [(ngModel)]="kode_role" />
+  </div>
+  <br />
+  <button class="btn btn-primary" (click)="loadData()" hidden>Search</button>
+  <button class="btn btn-primary" (click)="tambahRole()">Tambah Role</button>
 </ba-card>
 
 <div [ngBusy]="busyloadevent"></div>
 
 <ba-card title="Role List" baCardClass="with-scroll table-panel">
-    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
-        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-        <input #gb type="text" pInputText size="50" placeholder="Search">
-    </div>
-    <p-dataTable [value]="source" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+  <div
+    class="ui-widget-header"
+    style="padding: 4px 10px; border-bottom: 0 none"
+  >
+    <i class="fa fa-search" style="margin: 4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="50" placeholder="Search" />
+  </div>
+  <p-table
+    [value]="source"
+    [rows]="10"
+    [paginator]="true"
+    #dt
+    [globalFilterFields]="[
+      'KODE_ROLE',
+      'NAMA_ROLE',
+      'IS_SUPPORT_CENTER',
+      'IS_SUPPORT_CENTER_WORD'
+    ]"
+    autoLayout="true"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th
+          style="color: black"
+          pResizableColumn
+          [pSortableColumn]="'KODE_ROLE'"
+        >
+          Kode Role
+        </th>
+        <th
+          style="color: black"
+          pResizableColumn
+          [pSortableColumn]="'NAMA_ROLE'"
+        >
+          Nama Role
+        </th>
+        <th
+          style="color: black"
+          pResizableColumn
+          [pSortableColumn]="'IS_SUPPORT_CENTER_WORD'"
+        >
+          Support Center
+        </th>
+        <th
+          style="color: black"
+          pResizableColumn
+          [pSortableColumn]="'IS_SUPPORT_CENTER'"
+        >
+          Support Center
+        </th>
+        <th style="color: black" pResizableColumn class="col-button">
+          <button type="button" pButton icon="fa fa-refresh"></button>
+        </th>
+        <th style="color: black" pResizableColumn class="col-button">
+          <button type="button" pButton icon="fa fa-refresh"></button>
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-data>
+      <tr>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>{{ data["KODE_ROLE"] }}</div>
+        </td>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>{{ data["NAMA_ROLE"] }}</div>
+        </td>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>{{ data["IS_SUPPORT_CENTER_WORD"] }}</div>
+        </td>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <div>{{ data["IS_SUPPORT_CENTER"] }}</div>
+        </td>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <button
+            (click)="edit(data['KODE_ROLE'], data['KODE_ROLE'])"
+            class="status-button btn btn-xs btn-primary"
+          >
+            Edit
+          </button>
+        </td>
+        <td
+          class="ui-resizable-column"
+          style="position: relative; color: black"
+        >
+          <button
+            (click)="delete(data['KODE_ROLE'])"
+            class="btn btn-xs btn-danger"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <!-- <p-dataTable [value]="source" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
         <p-column field="KODE_ROLE" header="Kode Role" [style]="{'color':'black'}"></p-column>
         <p-column field="NAMA_ROLE" header="Nama Role" [style]="{'color':'black'}"></p-column>
         <p-column field="IS_SUPPORT_CENTER_WORD" header="Support Center" [style]="{'color':'black'}"></p-column>
         <p-column field="IS_SUPPORT_CENTER" header="Support Center" [style]="{'color':'black'}" hidden="hidden"></p-column>
         <p-column styleClass="col-button">
             <ng-template pTemplate="header">
-                <button type="button" pButton icon="fa-refresh"></button>
+                <button type="button" pButton icon="fa fa-refresh"></button>
             </ng-template>
             <ng-template let-data="rowData" pTemplate="body">
                 <button (click)="edit(data.KODE_ROLE,data.KODE_ROLE)" class="status-button btn btn-xs btn-primary">Edit</button>
@@ -30,13 +136,18 @@
         </p-column>
         <p-column styleClass="col-button">
             <ng-template pTemplate="header">
-                <button type="button" pButton icon="fa-refresh"></button>
+                <button type="button" pButton icon="fa fa-refresh"></button>
             </ng-template>
             <ng-template let-data="rowData" pTemplate="body">
                 <button (click)="delete(data.KODE_ROLE)" class="btn btn-xs btn-danger">Delete</button>
             </ng-template>
         </p-column>
-    </p-dataTable>
+    </p-dataTable> -->
 </ba-card>
 
-<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" style="color:black;"></p-confirmDialog>
+<p-confirmDialog
+  header="Confirmation"
+  icon="fa fa-question-circle"
+  width="425"
+  style="color: black"
+></p-confirmDialog>

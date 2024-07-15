@@ -1,7 +1,7 @@
 import { Routes, RouterModule }  from '@angular/router';
 
 import { Dashboard } from './dashboard.component';
-import { ModuleWithProviders } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 
 // noinspection TypeScriptValidateTypes
 export const routes: Routes = [
@@ -13,5 +13,12 @@ export const routes: Routes = [
     ]
   }
 ];
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class DashboardRoutingModule{
 
-export const routing: ModuleWithProviders = RouterModule.forChild(routes);
+}
+
+// export const routing: ModuleWithProviders<any> = RouterModule.forChild(routes);

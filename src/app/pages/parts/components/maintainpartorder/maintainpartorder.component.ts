@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { MaintainPartOrderService } from './maintainpartorder.service';
 // import { LookupService } from '../../lookup/lookup.service';
-import { ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService } from 'primeng/api';
 import { GlobalState } from '../../../../global.state';
 
 @Component({

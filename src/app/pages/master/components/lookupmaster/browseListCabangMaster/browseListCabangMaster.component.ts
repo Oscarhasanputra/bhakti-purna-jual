@@ -1,18 +1,17 @@
 import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/primeng';
-import { ModalDirective } from 'ng2-bootstrap';
-
+import { SelectItem } from 'primeng/api';
+import {ModalDirective} from "ngx-bootstrap/modal"
 import { BrowseListCabangMasterService } from './browseListCabangMaster.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { GlobalState } from '../../../../../global.state';
 
 @Component({
   selector: 'browselistcabangmaster',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./browseListCabangMaster.component.scss')],
-  template: require('./browseListCabangMaster.component.html'),
+  styleUrls:['./browseListCabangMaster.component.scss'],
+  templateUrl:'./browseListCabangMaster.component.html'
 })
 export class browseListCabangMaster {
 
@@ -23,7 +22,7 @@ export class browseListCabangMaster {
   display: boolean = false;
   showPilihKodeCabang: boolean = false;
   @Output() kodeCabangChild = new EventEmitter<string>();
-  private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+  busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
   showDialog() {
     this.display = true;
@@ -46,7 +45,7 @@ export class browseListCabangMaster {
     if (this.sStorage.TYPE == "Cabang") {
       this.showPilihKodeCabang = true;
 
-      this.busyloadevent.busy = this.browseListCabangMasterService.getBassListUnderCabang(this.sStorage.KODE_BASS).then(
+      this.busyloadevent.busy = [this.browseListCabangMasterService.getBassListUnderCabang(this.sStorage.KODE_BASS).then(
         data => {
           this.listCabang = data;
         },
@@ -57,11 +56,11 @@ export class browseListCabangMaster {
             this.router.navigate(['/login']);
           }
         }
-      );
+      )]
     } else if (this.sStorage.KODE_BASS == this.global.Decrypt('mParameter').BASS_PUSAT) {
       this.showPilihKodeCabang = true;
 
-      this.busyloadevent.busy = this.browseListCabangMasterService.getCabangList(this.sStorage.KODE_BASS).then(
+      this.busyloadevent.busy = [this.browseListCabangMasterService.getCabangList(this.sStorage.KODE_BASS).then(
         data => {
           this.listCabang = data;
         },
@@ -72,11 +71,11 @@ export class browseListCabangMaster {
             this.router.navigate(['/login']);
           }
         }
-      );
+      )]
     } else {
       this.showPilihKodeCabang = false;
 
-      this.busyloadevent.busy = this.browseListCabangMasterService.getCabangList(this.sStorage.KODE_BASS).then(
+      this.busyloadevent.busy = [this.browseListCabangMasterService.getCabangList(this.sStorage.KODE_BASS).then(
         data => {
           this.listCabang = data;
         },
@@ -87,7 +86,7 @@ export class browseListCabangMaster {
             this.router.navigate(['/login']);
           }
         }
-      );
+      )]
     }
   }
 

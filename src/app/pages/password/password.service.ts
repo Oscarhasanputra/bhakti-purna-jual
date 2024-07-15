@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GlobalState } from '../../global.state';
 
@@ -18,10 +18,10 @@ export class PasswordService {
             oldpassword: body.oldpassword,
             newpassword: body.password
         }); // Stringify payload
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        // let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.global.getGlobalUrl() + '/changepassword', bodyString, options) // ...using post request
+        return this.http.post(this.global.getGlobalUrl() + '/changepassword', bodyString, {headers}) // ...using post request
             .toPromise()
             .catch(this.handleError);
     }

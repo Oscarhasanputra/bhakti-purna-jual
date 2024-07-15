@@ -1,18 +1,18 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap';
-import { SelectItem } from 'primeng/primeng';
+
+import { SelectItem } from 'primeng/api';
 
 import { ReportPartOrderService, User } from './reportpartorder.service';
 import { Subscription } from 'rxjs';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { Router } from '@angular/router';
 import { GlobalState } from '../../../../global.state';
 
 @Component({
     selector: 'reportpartorder',
     encapsulation: ViewEncapsulation.None,
-    styles: [require('./reportpartorder.component.scss')],
-    template: require('./reportpartorder.component.html'),
+    styleUrls:['./reportpartorder.component.scss'],
+    templateUrl:'./reportpartorder.component.html'
 })
 export class reportPartOrder {
 
@@ -27,7 +27,7 @@ export class reportPartOrder {
     data: Array<any> = [];
     listZona: SelectItem[] = [];
     selectedListZona: string;
-    private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+    busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
     appCode: any = "APPL00054";
     hakAkses: any;
 
@@ -43,7 +43,7 @@ export class reportPartOrder {
 
         this.tglAkhir = new Date();
 
-        this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 15px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:24px"></i>{{message}}</div>'
+        this.busyloadevent.message = 'Please Wait...'
 
         this.sStorage = this.global.Decrypt('mAuth');
 
@@ -52,7 +52,7 @@ export class reportPartOrder {
         if (this.hakAkses.HAK_AKSES) {
             this.reportPartOrderService.getZonaList(this.sStorage.KODE_BASS).subscribe(
                 data => {
-                    this.data = data.json();
+                    this.data = data;
                     for (var i = 0; i < this.data.length; i++) {
                         this.listZona.push({ label: this.data[i].NAMA_ZONA, value: this.data[i].ZONA });
                     }
@@ -94,8 +94,8 @@ export class reportPartOrder {
             kode_zona = "ALL";
         }
 
-        this.busyloadevent.busy = this.reportPartOrderService.getReportPartOrderServices(this.sStorage.KODE_BASS, kode_zona, tglAwal, tglAkhir).subscribe(
-            data => { this.reportPartOrders = data.json() },
+        this.busyloadevent.busy = [this.reportPartOrderService.getReportPartOrderServices(this.sStorage.KODE_BASS, kode_zona, tglAwal, tglAkhir).subscribe(
+            data => { this.reportPartOrders = data },
             err => {
                 // console.log(err._body);
                 if (err._body == 'You are not authorized' || err.status == 500) {
@@ -104,7 +104,7 @@ export class reportPartOrder {
                     this.router.navigate(['/login']);
                 }
             }
-        )
+        )]
     }
 
     print(): void {
@@ -118,24 +118,24 @@ export class reportPartOrder {
           <title>Report Part Order</title>
            <style>
 
-            .mytable { 
-                border-collapse: collapse; 
+            .mytable {
+                border-collapse: collapse;
                 margin-top:10px;
                 margin-bottom:40px;
                 table-layout: fixed;
                 width: 100%;
             }
             /* Zebra striping */
-            .mytable tr:nth-of-type(odd) { 
-                background: #eee; 
+            .mytable tr:nth-of-type(odd) {
+                background: #eee;
                 }
-            .mytable th { 
-                background: #3498db; 
-                color: white; 
+            .mytable th {
+                background: #3498db;
+                color: white;
                 }
-            .mytable td, th { 
-                padding: 7px; 
-                border: 1px solid #ccc; 
+            .mytable td, th {
+                padding: 7px;
+                border: 1px solid #ccc;
                 text-align: center;
                 font-size: 10px;
                 }

@@ -1,12 +1,16 @@
 import { Component, ViewEncapsulation, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfirmDialogModule, ConfirmationService, DialogModule } from 'primeng/primeng';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+// import { ConfirmDialogModule, ConfirmationService, DialogModule } from 'primeng/primeng';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { DialogModule } from 'primeng/dialog';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 
 import { ClaimListService } from './claimlist.service';
 
 import { Claims } from './claim';
 import { GlobalState } from '../../../../global.state';
+
 
 @Component({
   selector: 'claim-list',
@@ -31,10 +35,7 @@ export class ClaimList {
 
   constructor(protected service: ClaimListService, protected router: Router,
     private confirmationService: ConfirmationService, public global: GlobalState) {
-    this.busyLoaderEvent.template = `<div style="margin-top:150px; margin-left:450px; position: fixed; z-index:1000; text-align:center; font-size: 24px; ">
-                                      <i class="fa fa-spinner fa-spin" style="font-size:36px;"></i>
-                                      {{message}}
-                                      </div>`;
+    this.busyLoaderEvent.message = `Please Wait...`;
     let today = new Date();
     let month = today.getMonth();
     let year = today.getFullYear();
@@ -78,7 +79,7 @@ export class ClaimList {
     if (this.global.Decrypt('mAuth').KODE_BASS == this.global.Decrypt('mParameter').BASS_PUSAT) {
       kodebass = "PUSAT"
     }
-    this.busyLoaderEvent.busy = this.service.getDataClaimList(kodebass, this.searchClaim,
+    this.busyLoaderEvent.busy = [this.service.getDataClaimList(kodebass, this.searchClaim,
       this.dateFr.toISOString().substring(0, 10), this.dateTo.toISOString().substring(0, 10), this.selectedStatus)
       .then(
       data => {
@@ -92,7 +93,7 @@ export class ClaimList {
         } else {
           alert(err._body);
         }
-      });
+      })]
   }
 
 
@@ -104,7 +105,7 @@ export class ClaimList {
         if (claim.STATUS == '1' || claim.STATUS == '2' || claim.STATUS == '3') {
           alert("Claim ini sudah di review");
         } else {
-          this.busyLoaderEvent.busy = this.service.deleteDataClaimList(claim.KODE_CLAIM).then(
+          this.busyLoaderEvent.busy = [this.service.deleteDataClaimList(claim.KODE_CLAIM).then(
             data => {
               alert(data);
               this.loadData();
@@ -117,7 +118,7 @@ export class ClaimList {
               } else {
                 alert(err._body);
               }
-            });
+            })]
         }
       }
     });

@@ -1,8 +1,8 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap';
-import { SelectItem, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { ConfirmationService } from 'primeng/api';
+
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { Router } from '@angular/router';
 import { MasterMappingCabangZonaService } from './mastermappingcabangzona.service';
 import { GlobalState } from '../../../../global.state'
@@ -10,8 +10,8 @@ import { GlobalState } from '../../../../global.state'
 @Component({
   selector: 'mastermappingcabangzona',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./mastermappingcabangzona.component.scss')],
-  template: require('./mastermappingcabangzona.component.html'),
+  styleUrls:['./mastermappingcabangzona.component.scss'],
+  templateUrl:'./mastermappingcabangzona.component.html'
 })
 export class masterMappingCabangZona {
   appCode = "APPL00060";
@@ -23,7 +23,7 @@ export class masterMappingCabangZona {
   kode_cabang: any;
   showPilihKodeCabang: boolean = false;
   public source: cabangZonaList[];
-  private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+  busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
   constructor(private masterMappingCabangZonaService: MasterMappingCabangZonaService,
     protected router: Router, private confirmationService: ConfirmationService, public global: GlobalState) {
@@ -31,7 +31,7 @@ export class masterMappingCabangZona {
     this.kode_cabang = '';
     this.kata_kunci = '';
 
-    this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 25px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:34px"></i>{{message}}</div>'
+    this.busyloadevent.message = 'Please Wait...'
 
     this.sStorage = this.global.Decrypt('mAuth');
     this.HakAkses = this.global.Decrypt('mRole').filter(data => data.KODE_APPLICATION == this.appCode)[0];
@@ -57,7 +57,7 @@ export class masterMappingCabangZona {
   }
 
   loadData() {
-    this.busyloadevent.busy = this.masterMappingCabangZonaService.getListMasterMappingCabangZona(this.kode_cabang, this.kata_kunci).then(
+    this.busyloadevent.busy = [this.masterMappingCabangZonaService.getListMasterMappingCabangZona(this.kode_cabang, this.kata_kunci).then(
       data => {
         this.source = data;
       },
@@ -68,7 +68,7 @@ export class masterMappingCabangZona {
           this.router.navigate(['/login']);
         }
       }
-    );
+    )]
   }
 
   tambahMappingCabang() {

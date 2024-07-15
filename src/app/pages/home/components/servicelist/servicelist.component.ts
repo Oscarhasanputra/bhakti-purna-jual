@@ -1,18 +1,18 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalDirective } from 'ng2-bootstrap';
-import { SelectItem } from 'primeng/primeng';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { SelectItem } from 'primeng/api';
 
 import { ServiceListService } from './servicelist.service';
 import { Subscription } from 'rxjs';
-import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'angular2-busy';
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { GlobalState } from '../../../../global.state';
 
 @Component({
   selector: 'servicelist',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./servicelist.component.scss')],
-  template: require('./servicelist.component.html'),
+  styleUrls:['./servicelist.component.scss'],
+  templateUrl:'./servicelist.component.html'
 })
 export class serviceList {
 
@@ -23,7 +23,7 @@ export class serviceList {
   public source: serviceListDT[];
   tglAwal: any = "";
   tglAkhir: any = "";
-  private busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+  busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
   public kodeBassEvent(childData: any) {
     this.sKodeBass = childData;
@@ -53,7 +53,7 @@ export class serviceList {
     this.status.push({ label: 'Rejected and Assigned', value: "RC" });
 
     this.selectedStatus = this.status[0].value;
-    this.busyloadevent.template = '<div style="margin-top: 10px; text-align: center; font-size: 15px; font-weight: 700;"><i class="fa fa-spinner fa-spin" style="font-size:24px"></i>{{message}}</div>'
+    this.busyloadevent.message = 'Please Wait...'
 
     if (this._state.Decrypt('mAuth').KODE_BASS == this._state.Decrypt('mParameter').BASS_PUSAT) {
       this.sKodeBass = "";
@@ -63,7 +63,7 @@ export class serviceList {
   }
 
   loadData() {
-    this.busyloadevent.busy = this.serviceListService.getServiceListHome(this.sKodeBass, this.sKodeCust, this.selectedStatus, this.tglAwal, this.tglAkhir).then(
+    this.busyloadevent.busy = [this.serviceListService.getServiceListHome(this.sKodeBass, this.sKodeCust, this.selectedStatus, this.tglAwal, this.tglAkhir).then(
       data => {
         this.source = data;
       },
@@ -74,7 +74,7 @@ export class serviceList {
           this.router.navigate(['/login']);
         }
       }
-    );
+    )]
   }
 
   onRowSelect(event) {
