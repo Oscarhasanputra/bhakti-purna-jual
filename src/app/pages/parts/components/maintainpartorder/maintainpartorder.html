@@ -157,7 +157,7 @@
                 class="btn btn-primary"
                 pButton
                 (click)="view(data)"
-                icon="fa-eye"
+                icon="fa fa-eye"
                 [disabled]="disableView"
               ></button>
             </td>
@@ -171,7 +171,7 @@
                 class="btn btn-danger"
                 pButton
                 (click)="delete(data)"
-                icon="fa-times"
+                icon="fa fa-times"
               ></button>
             </td>
           </tr>
@@ -194,12 +194,12 @@
                     filterMatchMode="contains"></p-column>
                 <p-column styleClass="col-button" [style]="{'width':'30px'}">
                     <ng-template let-po="rowData" pTemplate="body">
-                        <button type="button" class="btn btn-primary" pButton (click)="view(po)" icon="fa-eye" [disabled]= disableView></button>
+                        <button type="button" class="btn btn-primary" pButton (click)="view(po)" icon="fa fa-eye" [disabled]= disableView></button>
                     </ng-template>
                 </p-column>
                 <p-column styleClass="col-button" [hidden]="tomboldeleteFlag" [style]="{'width':'30px'}">
                     <ng-template let-po="rowData" pTemplate="body">
-                        <button type="button" class="btn btn-danger" pButton (click)="delete(po)" icon="fa-times"></button>
+                        <button type="button" class="btn btn-danger" pButton (click)="delete(po)" icon="fa fa-times"></button>
                     </ng-template>
                 </p-column>
             </p-dataTable> -->
