@@ -1,6 +1,6 @@
 import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit } from '@angular/core';
 // import { SelectItem } from 'primeng/api';
-import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule, AbstractControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, FormArray, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 
 
 import { FrmInputMasterTeknisiService } from './frmInputMasterTeknisi.service';
@@ -20,12 +20,12 @@ export class frmInputMasterTeknisi {
   sStorage: any;
   data: Array<any> = [];
   public zona: any;
-  registerTeknisi: FormGroup;
+  registerTeknisi: UntypedFormGroup;
   nama_teknisi: AbstractControl;
   validationSukses: any;
   navigasi: any;
 
-  constructor(private frmInputMasterTeknisiService: FrmInputMasterTeknisiService, private formBuilder: FormBuilder, protected router: Router, public activatedRoute: ActivatedRoute) {
+  constructor(private frmInputMasterTeknisiService: FrmInputMasterTeknisiService, private formBuilder: UntypedFormBuilder, protected router: Router, public activatedRoute: ActivatedRoute) {
     this.sKodeTeknisi = 'Auto Generated';
     this.sStorage = sessionStorage.getItem('mAuth');
     this.sStorage = JSON.parse(this.sStorage);

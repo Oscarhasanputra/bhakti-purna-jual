@@ -1,6 +1,6 @@
 import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit } from '@angular/core';
 // import { SelectItem } from 'primeng/primeng';
-import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule, AbstractControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, FormArray, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 
 
 import { FrmInputMasterTransportasiService } from './frmInputMasterTransportasi.service';
@@ -20,13 +20,13 @@ export class frmInputMasterTransportasi {
   sStorage: any;
   data: Array<any> = [];
   public zona: any;
-  registerTransportasi: FormGroup;
+  registerTransportasi: UntypedFormGroup;
   jarak: AbstractControl;
   biaya: AbstractControl;
   validationSukses: any;
   navigasi: any;
 
-  constructor(private frmInputMasterTransportasiService: FrmInputMasterTransportasiService, private formBuilder: FormBuilder, protected router: Router, public activatedRoute: ActivatedRoute) {
+  constructor(private frmInputMasterTransportasiService: FrmInputMasterTransportasiService, private formBuilder: UntypedFormBuilder, protected router: Router, public activatedRoute: ActivatedRoute) {
     this.sKodeTransportasi = 'Auto Generated';
     this.sStorage = sessionStorage.getItem('mAuth');
     this.sStorage = JSON.parse(this.sStorage);

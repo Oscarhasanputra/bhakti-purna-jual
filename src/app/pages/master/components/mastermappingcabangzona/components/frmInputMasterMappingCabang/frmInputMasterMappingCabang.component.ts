@@ -1,6 +1,6 @@
 import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
-import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule, AbstractControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, FormArray, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 
 
 import { FrmInputMasterMappingCabangService } from './frmInputMasterMappingCabang.service';
@@ -21,7 +21,7 @@ export class frmInputMasterMappingCabang {
   public params: any;
   sStorage: any;
   data: Array<any> = [];
-  registerCabang: FormGroup;
+  registerCabang: UntypedFormGroup;
   cabang: AbstractControl;
   zona: AbstractControl;
   validationSukses: any;
@@ -33,7 +33,7 @@ export class frmInputMasterMappingCabang {
   btnIsActive: boolean;
 
   constructor(private frmInputMasterMappingCabangService: FrmInputMasterMappingCabangService,
-    private formBuilder: FormBuilder, protected router: Router, public activatedRoute: ActivatedRoute,
+    private formBuilder: UntypedFormBuilder, protected router: Router, public activatedRoute: ActivatedRoute,
     public global: GlobalState) {
 
     this.HakAkses = this.global.Decrypt('mRole').filter(data => data.KODE_APPLICATION == this.appCode)[0];

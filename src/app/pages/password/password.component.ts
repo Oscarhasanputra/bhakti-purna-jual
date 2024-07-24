@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router, Routes } from '@angular/router';
 import { PasswordService } from './password.service';
 import { GlobalState } from '../../global.state';
@@ -10,13 +10,13 @@ import { GlobalState } from '../../global.state';
   templateUrl: './password.html'
 })
 export class Password {
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public username: AbstractControl;
   public oldpassword: AbstractControl;
   public password: AbstractControl;
   public repeatPassword: AbstractControl;
   public submitted: boolean = false;
-  constructor(fb: FormBuilder, public service: PasswordService, public router: Router, public global: GlobalState) {
+  constructor(fb: UntypedFormBuilder, public service: PasswordService, public router: Router, public global: GlobalState) {
     this.form = fb.group({
       'username': [{ value: this.global.Decrypt('mAuth').USERNAME, disabled: true }, ''],
       'oldpassword': ['', Validators.compose([Validators.required])],

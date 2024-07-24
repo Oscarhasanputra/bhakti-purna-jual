@@ -193,7 +193,6 @@
       }
     }
   },
-  "defaultProject": "ng2-admin",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router, Routes } from '@angular/router';
 import { GeneralSettingService } from './generalsetting.service';
 
@@ -9,7 +9,7 @@ import { GeneralSettingService } from './generalsetting.service';
   templateUrl: './generalsetting.html'
 })
 export class GeneralSetting implements OnInit {
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public submitted: boolean = false;
   // public errorMsg: String;
 
@@ -23,7 +23,7 @@ export class GeneralSetting implements OnInit {
   public email_password: AbstractControl;
   public email_service: AbstractControl;
 
-  constructor(fb: FormBuilder, public service: GeneralSettingService, public router: Router) {
+  constructor(fb: UntypedFormBuilder, public service: GeneralSettingService, public router: Router) {
     // console.log('tes')
     this.form = fb.group({
       'web_title': ['', Validators.compose([Validators.required])],

@@ -1,5 +1,5 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router, Routes } from '@angular/router';
 import { BUSY_CONFIG_DEFAULTS, BusyConfig, IBusyConfig } from 'ng-busy';
 
@@ -17,14 +17,14 @@ import 'style-loader!./login.scss';
 export class Login {
   busyLoaderEvent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
   // @ViewChild("bustLoad") busyLoad:Element
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public kode_bass: AbstractControl;
   public username: AbstractControl;
   public password: AbstractControl;
   public submitted: boolean = false;
   public errorMsg: String;
 
-  constructor(private _state: GlobalState, fb: FormBuilder, public loginService: LoginService, public router: Router) {
+  constructor(private _state: GlobalState, fb: UntypedFormBuilder, public loginService: LoginService, public router: Router) {
     this.busyLoaderEvent.message= `Please Wait....`;
 
     this.form = fb.group({

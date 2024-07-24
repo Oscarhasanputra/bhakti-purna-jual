@@ -1,7 +1,7 @@
 import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule, AbstractControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, FormArray, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { EmailValidator } from '../../../../../../theme/validators';
 
 import { FrmInputMasterBassService } from './frmInputMasterBass.service';
@@ -25,7 +25,7 @@ export class frmInputMasterBass {
   data: Array<any> = [];
   selectedListKota: string;
   public zona: any;
-  registerBass: FormGroup;
+  registerBass: UntypedFormGroup;
   nama_bass: AbstractControl;
   alamat_bass: AbstractControl;
   nomor_telepon: AbstractControl;
@@ -36,7 +36,7 @@ export class frmInputMasterBass {
   navigasi: any;
   judul: string;
 
-  constructor(private frmInputMasterBassService: FrmInputMasterBassService, private formBuilder: FormBuilder,
+  constructor(private frmInputMasterBassService: FrmInputMasterBassService, private formBuilder: UntypedFormBuilder,
     protected router: Router, public activatedRoute: ActivatedRoute, public global: GlobalState) {
     this.HakAkses = this.global.Decrypt('mRole').filter(data => data.KODE_APPLICATION == this.appCode)[0];
 

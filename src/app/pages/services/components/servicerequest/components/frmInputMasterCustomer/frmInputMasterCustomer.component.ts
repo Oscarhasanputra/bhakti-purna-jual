@@ -1,6 +1,6 @@
 import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit, Input  } from '@angular/core';
 import { SelectItem } from 'primeng/api';
-import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule, AbstractControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, FormArray, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 
 
 import { FrmInputMasterCustomerService } from './frmInputMasterCustomer.service';
@@ -26,7 +26,7 @@ export class frmInputMasterCustomer {
   data:Array<any> = [];
   selectedListKota: string;
   public zona:any;
-  registerCustomer: FormGroup;
+  registerCustomer: UntypedFormGroup;
   nama_customer:AbstractControl;
   alamat_customer:AbstractControl;
   nomor_telepon:AbstractControl;
@@ -35,7 +35,7 @@ export class frmInputMasterCustomer {
   validationSukses: any;
   navigasi:any;
 
-  constructor(private frmInputMasterCustomerService: FrmInputMasterCustomerService, private formBuilder: FormBuilder, protected router: Router, public activatedRoute:ActivatedRoute) {
+  constructor(private frmInputMasterCustomerService: FrmInputMasterCustomerService, private formBuilder: UntypedFormBuilder, protected router: Router, public activatedRoute:ActivatedRoute) {
     this.sKodeCustomer = 'Auto Generated';
     this.sStorage = sessionStorage.getItem('mAuth');
     this.sStorage = JSON.parse(this.sStorage);
