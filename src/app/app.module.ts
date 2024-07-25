@@ -1,4 +1,4 @@
-import { NgModule, ApplicationRef } from '@angular/core';
+import { NgModule, ApplicationRef, APP_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -44,7 +44,6 @@ export type StoreType = {
     App
   ],
   imports: [ // import Angular's modules
-    BrowserModule.withServerTransition({appId:"serverApp"}),
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule,
@@ -58,7 +57,8 @@ export type StoreType = {
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     // ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    {provide:APP_ID,useValue:"serverApp"}
   ]
 })
 
