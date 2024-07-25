@@ -30,7 +30,7 @@ import 'core-js/es6/reflect';
 // // import 'core-js/es6/promise';
 
 import 'core-js/es7/reflect';
-import 'zone.js/dist/zone';
+// import 'zone.js/zone';
 
 // // Typescript emit helpers polyfill
 // import 'ts-helpers';
@@ -73,7 +73,7 @@ import 'core-js/es7/reflect';
 /***************************************************************************************************
  * Zone JS is required by Angular itself.
  */
-import 'zone.js';  // Included with Angular CLI.
+// import 'zone.js';  // Included with Angular CLI.
 
 
 /***************************************************************************************************

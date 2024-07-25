@@ -16,7 +16,7 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "polyfills": "src/polyfills.ts",
+            "polyfills":["zone.js","src/polyfills.ts"],
             "aot": true,
             "assets": [
               "src/assets",
@@ -77,22 +77,22 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng2-admin:build",
+            "buildTarget": "ng2-admin:build",
             "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "prod": {
-              "browserTarget": "ng2-admin:build:prod"
+              "buildTarget": "ng2-admin:build:prod"
             },
             "production": {
-              "browserTarget": "ng2-admin:build:production"
+              "buildTarget": "ng2-admin:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng2-admin:build"
+            "buildTarget": "ng2-admin:build"
           }
         },
         "test": {
@@ -157,7 +157,7 @@
           }
         },
         "serve-ssr": {
-          "builder": "@nguniversal/builders:ssr-dev-server",
+          "builder": "@angular-devkit/build-angular:ssr-dev-server",
           "options": {
             "browserTarget": "ng2-admin:build",
             "serverTarget": "ng2-admin:server"
