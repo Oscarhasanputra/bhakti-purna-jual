@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { GlobalState } from '../../../global.state';
 
-import 'style-loader!./baPageTop.scss';
+// import 'style-loader!./baPageTop.scss';
 
 @Component({
   selector: 'ba-page-top',
   templateUrl: './baPageTop.html',
+  styleUrls:["./baPageTop.scss"]
 })
 export class BaPageTop {
 

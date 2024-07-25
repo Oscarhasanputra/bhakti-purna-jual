@@ -8,12 +8,13 @@ import {
 } from '@angular/core';
 
 import * as Chartist from 'chartist';
-import 'style-loader!./baChartistChart.scss';
+// import 'style-loader!./baChartistChart.scss';
 
 @Component({
   selector: 'ba-chartist-chart',
   templateUrl: './baChartistChart.html',
   providers: [],
+  styleUrls:["./baChartistChart.scss"]
 })
 export class BaChartistChart {
 

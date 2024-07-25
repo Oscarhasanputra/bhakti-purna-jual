@@ -276,7 +276,7 @@ a.al-sidebar-list-link {
   }
 }
 
-@media (min-width: $resXS + 1) {
+@media (min-width: calc(#{$resXS} + 1)) {
   .menu-collapsed {
     @include sidebar-collapsed();
   }

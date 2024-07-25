@@ -14,7 +14,7 @@ import {DialogModule} from "primeng/dialog"
 import { NgBusyModule } from 'ng-busy';
 
 // import { Ng2BootstrapModule } from "ngx-bootstrap";
-import {} from "ngx-bootstrap/ngx-bootstrap"
+// import {} from "ngx-bootstrap/ngx-bootstrap"
 import { Report } from './report.component';
 import { reportClaim } from './components/reportclaim/reportclaim.component';
 import { reportServiceList } from './components/reportservicelist/reportservicelist.component';

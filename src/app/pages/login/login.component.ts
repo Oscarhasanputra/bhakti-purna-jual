@@ -8,11 +8,12 @@ import { GlobalState } from '../../global.state';
 
 import { PAGES_MENU } from '../pages.menu';
 
-import 'style-loader!./login.scss';
+// import 'style-loader!./login.scss';
 
 @Component({
   selector: 'login',
   templateUrl: './login.html',
+  styleUrls:["./login.scss"]
 })
 export class Login {
   busyLoaderEvent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);

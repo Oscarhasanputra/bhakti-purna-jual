@@ -5,8 +5,8 @@ import { BaImageLoaderService, BaThemePreloader, BaThemeSpinner } from './theme/
 import { BaThemeConfig } from './theme/theme.config';
 import { layoutPaths } from './theme/theme.constants';
 
-import 'style-loader!./app.scss';
-import 'style-loader!./theme/initial.scss';
+// import 'style-loader!./app.scss';
+// import 'style-loader!./theme/initial.scss';
 
 /*
  * App Component
@@ -19,7 +19,8 @@ import 'style-loader!./theme/initial.scss';
       <div class="additional-bg"></div>
       <router-outlet></router-outlet>
     </main>
-  `
+  `,
+  styleUrls:["./app.scss","./theme/initial.scss"]
 })
 export class App {
 
