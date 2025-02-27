@@ -13,7 +13,7 @@ import { PagesService } from './pages.service';
   selector: 'pages',
   template: `
     <div [ngBusy]="busyLoaderEvent"></div>
-    <ba-sidebar></ba-sidebar>
+    <ba-sidebar [ngClass]="{'menu-collapsed': isMenuCollapsed}"></ba-sidebar>
     <ba-page-top></ba-page-top>
     <div class="al-main">
       <div class="al-content">
@@ -29,6 +29,7 @@ import { PagesService } from './pages.service';
     `
 })
 export class Pages {
+  isMenuCollapsed = false;
   busyLoaderEvent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 
   constructor(public router: Router, private _menuService: BaMenuService, public pagesService: PagesService,
@@ -39,6 +40,10 @@ export class Pages {
 
   ngOnInit() {
     let menuFilter = [];
+    this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
+
+      this.isMenuCollapsed = isCollapsed;
+    });
     // console.log(this._state.Decrypt('mAuth').KODE_BASS)
     //set menu
     let menuPart: any = _.cloneDeep(PAGES_MENU);

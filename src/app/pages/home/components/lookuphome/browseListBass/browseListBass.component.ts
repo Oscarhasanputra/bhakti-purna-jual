@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit, Renderer2 } from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation, Output, EventEmitter, OnInit, Renderer2, Input } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
@@ -17,10 +17,11 @@ export class browseListBass {
 
   public kode_dealer;
   public listBass: listBass[];
-  public sKodeBass: any;
+  // public
   sStorage: any;
   display: boolean = false;
   showPilihKodeBass: boolean = false;
+  @Input("kodeBass") sKodeBass: any;
   @Output() kodeBassChild = new EventEmitter<string>();
   busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
 

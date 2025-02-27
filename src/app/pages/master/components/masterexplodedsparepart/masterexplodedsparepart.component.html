@@ -6,11 +6,12 @@
     style="padding: 4px 10px; border-bottom: 0 none"
   >
     <i class="fa fa-search" style="margin: 4px 4px 0 0"></i>
-    <input #gb1 type="text" pInputText size="50" placeholder="Search" />
+    <input #gb1
+    (input)="dt1.filterGlobal($event.target.value, 'contains')" type="text" pInputText size="50" placeholder="Search" />
   </div>
 
   <p-table
-    #dt
+    #dt1
     [sortOrder]="1"
     [value]="baranglist"
     sortMode="multiple"
@@ -84,6 +85,11 @@
         </td>
       </tr>
     </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+          <td colspan="100">No Records Found</td>
+      </tr>
+     </ng-template>
   </p-table>
   <!-- <p-dataTable [value]="baranglist" [(selection)]="selectedBarang" [responsive]="true" sortMode="multiple" [rows]="5" [paginator]="true"
         [pageLinks]="3" [style]="{'color': 'black'}" selectionMode="single" (onRowSelect)="onRowSelectBarang($event)" [globalFilter]="gb1"
@@ -110,10 +116,11 @@
     style="padding: 4px 10px; border-bottom: 0 none"
   >
     <i class="fa fa-search" style="margin: 4px 4px 0 0"></i>
-    <input #gb2 type="text" pInputText size="50" placeholder="Search" />
+    <input #gb2
+    (input)="dt2.filterGlobal($event.target.value, 'contains')" type="text" pInputText size="50" placeholder="Search" />
   </div>
   <p-table
-    #dt
+    #dt2
     [sortOrder]="1"
     [value]="explodedheaderlist"
     sortMode="multiple"
@@ -165,6 +172,11 @@
         </td>
       </tr>
     </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+          <td colspan="100">No Records Found</td>
+      </tr>
+     </ng-template>
   </p-table>
   <!-- <p-dataTable [value]="explodedheaderlist" [(selection)]="selectedExplodedheader" [responsive]="true" sortMode="multiple"
         [rows]="5" [paginator]="true" [pageLinks]="3" [style]="{'color': 'black'}" selectionMode="single" (onRowSelect)="onRowSelectExplodedHeader($event)"
@@ -206,10 +218,11 @@
       style="padding: 4px 10px; border-bottom: 0 none"
     >
       <i class="fa fa-search" style="margin: 4px 4px 0 0"></i>
-      <input #gb3 type="text" pInputText size="50" placeholder="Search" />
+      <input #gb3
+      (input)="dt3.filterGlobal($event.target.value, 'contains')" type="text" pInputText size="50" placeholder="Search" />
     </div>
     <p-table
-      #dt
+      #dt3
       [sortOrder]="1"
       sortMode="multiple"
       [globalFilterFields]="['Nomor', 'PartID', 'PartName', 'Harga']"
@@ -283,6 +296,11 @@
           </td>
         </tr>
       </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="100">No Records Found</td>
+        </tr>
+       </ng-template>
     </p-table>
     <!-- <p-dataTable [style]="{'width':'480px', 'font-size':'10px', 'font-weight':'bold'}" [value]="explodeddetaillist" [(selection)]="selectedExplodeddetail"
             [responsive]="true" sortMode="multiple" [rows]="8" [paginator]="true" [pageLinks]="3" [style]="{'color': 'black'}"
@@ -315,7 +333,7 @@
   appendTo="body"
 >
   <p-table
-    #dt
+    #dt4
     [sortOrder]="1"
     sortMode="multiple"
     [globalFilterFields]="['Nomor', 'PartID', 'PartName', 'Harga']"
@@ -372,6 +390,11 @@
         </td>
       </tr>
     </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+          <td colspan="100">No Records Found</td>
+      </tr>
+     </ng-template>
   </p-table>
 
   <!-- <p-dataTable [value]="selectedExplodeddetail2" [responsive]="true" sortMode="multiple" [rows]="5" [paginator]="true" [pageLinks]="3"

@@ -27,8 +27,9 @@ export class ListSparepartService {
     constructor(public http: HttpClient, public global: GlobalState) {
     }
 
-    getSparepartList(): Promise<any> {
-        let bodyString = {}; // Stringify payload
+    getSparepartList(kodesparepart:string,first,rows=10): Promise<any> {
+        const kode = "%"+kodesparepart+"%";
+        let bodyString = JSON.stringify({kdsparepart:kode,first,rows}); // Stringify payload
         return this.http.post(this.global.GlobalUrl + '/sparepartList/', bodyString, {headers:this.headers})
             .toPromise()
             .then(response => response)

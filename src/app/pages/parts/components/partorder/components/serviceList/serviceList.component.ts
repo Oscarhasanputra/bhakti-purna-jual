@@ -3,6 +3,7 @@ import { ServiceListService } from './serviceList.service';
 import { ServiceListModel } from './serviceList.model';
 import { GlobalState } from '../../../../../../global.state';
 
+import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 @Component({
     selector: 'list-service',
     encapsulation: ViewEncapsulation.None,
@@ -23,6 +24,8 @@ export class ServiceList {
     @Input() ServiceDataInput;
     @Input() componentDisableService = false;
 
+    busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
+
     constructor(protected service: ServiceListService, public global: GlobalState) {
         this.KodeBass = this.global.Decrypt('mAuth').KODE_BASS;
 
@@ -36,6 +39,7 @@ export class ServiceList {
         this.dateFr.setFullYear(prevYear);
 
         this.dateTo = new Date();
+        this.busyloadevent.message = 'Please Wait...';
     }
 
     onRowSelect(event) {
@@ -59,13 +63,16 @@ export class ServiceList {
     }
 
     search() {
-        this.service.getServiceList(this.KodeBass, this.dateFr, this.dateTo).then(
+        this.busyloadevent.busy=[ this.service.getServiceList(this.KodeBass, this.dateFr, this.dateTo).then(
             data => {
+                console.log("get data");
+                console.log(data);
                 this.serviceList = data;
             },
             err => {
                 console.log(err)
             })
+        ];
     }
 
     browseServicebyText() {

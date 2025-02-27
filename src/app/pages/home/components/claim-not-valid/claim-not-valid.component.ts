@@ -1,26 +1,23 @@
-import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SelectItem } from 'primeng/api';
 
-import { ServiceListService } from './servicelist.service';
 import { Subscription } from 'rxjs';
 import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { GlobalState } from '../../../../global.state';
+import { ClaimNotValidService } from './claim-not-valid.service';
+
 
 @Component({
-  selector: 'servicelist',
+  selector: 'claimNotValid',
   encapsulation: ViewEncapsulation.None,
-  styleUrls:['./servicelist.component.scss'],
-  templateUrl:'./servicelist.component.html'
+  templateUrl: './claim-not-valid.component.html',
+  styleUrl: './claim-not-valid.component.scss'
 })
-export class serviceList {
-
+export class ClaimNotValidComponent {
   public sKodeBass: any = "";
-  public sKodeCust: any = "";
-  status: Array<any>;
-  selectedStatus: string;
-  public source: serviceListDT[];
+  public source: ClaimNotValidDTO[];
   tglAwal: any = "";
   tglAkhir: any = "";
   busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
@@ -29,11 +26,8 @@ export class serviceList {
     this.sKodeBass = childData;
   }
 
-  public kodeCustomerEvent(childData: any) {
-    this.sKodeCust = childData;
-  }
 
-  constructor(private _state: GlobalState, private serviceListService: ServiceListService, protected router: Router) {
+  constructor(private _state: GlobalState, private claimNotValidService:ClaimNotValidService, protected router: Router) {
 
     let today = new Date();
     let month = today.getMonth();
@@ -46,13 +40,7 @@ export class serviceList {
 
     this.tglAkhir = new Date();
 
-    this.status = [];
-    this.status.push({ label: 'Waiting For Finishing', value: "WF" });
-    this.status.push({ label: 'Waiting For Returned to Customer', value: "WC" });
-    this.status.push({ label: 'Rejected', value: "RJ" });
-    this.status.push({ label: 'Rejected and Assigned', value: "RC" });
 
-    this.selectedStatus = this.status[0].value;
     this.busyloadevent.message = 'Please Wait...'
 
     if (this._state.Decrypt('mAuth').KODE_BASS == this._state.Decrypt('mParameter').BASS_PUSAT) {
@@ -63,9 +51,12 @@ export class serviceList {
     this.loadData();
   }
 
+
   loadData() {
-    this.busyloadevent.busy = [this.serviceListService.getServiceListHome(this.sKodeBass, this.sKodeCust, this.selectedStatus, this.tglAwal, this.tglAkhir).then(
+    this.busyloadevent.busy = [this.claimNotValidService.getClaimNotValidList(this.sKodeBass, this.tglAwal, this.tglAkhir).then(
       data => {
+        console.log("DATA")
+        console.log(data)
         this.source = data;
       },
       err => {
@@ -85,14 +76,15 @@ export class serviceList {
   tampil(kode_service) {
     this.router.navigate(['/pages/service/finishingservicerequest', kode_service]);
   }
-
 }
 
-export interface serviceListDT {
-  KODE_BASS;
-  KODE_SERVICE;
-  TANGGAL;
-  NAMA_CUSTOMER;
-  NAMA_BASS;
-  STATUS;
+
+export interface ClaimNotValidDTO {
+  KODE_CLAIM:string;
+  KODE_PRODUK:string;
+  KODE_SERVICE:string;
+  NOMOR_NOTA:string;
+  NOMOR_SERI:string;
+  REASON:string;
+  TANGGAL:string;
 }

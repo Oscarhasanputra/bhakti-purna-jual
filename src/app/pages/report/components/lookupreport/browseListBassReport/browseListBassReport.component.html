@@ -30,6 +30,7 @@
       <i class="fa fa-search" style="margin: 4px 4px 0 0"></i>
       <input
         #gb
+        (input)="dt.filterGlobal($event.target.value, 'contains')"
         type="text"
         pInputText
         size="50"
@@ -82,6 +83,11 @@
           </td>
         </tr>
       </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="100">No Records Found</td>
+        </tr>
+       </ng-template>
     </p-table>
     <!-- <p-dataTable [value]="listBass" [rows]="10" [paginator]="true" [responsive]="true" selectionMode="single" [(selection)]="selectedBass" (onRowSelect)="onRowSelect($event)" [globalFilter]="gb" #dt>
             <p-column field="KODE_BASS" header="Kode Bass" [style]="{'color':'black'}"></p-column>

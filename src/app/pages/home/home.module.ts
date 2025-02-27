@@ -30,6 +30,8 @@ import { PartOrderExpiredService } from './components/partorderexpired/partorder
 import { BarangDalamperJalananService } from './components/barangdalamperjalanan/barangdalamperjalanan.service'
 import { InputTextModule } from 'primeng/inputtext';
 import { PrimengDefaultModule } from '../../theme/defaultprimeng.module';
+import { ClaimNotValidComponent } from './components/claim-not-valid/claim-not-valid.component';
+import { ClaimNotValidService } from './components/claim-not-valid/claim-not-valid.service';
 
 @NgModule({
   imports: [
@@ -55,7 +57,8 @@ import { PrimengDefaultModule } from '../../theme/defaultprimeng.module';
     partOrderExpired,
     barangDalamPerjalanan,
     browseListBass,
-    browseCustomerList
+    browseCustomerList,
+    ClaimNotValidComponent,
   ],
   providers: [
     BrowseListBassService,
@@ -63,7 +66,8 @@ import { PrimengDefaultModule } from '../../theme/defaultprimeng.module';
     BrowseCustomerListService,
     PartOrderService,
     PartOrderExpiredService,
-    BarangDalamperJalananService
+    BarangDalamperJalananService,
+    ClaimNotValidService
    ]
 })
 export class HomeModule {}

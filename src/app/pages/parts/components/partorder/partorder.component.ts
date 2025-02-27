@@ -195,6 +195,8 @@ export class PartOrder {
   }
 
   removeSelected() {
+    console.log("remove selected")
+    console.log(this.selectedPart)
     if (this.selectedPart.length > 0) {
       for (var i = 0; i < this.sparepartList.length; i++) {
         for (var x = 0; x < this.selectedPart.length; x++) {
@@ -248,7 +250,7 @@ export class PartOrder {
       }
       , err => {
         alert('Gagal save');
-        //  console.log(err); 
+        //  console.log(err);
       }
       )
   }

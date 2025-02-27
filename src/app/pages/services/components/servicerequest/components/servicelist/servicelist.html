@@ -141,6 +141,11 @@ style="position: relative; color: black"
 </td>
       </tr>
     </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+          <td colspan="100">No Records Found</td>
+      </tr>
+     </ng-template>
   </p-table>
     <!-- <p-dataTable [value]="serviceList" [rows]="10" [paginator]="true" [pageLinks]="6" [rowsPerPageOptions]="[10,20,30]"
         selectionMode="single" [(selection)]="selectedService" (onRowSelect)="onRowSelect($event)" [style]="{'color': 'black'}">

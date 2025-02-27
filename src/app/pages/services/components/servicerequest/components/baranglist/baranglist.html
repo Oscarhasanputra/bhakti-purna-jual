@@ -127,6 +127,11 @@
         </td>
       </tr>
     </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+          <td colspan="100">No Records Found</td>
+      </tr>
+     </ng-template>
   </p-table>
   <!-- <p-dataTable [value]="barangList" [rows]="10" [paginator]="true" [pageLinks]="6" [rowsPerPageOptions]="[10,20,30]" [style]="{'color': 'black'}"
         selectionMode="single" [(selection)]="selectedBarang" (onRowSelect)="onRowSelectBarang($event)">

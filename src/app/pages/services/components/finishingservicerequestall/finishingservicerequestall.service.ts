@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 // set global url
 import { GlobalState } from '../../../../global.state';
+import { SortOrderDTO } from '../../../models/sortOrderDto';
 
 // Import RxJs required methods
 // Operators
@@ -159,7 +160,7 @@ export class FinishingServiceRequestAllService {
     }
 
     // getSparepart
-    getSparepart(kodeBass: String, kodeBarang: String, nomorInvoice: String, kodeSparepart:String, jenisService:String, kodeFinishing:String): Promise<any> {
+    getSparepart(kodeBass: String, kodeBarang: String, nomorInvoice: String, kodeSparepart:String, jenisService:String, kodeFinishing:String,first:number,rows:number,sort:SortOrderDTO): Promise<any> {
         let bodyString = JSON.stringify({ kodeBass: kodeBass, kodeBarang: kodeBarang, nomorInvoice: nomorInvoice, kodeSparepart:kodeSparepart, jenisService:jenisService, kodeFinishing:kodeFinishing}); // Stringify payload
         // get token in localstorage
         let token = this.global.Decrypt('mAuth').TOKEN

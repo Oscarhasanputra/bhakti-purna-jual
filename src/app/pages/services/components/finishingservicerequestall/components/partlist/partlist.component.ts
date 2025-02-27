@@ -4,6 +4,7 @@ import { BUSY_CONFIG_DEFAULTS, IBusyConfig } from 'ng-busy';
 import { PartlistService } from './partlist.service';
 import { Subject } from 'rxjs';
 import { GlobalState } from '../../../../../../global.state';
+import { SortOrderDTO } from '../../../../../models/sortOrderDto';
 
 @Component({
     selector: 'partlist',
@@ -20,6 +21,8 @@ export class PartListComponent implements OnInit {
     public gloNamaBass: any;
     public gloUsername: any;
     public selectedParts: any;
+
+    public totalRecords =0;
 
     @Output() onHiddenMain = new EventEmitter<Boolean>();
     @Output() onCancel = new EventEmitter<Boolean>();
@@ -47,7 +50,7 @@ export class PartListComponent implements OnInit {
         this.onHiddenMain.emit(true)
     }
 
-    public buttonSearchClicked(kodePart: String) {
+    public buttonSearchClicked(kodePart: String,first=0,rows=10,sort:SortOrderDTO = {sortField:"",sortOrder:1}) {
         this.getSparepart(this.gloKodeBass, this.filterPart.kodeBarang, this.filterPart.kodeInvoice, kodePart, this.filterPart.jenisService, this.filterPart.kodeFinishing)
     }
 
@@ -82,9 +85,17 @@ export class PartListComponent implements OnInit {
     }
 
     // get data in service
-    public getSparepart(kodeBass: String, kodeBarang: String, kodeInvoice: String, kodePart: String, jenisService: String, kodeFinishing: String) {
-        this.service.getSparepart(kodeBass, kodeBarang, kodeInvoice, kodePart, jenisService, kodeFinishing).then(
-            data => {
+    public getSparepart(kodeBass: String, kodeBarang: String, kodeInvoice: String, kodePart: String, jenisService: String, kodeFinishing: String,
+    first:number = 0,
+    rows:number= 10,
+    sort:SortOrderDTO = {sortField:"",sortOrder:1}
+    ) {
+        this.service.getSparepart(kodeBass, kodeBarang, kodeInvoice, kodePart, jenisService, kodeFinishing,first,rows,sort).then(
+            response => {
+                const data = response[0]?.data?response[0].data:[];
+
+                this.totalRecords=response[0]?.total_record?response[0]?.total_record[0]?.TOTAL_RECORD:0;
+
                 this.partList = data;
                 // console.log(this.partList)
             },
@@ -97,5 +108,17 @@ export class PartListComponent implements OnInit {
                     alert(err._body.data);
                 }
             });
+    }
+
+    onLazyLoad(event){
+        const first = event.first+1;
+        const rows= event.rows-1;
+
+        const keywords= this.filterPart["part"]?this.filterPart["part"]:"";
+        const sortField = event.sortField;
+        const sortOrder = event.sortOrder;
+
+        this.buttonSearchClicked(keywords,first,rows,{sortField,sortOrder});
+
     }
 }

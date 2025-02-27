@@ -1,138 +1,4 @@
-<div class="widgets">
-  <div class="row">
-    <ba-card title="" baCardClass="with-scroll">
-      <p-table
-        [value]="serviceList"
-        [rows]="20"
-        [paginator]="true"
-        [pageLinks]="6"
-        [rowsPerPageOptions]="[10,20,30]"
-        selectionMode="single"
-        [(selection)]="selectedService"
-        (onRowSelect)="onRowSelect($event)"
-        [globalFilterFields]="['KODE_SERVICE','TANGGAL','NOMOR_NOTA','NAMA_CUSTOMER','KODE_PRODUK','NOMOR_SERI','STATUS']"
-        autoLayout="true"
-      >
-        <ng-template pTemplate="header" let-columns>
-          <tr>
-            <th
-              style="color: black"
-              pResizableColumn
-              [pSortableColumn]="'KODE_SERVICE'"
-            >
-              KODE SERVICE
-            </th>
-            <th
-              style="color: black"
-              pResizableColumn
-              [pSortableColumn]="'TANGGAL'"
-            >
-              TANGGAL
-            </th>
-            <th
-              style="color: black"
-              pResizableColumn
-              [pSortableColumn]="'NOMOR_NOTA'"
-            >
-              NOMOR NOTA
-            </th>
-            <th
-              style="color: black"
-              pResizableColumn
-              [pSortableColumn]="'NAMA_CUSTOMER'"
-            >
-              NAMA CUSTOMER
-            </th>
-            <th
-              style="color: black"
-              pResizableColumn
-              [pSortableColumn]="'KODE_PRODUK'"
-            >
-              KODE BARANG
-            </th>
-            <th
-              style="color: black"
-              pResizableColumn
-              [pSortableColumn]="'NOMOR_SERI'"
-            >
-              NOMOR SERI
-            </th>
-            <th
-              style="color: black"
-              pResizableColumn
-              [pSortableColumn]="'STATUS'"
-            >
-              STATUS
-            </th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-data>
-          <tr [pSelectableRow]="data">
-            <td
-              class="ui-resizable-column"
-              style="position: relative; color: black"
-            >
-              <div>{{ data["KODE_SERVICE"] }}</div>
-            </td>
-            <td
-              class="ui-resizable-column"
-              style="position: relative; color: black"
-            >
-              <div>{{ data["TANGGAL"] | date: 'dd/MM/yy'}}</div>
-            </td>
-            <td
-              class="ui-resizable-column"
-              style="position: relative; color: black"
-            >
-              <div>{{ data["NOMOR_NOTA"] }}</div>
-            </td>
-            <td
-              class="ui-resizable-column"
-              style="position: relative; color: black"
-            >
-              <div>{{ data["NAMA_CUSTOMER"] }}</div>
-            </td>
-            <td
-              class="ui-resizable-column"
-              style="position: relative; color: black"
-            >
-              <div>{{ data["KODE_PRODUK"] }}</div>
-            </td>
-            <td
-              class="ui-resizable-column"
-              style="position: relative; color: black"
-            >
-              <div>{{ data["NOMOR_SERI"] }}</div>
-            </td>
-            <td
-              class="ui-resizable-column"
-              style="position: relative; color: black"
-            >
-              <div>{{ data["STATUS"] }}</div>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
 
-      <!-- <p-dataTable [value]="serviceList" [rows]="20" [paginator]="true" [pageLinks]="6" [rowsPerPageOptions]="[10,20,30]"
-            selectionMode="single" [(selection)]="selectedService" (onRowSelect)="onRowSelect($event)">
-            <p-column field="KODE_SERVICE" header="KODE SERVICE" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-
-            <p-column field="TANGGAL" header="TANGGAL" [sortable]="true" [filter]="true" filterPlaceholder="Search">
-              <ng-template let-col let-data="rowData">
-                  <span>{{serviceList.TANGGAL | date: 'dd/MM/yy'}}</span>
-              </ng-template>
-            </p-column>
-
-            <p-column field="NOMOR_NOTA" header="NOMOR NOTA" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-            <p-column field="NAMA_CUSTOMER" header="NAMA CUSTOMER" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-            <p-column field="KODE_PRODUK" header="KODE BARANG" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-            <p-column field="NOMOR_SERI" header="NOMOR SERI" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-            <p-column field="STATUS" header="STATUS" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-        </p-dataTable> -->
-    </ba-card>
-  </div>
-</div>
 
 <input
   type="text"
@@ -156,127 +22,172 @@
   header="LIST SERVICE"
   [(visible)]="display"
   modal="true"
-  height="650"
-  width="1000"
+  [contentStyle]="{height:'650px',width:'1000px'}"
   responsive="true"
-  appendTo="body"
 >
-  <!--<ba-card baCardClass="with-scroll">-->
-  <form class="form-horizontal">
-    <div class="form-group row">
-      <label class="col-sm-2 form-control-label" style="color: black"
-        >Tanggal Dari:
-      </label>
-      <div class="col-sm-3">
-        <p-calendar
-          [(ngModel)]="dateFr"
-          [showIcon]="false"
-          dateFormat="dd-MM-yy"
-          [ngModelOptions]="{standalone: true}"
-        ></p-calendar>
+  <div>
+    <div [ngBusy]="busyloadevent"></div>
+      <!--<ba-card baCardClass="with-scroll">-->
+    <form class="form-horizontal">
+      <div class="form-group row">
+        <label class="col-sm-2 form-control-label" style="color: black"
+          >Tanggal Dari:
+        </label>
+        <div class="col-sm-3">
+          <p-calendar
+            [(ngModel)]="dateFr"
+            [showIcon]="false"
+            dateFormat="dd-MM-yy"
+            [ngModelOptions]="{standalone: true}"
+          ></p-calendar>
+        </div>
+        <label class="col-sm-2 form-control-label" style="color: black"
+          >Tanggal Sampai:
+        </label>
+        <div class="col-sm-3">
+          <p-calendar
+            [(ngModel)]="dateTo"
+            [showIcon]="false"
+            dateFormat="dd-MM-yy"
+            [ngModelOptions]="{standalone: true}"
+          ></p-calendar>
+        </div>
+        <div class="col-sm-2">
+          <button class="btn btn-primary" type="button" (click)="search()">
+            Search
+          </button>
+        </div>
       </div>
-      <label class="col-sm-2 form-control-label" style="color: black"
-        >Tanggal Sampai:
-      </label>
-      <div class="col-sm-3">
-        <p-calendar
-          [(ngModel)]="dateTo"
-          [showIcon]="false"
-          dateFormat="dd-MM-yy"
-          [ngModelOptions]="{standalone: true}"
-        ></p-calendar>
-      </div>
-      <div class="col-sm-2">
-        <button class="btn btn-primary" type="button" (click)="search()">
-          Search
-        </button>
-      </div>
-    </div>
-  </form>
+    </form>
 
-  <p-table
-    [value]="serviceList"
-    [responsive]="true"
-    sortMode="multiple"
-    [rows]="5"
-    [paginator]="true"
-    [pageLinks]="3"
-    [style]="{'color': 'black'}"
-    selectionMode="single"
-    [(selection)]="selectedService"
-    (onRowSelect)="onRowSelect($event)"
-    [globalFilterFields]="['KODE_SERVICE','TANGGAL','KODE_CUSTOMER','STATUS']"
-    autoLayout="true"
-  >
-    <ng-template pTemplate="header" let-columns>
-      <tr>
-        <th
-          style="color: black"
-          pResizableColumn
-          [pSortableColumn]="'KODE_SERVICE'"
-        >
-          KODE SERVICE
-        </th>
-        <th style="color: black" pResizableColumn [pSortableColumn]="'TANGGAL'">
-          TANGGAL
-        </th>
+    <p-table
+      [value]="serviceList"
+      [responsive]="true"
+      sortMode="multiple"
+      [rows]="5"
+      [paginator]="true"
+      [pageLinks]="3"
+      [style]="{'color': 'black'}"
+      selectionMode="single"
+      [(selection)]="selectedService"
+      (onRowSelect)="onRowSelect($event)"
+      [globalFilterFields]="['KODE_SERVICE','TANGGAL','KODE_CUSTOMER','STATUS']"
+      autoLayout="true"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th
+            style="color: black"
+            pResizableColumn
+            [pSortableColumn]="'KODE_SERVICE'"
+          >
+            KODE SERVICE
+            <p-sortIcon field="KODE_SERVICE" />
+          </th>
+          <th style="color: black" pResizableColumn [pSortableColumn]="'TANGGAL'">
+            TANGGAL
+            <p-sortIcon field="TANGGAL" />
+          </th>
 
-        <th
-          style="color: black"
-          pResizableColumn
-          [pSortableColumn]="'KODE_CUSTOMER'"
-        >
-          KODE CUSTOMER
-        </th>
+          <th
+            style="color: black"
+            pResizableColumn
+            [pSortableColumn]="'KODE_CUSTOMER'"
+          >
+            KODE CUSTOMER
+            <p-sortIcon field="KODE_CUSTOMER" />
+          </th>
 
-        <th style="color: black" pResizableColumn [pSortableColumn]="'STATUS'">
-          STATUS
-        </th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-data>
-      <tr [pSelectableRow]="data">
-        <td
-          class="ui-resizable-column"
-          style="position: relative; color: black"
-        >
-          <div>{{ data["KODE_SERVICE"] }}</div>
-        </td>
-        <td
-          class="ui-resizable-column"
-          style="position: relative; color: black"
-        >
-          <div>{{ data["TANGGAL"] | date: 'dd/MM/yy'}}</div>
-        </td>
-        <td
-          class="ui-resizable-column"
-          style="position: relative; color: black"
-        >
-          <div>{{ data["KODE_CUSTOMER"] }}</div>
-        </td>
-        <td
-          class="ui-resizable-column"
-          style="position: relative; color: black"
-        >
-          <div>{{ data["STATUS"] }}</div>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
-  <!-- <p-dataTable [value]="serviceList"[responsive]="true" sortMode="multiple" [rows]="5" [paginator]="true"
-            [pageLinks]="3" [style]="{'color': 'black'}" selectionMode="single" [(selection)]="selectedService" (onRowSelect)="onRowSelect($event)">
-            <p-column field="KODE_SERVICE" header="KODE SERVICE" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+          <th style="color: black" pResizableColumn [pSortableColumn]="'STATUS'">
+            STATUS
+            <p-sortIcon field="STATUS" />
+          </th>
+        </tr>
+        <tr>
+          <th>
+            <p-columnFilter
+                type="text"
+                field="KODE_SERVICE"
+                placeholder="Search by name"
+                ariaLabel="Filter Name"
+            ></p-columnFilter>
+          </th>
+          <th>
+            <p-columnFilter
+                type="text"
+                field="TANGGAL"
+                placeholder="Search by name"
+                ariaLabel="Filter Name"
+            ></p-columnFilter>
+          </th>
+          <th>
+            <p-columnFilter
+                type="text"
+                field="KODE_CUSTOMER"
+                placeholder="Search by name"
+                ariaLabel="Filter Name"
+            ></p-columnFilter>
+          </th>
+          <th>
+            <p-columnFilter
+                type="text"
+                field="STATUS"
+                placeholder="Search by name"
+                ariaLabel="Filter Name"
+            ></p-columnFilter>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-data>
+        <tr [pSelectableRow]="data">
+          <td
+            class="ui-resizable-column"
+            style="position: relative; color: black"
+          >
+            <div>{{ data["KODE_SERVICE"] }}</div>
+          </td>
+          <td
+            class="ui-resizable-column"
+            style="position: relative; color: black"
+          >
+            <div>{{ data["TANGGAL"] | date: 'dd/MM/yy'}}</div>
+          </td>
+          <td
+            class="ui-resizable-column"
+            style="position: relative; color: black"
+          >
+            <div>{{ data["KODE_CUSTOMER"] }}</div>
+          </td>
+          <td
+            class="ui-resizable-column"
+            style="position: relative; color: black"
+          >
+            <div>{{ data["STATUS"] }}</div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="100">No Records Found</td>
+        </tr>
+       </ng-template>
+    </p-table>
+    <!-- <p-dataTable [value]="serviceList"[responsive]="true" sortMode="multiple" [rows]="5" [paginator]="true"
+              [pageLinks]="3" [style]="{'color': 'black'}" selectionMode="single" [(selection)]="selectedService" (onRowSelect)="onRowSelect($event)">
+              <p-column field="KODE_SERVICE" header="KODE SERVICE" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
 
-            <p-column field="TANGGAL" header="TANGGAL" [sortable]="true" [filter]="true" filterPlaceholder="Search">
-              <ng-template let-col let-data="rowData" pTemplate="body">
-                    <span>{{data[col.field] | date: 'dd-MMM-yyyy'}}</span>
-                </ng-template>
-            </p-column>
+              <p-column field="TANGGAL" header="TANGGAL" [sortable]="true" [filter]="true" filterPlaceholder="Search">
+                <ng-template let-col let-data="rowData" pTemplate="body">
+                      <span>{{data[col.field] | date: 'dd-MMM-yyyy'}}</span>
+                  </ng-template>
+              </p-column>
 
-            <p-column field="KODE_CUSTOMER" header="KODE CUSTOMER" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-            <p-column field="STATUS" header="STATUS" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-        </p-dataTable> -->
-  <br />
-  <button type="button" class="btn btn-primary" (click)="Back()">Cancel</button>
-  <!--</ba-card>-->
+              <p-column field="KODE_CUSTOMER" header="KODE CUSTOMER" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+              <p-column field="STATUS" header="STATUS" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+          </p-dataTable> -->
+    <br />
+    <button type="button" class="btn btn-primary" (click)="Back()">Cancel</button>
+    <!--</ba-card>-->
+  </div>
+
 </p-dialog>

@@ -27,6 +27,7 @@ export class frmInputMasterBass {
   public zona: any;
   registerBass: UntypedFormGroup;
   nama_bass: AbstractControl;
+  iscabang:AbstractControl;
   alamat_bass: AbstractControl;
   nomor_telepon: AbstractControl;
   kota: AbstractControl;
@@ -62,6 +63,7 @@ export class frmInputMasterBass {
       );
 
       this.registerBass = this.formBuilder.group({
+        iscabang:[false,Validators.compose([Validators.required])],
         nama_bass: ['', Validators.compose([Validators.required])],
         alamat_bass: ['', Validators.compose([Validators.required])],
         nomor_telepon: ['', Validators.compose([Validators.required])],
@@ -71,6 +73,7 @@ export class frmInputMasterBass {
       })
 
       this.nama_bass = this.registerBass.controls['nama_bass'];
+      this.iscabang = this.registerBass.controls['iscabang'];
       this.alamat_bass = this.registerBass.controls['alamat_bass'];
       this.nomor_telepon = this.registerBass.controls['nomor_telepon'];
       this.kota = this.registerBass.controls['kota'];
@@ -96,6 +99,7 @@ export class frmInputMasterBass {
             this.data = data;
             this.sKodeBass = this.data[0].KODE_BASS;
             this.registerBass = this.formBuilder.group({
+              iscabang:[this.data[0].iscabang?this.data[0].cabang:false,Validators.compose([Validators.required])],
               nama_bass: [this.data[0].NAMA_BASS, Validators.compose([Validators.required])],
               alamat_bass: [this.data[0].ALAMAT_BASS, Validators.compose([Validators.required])],
               nomor_telepon: [this.data[0].NOMOR_TELP, Validators.compose([Validators.required])],
@@ -104,6 +108,7 @@ export class frmInputMasterBass {
               email: [this.data[0].EMAIL, Validators.compose([Validators.required, EmailValidator.validate])]
             })
 
+            this.iscabang = this.registerBass.controls['iscabang'];
             this.nama_bass = this.registerBass.controls['nama_bass'];
             this.alamat_bass = this.registerBass.controls['alamat_bass'];
             this.nomor_telepon = this.registerBass.controls['nomor_telepon'];

@@ -74,11 +74,16 @@ export class BaMenu {
     let submenu = jQuery($event.currentTarget).next();
 
     if (this.sidebarCollapsed) {
+      console.log("sidebar coll")
+      console.log($event)
       this.expandMenu.emit(null);
       if (!$event.item.expanded) {
         $event.item.expanded = true;
       }
     } else {
+      console.log("side bar coll 2")
+      console.log($event)
+      console.log(submenu)
       $event.item.expanded = !$event.item.expanded;
       submenu.slideToggle();
     }

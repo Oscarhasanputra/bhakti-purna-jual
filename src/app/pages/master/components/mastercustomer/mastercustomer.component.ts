@@ -24,11 +24,14 @@ export class masterCustomer {
   listZona: SelectItem[] = [];
   data: Array<any> = [];
   selectedListZona: string;
-  nama_customer: any;
+
+  kode_customer: any;
   public source: customerList[];
+  public totalRecords: number;
   busyloadevent: IBusyConfig = Object.assign({}, BUSY_CONFIG_DEFAULTS);
   selectedCust: Array<any>;
   listKodeCust: Array<any>;
+  hasInit = false;
 
   constructor(private masterCustomerService: MasterCustomerService, protected router: Router,
     private confirmationService: ConfirmationService, public global: GlobalState) {
@@ -43,7 +46,7 @@ export class masterCustomer {
     this.status.push({ label: 'Active', value: "A" });
     this.status.push({ label: 'Inactive', value: "I" });
 
-    this.nama_customer = '';
+    this.kode_customer = '';
 
     this.busyloadevent.message = 'Please Wait...'
 
@@ -59,6 +62,7 @@ export class masterCustomer {
 
           this.selectedListZona = this.listZona[0].value;
           this.loadData()
+          this.hasInit = true;
         },
         err => {
           if (err._body == 'You are not authorized' || err.status == 500) {
@@ -74,10 +78,16 @@ export class masterCustomer {
     }
   }
 
-  loadData() {
-    this.busyloadevent.busy = [this.masterCustomerService.getListMasterCustomer(this.sStorage.KODE_BASS, this.selectedListZona, this.nama_customer).then(
+  loadData(first=0,rows=10,keyword=null) {
+
+    const kodeCustomer = keyword?keyword:this.kode_customer;
+    this.busyloadevent.busy = [this.masterCustomerService.getListMasterCustomer(this.sStorage.KODE_BASS, this.selectedListZona, kodeCustomer,first,rows).then(
       data => {
-        this.source = data;
+        if(data){
+
+          this.source = data[0].data;
+          this.totalRecords = data[0].total_record[0].TOTAL_RECORD;
+        }
       },
       err => {
         if (err._body == 'You are not authorized' || err.status == 500) {
@@ -89,6 +99,21 @@ export class masterCustomer {
     )]
   }
 
+  onInputFilter(){
+
+  }
+  onLazyLoad(event){
+    if(this.hasInit){
+      const first = event.first+1;
+      const rows= event.rows-1;
+      const keywords= event.filters.global?event.filters.global.value:null;
+
+      this.loadData(first,rows,keywords);
+
+
+    }
+
+  }
   tambahCustomer() {
     this.router.navigate(['/pages/master/frmInputMasterCustomer']);
   }
@@ -98,6 +123,8 @@ export class masterCustomer {
   }
 
   delete(kode_customer) {
+    console.log("delete")
+    console.log(kode_customer);
     if (this.HakAkses.HAK_DELETE) {
       this.confirmationService.confirm({
         message: 'Anda yakin ingin menghapus customer ' + kode_customer + '?',

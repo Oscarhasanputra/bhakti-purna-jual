@@ -33,6 +33,7 @@
       <input
         #gb
         type="text"
+        (input)="dt_un.filterGlobal($event.target.value, 'contains')"
         pInputText
         size="50"
         placeholder="Search Kode bass / Nama Bass"
@@ -92,6 +93,11 @@
           </td>
         </tr>
       </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="100">No Records Found</td>
+        </tr>
+       </ng-template>
     </p-table>
 
     <!-- <p-dataTable

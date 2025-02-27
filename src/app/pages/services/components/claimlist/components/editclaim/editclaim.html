@@ -108,6 +108,11 @@
             </td>
           </tr>
         </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+              <td colspan="100">No Records Found</td>
+          </tr>
+         </ng-template>
       </p-table>
       <!-- <p-dataTable [value]="services" [(selection)]="selectedServices" [responsive]="true" [stacked]="stacked" sortMode="multiple"
                 [rows]="5" [paginator]="true" [pageLinks]="5" [style]="{'color':'black'}">
@@ -146,7 +151,7 @@
 
 <p-confirmDialog
   width="425 "
-  style="color: black; font-weight: bold"
+  [ngStyle]="{color:'black','font-weight':'bold'}"
   appendTo="body"
 ></p-confirmDialog>
 

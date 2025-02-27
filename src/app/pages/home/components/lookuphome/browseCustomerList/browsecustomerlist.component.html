@@ -20,9 +20,9 @@
   [(visible)]="display"
   responsive="true"
   appendTo="body"
-  [style]="{ 'font-size': '12px', padding: '0px' }"
+  [contentStyle]="{ 'font-size': '12px', padding: '0px',height:'650px',width:'1000px' }"
 >
-  <div style="width: 1000px">
+  <div style="width: 1000px;padding:1em">
     <div [ngBusy]="busyloadevent"></div>
 
     <div
@@ -32,6 +32,7 @@
       <i class="fa fa-search" style="margin: 4px 4px 0 0"></i>
       <input
         #gb
+        (input)="dt_un.filterGlobal($event.target.value, 'contains')"
         type="text"
         pInputText
         size="50"
@@ -68,30 +69,31 @@
       [rows]="7"
       [paginator]="true"
       [responsive]="true"
+
       selectionMode="single"
       (onRowSelect)="onRowSelect($event)"
       autoLayout="true"
+      [lazy]="true"
+      [totalRecords]="totalRecords"
+      (onLazyLoad)="onLazyLoad($event)"
     >
       <ng-template pTemplate="header" let-columns>
         <tr>
           <th
             style="color: black"
             pResizableColumn
-            [pSortableColumn]="'KODE_CUSTOMER'"
           >
             Kode Customer
           </th>
           <th
             style="color: black"
             pResizableColumn
-            [pSortableColumn]="'NAMA_CUSTOMER'"
           >
             Nama Customer
           </th>
           <th
             style="color: black"
             pResizableColumn
-            [pSortableColumn]="'ALAMAT_CUSTOMER'"
           >
             Alamat Customer
           </th>
@@ -99,21 +101,18 @@
           <th
             style="color: black"
             pResizableColumn
-            [pSortableColumn]="'KOTA_CUSTOMER'"
           >
             Kota Customer
           </th>
           <th
             style="color: black"
             pResizableColumn
-            [pSortableColumn]="'NAMA_ZONA'"
           >
             Zona
           </th>
           <th
             style="color: black"
             pResizableColumn
-            [pSortableColumn]="'HP_CUSTOMER'"
           >
             Hp Customer
           </th>
@@ -172,6 +171,11 @@
           </td>
         </tr>
       </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="100">No Records Found</td>
+        </tr>
+       </ng-template>
     </p-table>
 
     <!-- <p-dataTable [value]="listCust" [rows]="7" [paginator]="true" [responsive]="true" selectionMode="single" [(selection)]="selectedCust" (onRowSelect)="onRowSelect($event)" [globalFilter]="gb" #dt>

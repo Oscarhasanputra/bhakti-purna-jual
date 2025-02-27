@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 
 // set global url
 import { GlobalState } from '../../../../../global.state';
+import { SortOrderDTO } from '../../../../models/sortOrderDto';
 
 @Injectable()
 export class BrowseCustomerListService {
@@ -15,9 +16,12 @@ export class BrowseCustomerListService {
 
     }
 
-    getCustomerList(kode_zona, kode_bass): Promise<any> {
+    getCustomerList(kode_zona, kode_bass,keyword,first,rows): Promise<any> {
         let token = this.global.Decrypt('mAuth').TOKEN
-        let bodyString = JSON.stringify({ "KODE_ZONA": kode_zona, "KODE_BASS": kode_bass }); // Stringify payload
+
+        const sort:SortOrderDTO = {sortField:"",sortOrder:1};
+        let bodyString = JSON.stringify({ "KODE_ZONA": kode_zona,
+            "KODE_BASS": kode_bass ,KODE_NAMA_TELP_HP_CUSTOMER:keyword,first,rows,sortField:sort.sortField,sortOrder:sort.sortOrder}); // Stringify payload
         let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
         // let options = new RequestOptions({ headers: headers });
 
@@ -26,9 +30,13 @@ export class BrowseCustomerListService {
             .then(response => this.data = response);
     }
 
-    getCustomerListPusat(kode_zona): Promise<any> {
+    getCustomerListPusat(kode_zona,keyword,first,rows): Promise<any> {
         let token = this.global.Decrypt('mAuth').TOKEN
-        let bodyString = JSON.stringify({ "KODE_ZONA": kode_zona }); // Stringify payload
+
+        const sort:SortOrderDTO = {sortField:"",sortOrder:1};
+        let bodyString = JSON.stringify({ "kode_zona": kode_zona,
+            KODE_NAMA_TELP_HP_CUSTOMER:keyword,first,rows,sortField:sort.sortField,sortOrder:sort.sortOrder
+        }); // Stringify payload
         let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'x-access-token': token });
         // let options = new RequestOptions({ headers: headers });
 

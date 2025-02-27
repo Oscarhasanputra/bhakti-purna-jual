@@ -22,20 +22,26 @@ export class MasterCustomerService {
         return this.http.get<any>(this.global.GlobalUrl + '/getZonaList/' + kode_dealer, {headers});
     }
 
-    getListMasterCustomer(kode_bass,kode_zona,nama_customer): Promise<any> {
+    getListMasterCustomer(kode_bass,kode_zona,kode_customer,first,rows=10): Promise<any> {
         if(kode_zona == 'ALL')
         {
             kode_zona = '';
         }
 
         let token = this.global.Decrypt('mAuth').TOKEN
-        let bodyString = JSON.stringify({"kode_bass":kode_bass,"kode_zona":kode_zona,"nama_customer":"%"+ nama_customer +"%"}); // Stringify payload
+        let bodyString = JSON.stringify({"kode_bass":kode_bass,"kode_zona":kode_zona,
+            "rows":rows,
+            "first":first,
+            "kode_customer":"%"+ kode_customer +"%"}); // Stringify payload
         let headers = new HttpHeaders({ 'Content-Type': 'application/json','x-access-token': token });
         // let options = new RequestOptions({ headers: headers });
 
         return this.http.post(this.global.GlobalUrl + '/getListCustomer/', bodyString, {headers})
             .toPromise()
-            .then(response => this.data = response);
+            .then(response => {
+                this.data = response
+                return this.data;
+            });
     }
 
     deleteCustomer(kode_customer): Promise<any> {

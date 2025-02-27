@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="input01" style="color: yellow">Tanggal Selesai *</label>
+                    <label for="input01" style="color: brown">Tanggal Selesai *</label>
                     <br />
                     <p-calendar placeholder="Isi tanggal selesai disini" dateFormat="dd-mm-yy" [(ngModel)]="data.tanggalSelesai" [ngModelOptions]="{standalone: true}"
                         [disabled]="!flagTanggalSelesaiTextbox"></p-calendar>
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="input05" style="color: yellow">Kode Teknisi *</label>
+                    <label for="input05" style="color: brown">Kode Teknisi *</label>
                     <div class="input-group">
                         <input type="text" class="form-control with-danger-addon" (blur)="teknisilist.searchTeknisiEventOnBlur(data.kodeTeknisi)"
                             [(ngModel)]="data.kodeTeknisi" [ngModelOptions]="{standalone: true}" placeholder="" [disabled]="!flagTeknisi">
@@ -226,7 +226,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="textarea01" style="color: yellow">Nomor Nota *</label>
+                    <label for="textarea01" style="color: brown">Nomor Nota *</label>
                     <textarea placeholder="Isi Nomor Nota Disini" class="form-control" id="textarea01" [(ngModel)]="data.nomorNota" [ngModelOptions]="{standalone: true}"
                         [disabled]="!flagNomorNotaTexboxt"></textarea>
                 </div>
@@ -533,4 +533,6 @@ normal; text-decoration: none;">Invoice Service Request</span></p>
     </table>
 </div>
 
-<p-confirmDialog width="425 " style="color: black; font-weight: bold; " appendTo="body"></p-confirmDialog>
+<p-confirmDialog width="425 "
+[ngStyle]="{color:'black','font-weight':'bold'}"
+ appendTo="body"></p-confirmDialog>

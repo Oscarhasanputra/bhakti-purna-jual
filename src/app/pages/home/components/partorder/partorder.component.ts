@@ -175,6 +175,9 @@ export class partOrder {
     }
     //end browse kode bass
   }
+  public kodeBassEvent(childData: any) {
+    this.sKodeBass = childData;
+  }
 
   loadData() {
     // console.log(this.kode_bass, this.tglAwal, this.tglAkhir, this.selectedListZona, this.sKodeBass);

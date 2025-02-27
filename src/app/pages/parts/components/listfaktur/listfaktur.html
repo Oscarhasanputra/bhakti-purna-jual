@@ -221,6 +221,11 @@
             </td>
           </tr>
         </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+              <td colspan="100">No Records Found</td>
+          </tr>
+         </ng-template>
       </p-table>
 
       <!-- <p-dataTable [value]="invoiceList" [responsive]="true" [stacked]="stacked" sortMode="multiple" [editable]="true" [rows]="10"
@@ -351,6 +356,11 @@
         </td>
       </tr>
     </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+          <td colspan="100">No Records Found</td>
+      </tr>
+     </ng-template>
   </p-table>
   <!-- <p-dataTable [value]="ModalinvoiceList" [responsive]="true" sortMode="multiple" [rows]="5" [paginator]="true" [pageLinks]="3"
         [style]="{'color': 'black'}" selectionMode="single" (onRowSelect)="onRowSelect($event)">

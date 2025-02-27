@@ -15,6 +15,37 @@
     right: 0;
     z-index: 99999;
 }
+.d-flex{
+    display: flex;
+}
+.d-none{
+    display: none;
+}
+.flex-column{
+    flex-direction: column;
+}
+.flex-row{
+    flex-direction: row;
+}
+.justify-content-center{
+    justify-content: center;
+}
+.justify-content-end{
+    justify-content: flex-end;
+}
+.justify-content-start{
+    justify-content: flex-start;
+}
+
+.align-items-start{
+    align-items: flex-start;
+}
+.align-items-end{
+    align-items: flex-end;
+}
+.align-items-center{
+    align-items: center;
+}
 
 /* Styling for the Slim Loading Progress Bar itself */
 .slim-loading-bar-progress {
